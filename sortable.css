@@ -1,0 +1,37 @@
+*{
+	font: 14px/16px Verdana, sans-serif;
+}
+body{
+	margin:1em;
+}
+.sortable th {
+	cursor:pointer;
+	text-transform: capitalize;
+	text-align: left;
+	padding: 2px;
+	vertical-align: baseline;
+	color:blue;
+	text-decoration: underline;
+	white-space: nowrap;
+}
+th.dir-down,th.dir-up {
+	background: silver;
+
+}
+.sortable th::after{
+	content:' \025B8';
+}
+.sortable th.dir-down::after{
+	content:' \025BE';
+}
+.sortable th.dir-up::after{
+	content:' \025B4';
+}
+.sortable th:hover {
+	color:red;
+}
+thead td {
+	text-transform: uppercase;
+	text-align: center;
+	font-weight:bold;
+}
