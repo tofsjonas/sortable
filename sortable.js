@@ -1,6 +1,10 @@
 /**
  * sortable 1.0
  *
+ * Makes html tables sortable, ie9+
+ *
+ * Styling is done in css.
+ *
  * Copyright 2015–2017 Jonas Earendel
  *
  * This is free and unencumbered software released into the public domain.
@@ -29,13 +33,20 @@
  * For more information, please refer to <http://unlicense.org>
  *
  */
+
 document.addEventListener('click',function (e){
-	var element = e.target;
-	if(element.nodeName=='TH'){
+	var element		= e.target;
+	if(element.nodeName == 'TH'){
+		var rgxp_table	= /\bsortable\b/;
 		var table = element.parentNode.parentNode.parentNode;
-		if(table.classList.contains('sortable')){
-			var dir_down = 'dir-down';
-			var dir_up = 'dir-up';
+		if(rgxp_table.test(table.className)){
+			var dir_down	= 'dir-down';
+			var dir_up		= 'dir-up';
+			//var rgxp_down	= /\bdir-down\b/;
+			//var rgxp_up		= /\bdir-up\b/;
+			var rgxp_down	= new RegExp('\\b' + dir_down + '\\b');
+			var rgxp_up		= new RegExp('\\b' + dir_up + '\\b');
+
 			var index;
 			//reset all others and get the index of the column in question
 			var nodes = element.parentNode.getElementsByTagName('TH');
@@ -44,22 +55,23 @@ document.addEventListener('click',function (e){
 					index=i;
 				}
 				else {
-					nodes[i].classList.remove(dir_down,dir_up);
+					nodes[i].className= nodes[i].className.replace(rgxp_down,'').replace(rgxp_up,'');
 				}
 			}
 
 			// set the right class, so it looks right.
-			var class_list = element.classList;
+			var c = element.className;
 			var dir = dir_down;
-			if(class_list.contains(dir_down)){
+			if(rgxp_down.test(c)){
 				dir = dir_up;
-				class_list.add(dir_up);
-				class_list.remove(dir_down);
+				c += ' ' + dir_up;
+				c=c.replace(rgxp_down,'').trim();
 			}
 			else {
-				class_list.add(dir_down);
-				class_list.remove(dir_up);
+				c += 'jonas ' + dir_down;
+				c=c.replace(rgxp_up,'').trim();
 			}
+			element.className = c;
 
 			// extract all table rows, so the sorting can start.
 			var orgtbody	= table.getElementsByTagName('TBODY')[0]; //childNodes[1]? No function call, might be faster. Not noticably, but still.
