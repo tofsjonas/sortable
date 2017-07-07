@@ -37,17 +37,16 @@
 document.addEventListener('click',function (e){
 	var element		= e.target;
 	if(element.nodeName == 'TH'){
-		var rgxp_table	= /\bsortable\b/;
+		var sortable	= 'sortable';
+		var regex_table	= new RegExp('\\b' + sortable + '\\b');
 		var table = element.parentNode.parentNode.parentNode;
-		if(rgxp_table.test(table.className)){
+		if(regex_table.test(table.className)){
 			var dir_down	= 'dir-down';
 			var dir_up		= 'dir-up';
-			//var rgxp_down	= /\bdir-down\b/;
-			//var rgxp_up		= /\bdir-up\b/;
-			var rgxp_down	= new RegExp('\\b' + dir_down + '\\b');
-			var rgxp_up		= new RegExp('\\b' + dir_up + '\\b');
-
+			var regex_down	= new RegExp('\\b' + dir_down + '\\b');
+			var regex_up	= new RegExp('\\b' + dir_up + '\\b');
 			var index;
+
 			//reset all others and get the index of the column in question
 			var nodes = element.parentNode.getElementsByTagName('TH');
 			for (var i = 0; i < nodes.length; i++) {
@@ -55,34 +54,34 @@ document.addEventListener('click',function (e){
 					index=i;
 				}
 				else {
-					nodes[i].className= nodes[i].className.replace(rgxp_down,'').replace(rgxp_up,'');
+					nodes[i].className= nodes[i].className.replace(regex_down,'').replace(regex_up,'').trim();
 				}
 			}
 
 			// set the right class, so it looks right.
-			var c = element.className;
+			var cl = element.className;
 			var dir = dir_down;
-			if(rgxp_down.test(c)){
+			if(regex_down.test(cl)){
 				dir = dir_up;
-				c += ' ' + dir_up;
-				c=c.replace(rgxp_down,'').trim();
+				cl += ' ' + dir_up;
+				cl=cl.replace(regex_down,'').trim();
 			}
 			else {
-				c += 'jonas ' + dir_down;
-				c=c.replace(rgxp_up,'').trim();
+				cl += 'jonas ' + dir_down;
+				cl = cl.replace(regex_up,'').trim();
 			}
-			element.className = c;
+			element.className = cl;
 
 			// extract all table rows, so the sorting can start.
-			var orgtbody	= table.getElementsByTagName('TBODY')[0]; //childNodes[1]? No function call, might be faster. Not noticably, but still.
+			var orgtbody	= table.getElementsByTagName('TBODY')[0];
 			var tbody		= orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows). Don't ask me why.
 			var trs			= tbody.getElementsByTagName('TR');
-			var sortable	= Array.prototype.slice.call(trs, 0);
+			var rows	= Array.prototype.slice.call(trs, 0);
 
 			// sort them using built in array sort.
-			sortable.sort(function(a,b){
-				a = a.childNodes[index].innerText;
-				b = b.childNodes[index].innerText;
+			rows.sort(function(a,b){
+				a = a.children[index].innerText;
+				b = b.children[index].innerText;
 				if(dir==dir_up){
 					var c=a; a=b, b=c;
 				}
@@ -91,8 +90,8 @@ document.addEventListener('click',function (e){
 
 			// Build the sorted table body and replace the old one.
 			var clone = tbody.cloneNode();
-			for (i = 0; i < sortable.length; i++) {
-				clone.appendChild(sortable[i].cloneNode(true));
+			for (i = 0; i < rows.length; i++) {
+				clone.appendChild(rows[i].cloneNode(true));
 			}
 			table.replaceChild(clone,orgtbody);
 		}

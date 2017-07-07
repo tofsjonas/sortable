@@ -1,37 +1,52 @@
-*{
-	font: 14px/16px Verdana, sans-serif;
-}
-body{
-	margin:1em;
-}
-.sortable th {
-	cursor:pointer;
-	text-transform: capitalize;
-	text-align: left;
-	padding: 2px;
-	vertical-align: baseline;
-	color:blue;
-	text-decoration: underline;
-	white-space: nowrap;
-}
-th.dir-down,th.dir-up {
-	background: silver;
 
+table {
+  border-collapse: collapse;
 }
-.sortable th::after{
-	content:' \025B8';
+
+/*
+ * Below is the table stuff. Above has nothing to
+ */
+.sortable th {
+  color: #00f;
+  cursor: pointer;
+  padding: 2px;
+  text-align: left;
+  text-decoration: underline;
+  text-transform: capitalize;
+  vertical-align: baseline;
+  white-space: nowrap;
 }
-.sortable th.dir-down::after{
-	content:' \025BE';
-}
-.sortable th.dir-up::after{
-	content:' \025B4';
-}
+
 .sortable th:hover {
-	color:red;
+  color: #f00;
 }
+
+.sortable th::after {
+  content: ' \025B8';
+}
+
+.sortable th.dir-down {
+  background: #c0c0c0;
+}
+
+.sortable th.dir-down::after {
+  content: ' \025BE';
+}
+
+.sortable th.dir-up {
+  background: #c0c0c0;
+}
+
+.sortable th.dir-up::after {
+  content: ' \025B4';
+}
+
+.sortable tbody tr:nth-child(odd) {
+  background: #c0c0c0;
+}
+
 thead td {
-	text-transform: uppercase;
-	text-align: center;
-	font-weight:bold;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
 }

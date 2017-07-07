@@ -2,17 +2,10 @@
 
 Makes any table with class="sortable", er, sortable.
 
-Requires thead and tbody. Like so:
+Works for ajax generated content.
 
-table
-  thead
-    tr
-      th
-  tbody
-    tr
-      td
-   
+Requires thead and tbody.
 
-ie9 and less won't work, since classList is used. But that's easy to fix if you feel like it.
+Just include the js and css and it will work. No function calls needed, all is done with an eventListener.
 
-For Huge tables it will be slow of course. (But so are the jquery solutions I've found.)
+For Huge tables (>1000rows) it will be slow of course. That's just life I guess.
