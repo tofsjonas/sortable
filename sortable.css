@@ -1,11 +1,3 @@
-
-table {
-  border-collapse: collapse;
-}
-
-/*
- * Below is the table stuff. Above has nothing to
- */
 .sortable th {
   color: #00f;
   cursor: pointer;
