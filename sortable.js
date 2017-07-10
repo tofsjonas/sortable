@@ -5,7 +5,7 @@
  *
  * Styling is done in css.
  *
- * Copyright 2015–2017 Jonas Earendel
+ * Copyright 2017 Jonas Earendel
  *
  * This is free and unencumbered software released into the public domain.
  *
@@ -34,66 +34,66 @@
  *
  */
 
-document.addEventListener('click',function (e){
-	var element		= e.target;
-	if(element.nodeName == 'TH'){
-		var sortable	= 'sortable';
-		var regex_table	= new RegExp('\\b' + sortable + '\\b');
-		var table = element.parentNode.parentNode.parentNode;
-		if(regex_table.test(table.className)){
-			var dir_down	= 'dir-down';
-			var dir_up		= 'dir-up';
-			var regex_down	= new RegExp('\\b' + dir_down + '\\b');
-			var regex_up	= new RegExp('\\b' + dir_up + '\\b');
-			var index;
+document.addEventListener('click',function (e){//window.addEventListener won't work in mobile safari
+    var element        = e.target;
+    if(element.nodeName == 'TH'){
+        var sortable    = 'sortable';
+        var dir_down    = 'dir-down';
+        var dir_up      = 'dir-up';
+        var regex_table = new RegExp('\\b' + sortable + '\\b');
+        var table = element.parentNode.parentNode.parentNode;
+        if(regex_table.test(table.className)){
+            var regex_down = new RegExp('\\b' + dir_down + '\\b');
+            var regex_up   = new RegExp('\\b' + dir_up + '\\b');
+            var index;
 
-			//reset all others and get the index of the column in question
-			var nodes = element.parentNode.getElementsByTagName('TH');
-			for (var i = 0; i < nodes.length; i++) {
-				if(nodes[i]==element){
-					index=i;
-				}
-				else {
-					nodes[i].className= nodes[i].className.replace(regex_down,'').replace(regex_up,'').trim();
-				}
-			}
+            //reset all others and get the index of the column in question
+            var nodes = element.parentNode.getElementsByTagName('TH');
+            for (var i = 0; i < nodes.length; i++) {
+                if(nodes[i]===element){
+                    index=i;
+                }
+                else {
+                    nodes[i].className= nodes[i].className.replace(regex_down,'').replace(regex_up,'').trim();
+                }
+            }
 
-			// set the right class, so it looks right.
-			var cl = element.className;
-			var dir = dir_down;
-			if(regex_down.test(cl)){
-				dir = dir_up;
-				cl += ' ' + dir_up;
-				cl=cl.replace(regex_down,'').trim();
-			}
-			else {
-				cl += 'jonas ' + dir_down;
-				cl = cl.replace(regex_up,'').trim();
-			}
-			element.className = cl;
+            // set the right class, so it looks right.
+            var cl = element.className;
+            var dir = dir_down;
+            if(regex_down.test(cl)){
+                dir = dir_up;
+                cl += ' ' + dir_up;
+                cl=cl.replace(regex_down,'').trim();
+            }
+            else {
+                cl += ' ' + dir_down;
+                cl = cl.replace(regex_up,'').trim();
+            }
+            element.className = cl;
 
-			// extract all table rows, so the sorting can start.
-			var orgtbody	= table.getElementsByTagName('TBODY')[0];
-			var tbody		= orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows). Don't ask me why.
-			var trs			= tbody.getElementsByTagName('TR');
-			var rows	= Array.prototype.slice.call(trs, 0);
+            // extract all table rows, so the sorting can start.
+            var orgtbody = table.getElementsByTagName('TBODY')[0];
+            var tbody    = orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows). Don't ask me why.
+            var trs      = tbody.getElementsByTagName('TR');
+            var rows     = Array.prototype.slice.call(trs, 0);
 
-			// sort them using built in array sort.
-			rows.sort(function(a,b){
-				a = a.children[index].innerText;
-				b = b.children[index].innerText;
-				if(dir==dir_up){
-					var c=a; a=b, b=c;
-				}
-				return isNaN(a-b) ? a.localeCompare(b) : a-b;
-			});
+            // sort them using built in array sort.
+            rows.sort(function(a,b){
+                a = a.children[index].innerText;
+                b = b.children[index].innerText;
+                if(dir==dir_up){
+                    var c=a; a=b, b=c;
+                }
+                return isNaN(a-b) ? a.localeCompare(b) : a-b;
+            });
 
-			// Build the sorted table body and replace the old one.
-			var clone = tbody.cloneNode();
-			for (i = 0; i < rows.length; i++) {
-				clone.appendChild(rows[i].cloneNode(true));
-			}
-			table.replaceChild(clone,orgtbody);
-		}
-	}
+            // Build the sorted table body and replace the old one.
+            var clone = tbody.cloneNode();
+            for (i = 0; i < rows.length; i++) {
+                clone.appendChild(rows[i].cloneNode(true));
+            }
+            table.replaceChild(clone,orgtbody);
+        }
+    }
 });
