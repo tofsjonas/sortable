@@ -59,12 +59,12 @@ document.addEventListener('click',function (e){//window.addEventListener won't w
             }
 
             // set the right class, so it looks right.
-            var cl = element.className;
+            var cl  = element.className;
             var dir = dir_down;
             if(regex_down.test(cl)){
                 dir = dir_up;
                 cl += ' ' + dir_up;
-                cl=cl.replace(regex_down,'').trim();
+                cl = cl.replace(regex_down,'').trim();
             }
             else {
                 cl += ' ' + dir_down;
