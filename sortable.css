@@ -1,44 +1,68 @@
+.sortable {
+    border-spacing: 0;
+}
+
+.sortable th, .sortable td {
+    padding: 10px;
+}
+
+.sortable th:first-child, .sortable td:first-child {
+    border-top-left-radius: 4px;
+}
+
+.sortable th:last-child, .sortable td:last-child {
+    border-top-right-radius: 4px;
+}
+
+.sortable thead td {
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
 .sortable th {
-  color: #00f;
-  cursor: pointer;
-  padding: 2px;
-  text-align: left;
-  text-decoration: underline;
-  text-transform: capitalize;
-  vertical-align: baseline;
-  white-space: nowrap;
+    background: #808080;
+    color: #fff;
+    cursor: pointer;
+    font-weight: normal;
+    text-align: left;
+    text-transform: capitalize;
+    vertical-align: baseline;
+    white-space: nowrap;
 }
 
 .sortable th:hover {
-  color: #f00;
+    color: #000;
+}
+
+.sortable th:hover::after {
+    color: inherit;
+    content: ' \025B8';
 }
 
 .sortable th::after {
-  content: ' \025B8';
+    color: transparent;
+    content: ' \025B8';
 }
 
 .sortable th.dir-down {
-  background: #c0c0c0;
+    color: #000;
 }
 
 .sortable th.dir-down::after {
-  content: ' \025BE';
+    color: inherit;
+    content: ' \025BE';
 }
 
 .sortable th.dir-up {
-  background: #c0c0c0;
+    color: #000;
 }
 
 .sortable th.dir-up::after {
-  content: ' \025B4';
+    color: inherit;
+    content: ' \025B4';
 }
 
 .sortable tbody tr:nth-child(odd) {
-  background: #c0c0c0;
-}
-
-thead td {
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
+    background: #e4e4e4;
 }

@@ -1,29 +1,54 @@
-
 .sortable {
+	border-spacing: 0;
+	th, td {
+		padding: 10px;
+		&:first-child {
+			border-top-left-radius: 4px;
+		}
+		&:last-child {
+			border-top-right-radius: 4px;
+		}
+	}
+
+	thead {
+		td {
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+		}
+	}
+
 	th {
-		color: #00f;
+		background: #808080;
+		color: #fff;
 		cursor: pointer;
-		padding: 2px;
+		font-weight: normal;
 		text-align: left;
-		text-decoration: underline;
 		text-transform: capitalize;
 		vertical-align: baseline;
 		white-space: nowrap;
 		&:hover {
-			color: #f00;
+			color: #000;
+			&::after {
+				color: inherit;
+				content: ' \025B8';
+			}
 		}
 		&::after {
+			color: transparent;
 			content: ' \025B8';
 		}
 		&.dir-down {
-			background: #c0c0c0;
+			color: #000;
 			&::after {
+				color: inherit;
 				content: ' \025BE';
 			}
 		}
 		&.dir-up {
-			background: #c0c0c0;
+			color: #000;
 			&::after {
+				color: inherit;
 				content: ' \025B4';
 			}
 		}
@@ -31,15 +56,8 @@
 	tbody {
 		tr {
 			&:nth-child(odd) {
-				background: #c0c0c0;
+				background: #e4e4e4;
 			}
 		}
-	}
-}
-thead {
-	td {
-		font-weight: bold;
-		text-align: center;
-		text-transform: uppercase;
 	}
 }

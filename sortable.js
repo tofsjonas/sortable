@@ -37,18 +37,17 @@
 document.addEventListener('click',function (e){//window.addEventListener won't work in mobile safari
     var element        = e.target;
     if(element.nodeName == 'TH'){
-        var sortable    = 'sortable';
-        var dir_down    = 'dir-down';
-        var dir_up      = 'dir-up';
-        var regex_table = new RegExp('\\b' + sortable + '\\b');
+        var table_class   = 'sortable';
+        var down_class    = 'dir-down'; //classes placed in the beginning to simplify editing
+        var up_class      = 'dir-up';
+        var regex_table = new RegExp('\\b' + table_class + '\\b');
         var table = element.parentNode.parentNode.parentNode;
         if(regex_table.test(table.className)){
-            var regex_down = new RegExp('\\b' + dir_down + '\\b');
-            var regex_up   = new RegExp('\\b' + dir_up + '\\b');
+            var regex_down = new RegExp('\\b' + down_class + '\\b');
+            var regex_up   = new RegExp('\\b' + up_class + '\\b');
             var index;
 
-            //reset all others and get the index of the column in question
-            var nodes = element.parentNode.getElementsByTagName('TH');
+            var nodes = element.parentNode.getElementsByTagName('TH'); //reset all others and get the index of the column in question
             for (var i = 0; i < nodes.length; i++) {
                 if(nodes[i]===element){
                     index=i;
@@ -58,38 +57,33 @@ document.addEventListener('click',function (e){//window.addEventListener won't w
                 }
             }
 
-            // set the right class, so it looks right.
-            var cl  = element.className;
-            var dir = dir_down;
+            var cl  = element.className; // set the right class, so it looks right.
+            var dir = down_class;
             if(regex_down.test(cl)){
-                dir = dir_up;
-                cl += ' ' + dir_up;
                 cl = cl.replace(regex_down,'').trim();
-            }
-            else {
-                cl += ' ' + dir_down;
+                dir = up_class;
+                cl += ' ' + up_class;
+            }else {
                 cl = cl.replace(regex_up,'').trim();
+                cl += ' ' + down_class;
             }
             element.className = cl;
 
-            // extract all table rows, so the sorting can start.
-            var orgtbody = table.getElementsByTagName('TBODY')[0];
+            var orgtbody = table.getElementsByTagName('TBODY')[0]; // extract all table rows, so the sorting can start.
             var tbody    = orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows). Don't ask me why.
             var trs      = tbody.getElementsByTagName('TR');
             var rows     = Array.prototype.slice.call(trs, 0);
 
-            // sort them using built in array sort.
-            rows.sort(function(a,b){
+            rows.sort(function(a,b){ // sort them using built in array sort.
                 a = a.children[index].innerText;
                 b = b.children[index].innerText;
-                if(dir==dir_up){
+                if(dir==up_class){
                     var c=a; a=b, b=c;
                 }
                 return isNaN(a-b) ? a.localeCompare(b) : a-b;
             });
 
-            // Build the sorted table body and replace the old one.
-            var clone = tbody.cloneNode();
+            var clone = tbody.cloneNode(); // Build the sorted table body and replace the old one.
             for (i = 0; i < rows.length; i++) {
                 clone.appendChild(rows[i].cloneNode(true));
             }
