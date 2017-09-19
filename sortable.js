@@ -33,20 +33,17 @@
  * For more information, please refer to <http://unlicense.org>
  *
  */
-
 document.addEventListener('click',function (e){//window.addEventListener won't work in mobile safari
     var element        = e.target;
     if(element.nodeName == 'TH'){
-        var table_class   = 'sortable';
-        var down_class    = 'dir-down'; //classes placed in the beginning to simplify editing
-        var up_class      = 'dir-up';
-        var regex_table = new RegExp('\\b' + table_class + '\\b');
+        var regex_down  = /\bdir-down\b/;
+        var regex_up    = /\bdir-up\b/;
+        var regex_table = /\bsortable\b/;
+        var down_class = regex_down.source.slice(2,-2);
+        var up_class = regex_up.source.slice(2,-2);
         var table = element.parentNode.parentNode.parentNode;
         if(regex_table.test(table.className)){
-            var regex_down = new RegExp('\\b' + down_class + '\\b');
-            var regex_up   = new RegExp('\\b' + up_class + '\\b');
             var index;
-
             var nodes = element.parentNode.getElementsByTagName('TH'); //reset all others and get the index of the column in question
             for (var i = 0; i < nodes.length; i++) {
                 if(nodes[i]===element){
@@ -70,7 +67,7 @@ document.addEventListener('click',function (e){//window.addEventListener won't w
             element.className = cl;
 
             var orgtbody = table.getElementsByTagName('TBODY')[0]; // extract all table rows, so the sorting can start.
-            var tbody    = orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows). Don't ask me why.
+            var tbody    = orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows).
             var trs      = tbody.getElementsByTagName('TR');
             var rows     = Array.prototype.slice.call(trs, 0);
 
