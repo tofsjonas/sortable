@@ -31,25 +31,25 @@
 			color: #000;
 			&::after {
 				color: inherit;
-				content: ' \025B8';
+				content: " \025B8";
 			}
 		}
 		&::after {
 			color: transparent;
-			content: ' \025B8';
+			content: " \025B8";
 		}
 		&.dir-down {
 			color: #000;
 			&::after {
 				color: inherit;
-				content: ' \025BE';
+				content: " \025BE";
 			}
 		}
 		&.dir-up {
 			color: #000;
 			&::after {
 				color: inherit;
-				content: ' \025B4';
+				content: " \025B4";
 			}
 		}
 	}

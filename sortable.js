@@ -33,61 +33,54 @@
  * For more information, please refer to <http://unlicense.org>
  *
  */
+ (function() {
+     var down_class    = ' dir-down';
+     var up_class      = ' dir-up';
+     var regex_table   = /\bsortable\b/;
 
-document.addEventListener('click',function (e){//window.addEventListener won't work in mobile safari
-    var element        = e.target;
-    if(element.nodeName == 'TH'){
-        var table_class   = 'sortable';
-        var down_class    = 'dir-down'; //classes placed in the beginning to simplify editing
-        var up_class      = 'dir-up';
-        var regex_table   = new RegExp('\\b' + table_class + '\\b');
-        var table = element.parentNode.parentNode.parentNode;
-        if(regex_table.test(table.className)){
-            var regex_down = new RegExp('\\b' + down_class + '\\b');
-            var regex_up   = new RegExp('\\b' + up_class + '\\b');
-            var index;
+     document.addEventListener('click',function (e){
+         var element        = e.target;
+         if(element.nodeName == 'TH'){
+             var tr = element.parentNode;
+             var table = tr.parentNode.parentNode;
+             if(regex_table.test(table.className)){
+                 var index;
+                 var nodes = tr.cells;
+                 for (var i = 0; i < nodes.length; i++) {//reset cells and get index
+                     if(nodes[i]===element){
+                         index=i;
+                     } else {
+                         nodes[i].className= nodes[i].className.replace(down_class,'').replace(up_class,'');
+                     }
+                 }
+                 var cl  = element.className;
+                 var dir = down_class;
+                 if(cl.indexOf(down_class)==-1){
+                     cl = cl.replace(up_class,'')+down_class;
+                 }else {
+                     dir = up_class;
+                     cl = cl.replace(down_class,'')+up_class;
+                 }
+                 element.className = cl;
+                 var orgtbody = table.tBodies[0]; // extract all table rows, so the sorting can start.
+                 var tbody    = orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows).
+                 var rows     = Array.prototype.slice.call(tbody.rows, 0);
 
-            var nodes = element.parentNode.getElementsByTagName('TH'); //reset all others and get the index of the column in question
-            for (var i = 0; i < nodes.length; i++) {
-                if(nodes[i]===element){
-                    index=i;
-                }
-                else {
-                    nodes[i].className= nodes[i].className.replace(regex_down,'').replace(regex_up,'').trim();
-                }
-            }
+                 rows.sort(function(a,b){ // sort them using built in array sort.
+                     a = a.cells[index].innerText;
+                     b = b.cells[index].innerText;
+                     if(dir==up_class){
+                         var c=a; a=b; b=c;
+                     }
+                     return isNaN(a-b) ? a.localeCompare(b) : a-b;
+                 });
 
-            var cl  = element.className; // set the right class, so it looks right.
-            var dir = down_class;
-            if(regex_down.test(cl)){
-                cl = cl.replace(regex_down,'').trim();
-                dir = up_class;
-                cl += ' ' + up_class;
-            }else {
-                cl = cl.replace(regex_up,'').trim();
-                cl += ' ' + down_class;
-            }
-            element.className = cl;
-
-            var orgtbody = table.getElementsByTagName('TBODY')[0]; // extract all table rows, so the sorting can start.
-            var tbody    = orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows). Don't ask me why.
-            var trs      = tbody.getElementsByTagName('TR');
-            var rows     = Array.prototype.slice.call(trs, 0);
-
-            rows.sort(function(a,b){ // sort them using built in array sort.
-                a = a.children[index].innerText;
-                b = b.children[index].innerText;
-                if(dir==up_class){
-                    var c=a; a=b, b=c;
-                }
-                return isNaN(a-b) ? a.localeCompare(b) : a-b;
-            });
-
-            var clone = tbody.cloneNode(); // Build the sorted table body and replace the old one.
-            for (i = 0; i < rows.length; i++) {
-                clone.appendChild(rows[i].cloneNode(true));
-            }
-            table.replaceChild(clone,orgtbody);
-        }
-    }
-});
+                 var clone = tbody.cloneNode(); // Build the sorted table body and replace the old one.
+                 for (i = 0; i < rows.length; i++) {
+                     clone.appendChild(rows[i]);
+                 }
+                 table.replaceChild(clone,orgtbody);
+             }
+         }
+     });
+ })();
