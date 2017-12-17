@@ -33,54 +33,54 @@
  * For more information, please refer to <http://unlicense.org>
  *
  */
- (function() {
-     var down_class    = ' dir-down';
-     var up_class      = ' dir-up';
-     var regex_table   = /\bsortable\b/;
+(function() {
+    var down_class    = ' dir-down';
+    var up_class      = ' dir-up';
+    var regex_table   = /\bsortable\b/;
 
-     document.addEventListener('click',function (e){
-         var element        = e.target;
-         if(element.nodeName == 'TH'){
-             var tr = element.parentNode;
-             var table = tr.parentNode.parentNode;
-             if(regex_table.test(table.className)){
-                 var index;
-                 var nodes = tr.cells;
-                 for (var i = 0; i < nodes.length; i++) {//reset cells and get index
-                     if(nodes[i]===element){
-                         index=i;
-                     } else {
-                         nodes[i].className= nodes[i].className.replace(down_class,'').replace(up_class,'');
-                     }
-                 }
-                 var cl  = element.className;
-                 var dir = down_class;
-                 if(cl.indexOf(down_class)==-1){
-                     cl = cl.replace(up_class,'')+down_class;
-                 }else {
-                     dir = up_class;
-                     cl = cl.replace(down_class,'')+up_class;
-                 }
-                 element.className = cl;
-                 var orgtbody = table.tBodies[0]; // extract all table rows, so the sorting can start.
-                 var tbody    = orgtbody.cloneNode(true); // slightly faster if cloned, noticable for large tables (> 1000 rows).
-                 var rows     = Array.prototype.slice.call(tbody.rows, 0);
+    document.addEventListener('click',function (e){
+        var element        = e.target;
+        if(element.nodeName == 'TH'){
+            var tr = element.parentNode;
+            var table = tr.parentNode.parentNode;
+            if(regex_table.test(table.className)){
+                var index;
+                var nodes = tr.cells;
+                for (var i = 0; i < nodes.length; i++) {//reset cells and get index
+                    if(nodes[i]===element){
+                        index=i;
+                    } else {
+                        nodes[i].className= nodes[i].className.replace(down_class,'').replace(up_class,'');
+                    }
+                }
+                var cl  = element.className;
+                var dir = down_class;
+                if(cl.indexOf(down_class)==-1){
+                    cl = cl.replace(up_class,'')+down_class;
+                }else {
+                    dir = up_class;
+                    cl = cl.replace(down_class,'')+up_class;
+                }
+                element.className = cl;
+                var orgtbody = table.tBodies[0]; // extract all table rows, so the sorting can start.
+                var rows     = [].slice.call(orgtbody.cloneNode(true).rows, 0); // slightly faster if cloned, noticable for huge tables.
+                var reverse  = dir==up_class;
 
-                 rows.sort(function(a,b){ // sort them using built in array sort.
-                     a = a.cells[index].innerText;
-                     b = b.cells[index].innerText;
-                     if(dir==up_class){
-                         var c=a; a=b; b=c;
-                     }
-                     return isNaN(a-b) ? a.localeCompare(b) : a-b;
-                 });
+                rows.sort(function(a,b){ // sort them using built in array sort.
+                    a = a.cells[index].innerText;
+                    b = b.cells[index].innerText;
+                    if(reverse){
+                        var c=a; a=b; b=c;
+                    }
+                    return isNaN(a-b) ? a.localeCompare(b) : a-b;
+                });
 
-                 var clone = tbody.cloneNode(); // Build the sorted table body and replace the old one.
-                 for (i = 0; i < rows.length; i++) {
-                     clone.appendChild(rows[i]);
-                 }
-                 table.replaceChild(clone,orgtbody);
-             }
-         }
-     });
- })();
+                var clone = orgtbody.cloneNode(); // Build the sorted table body and replace the old one.
+                for (i = 0; i < rows.length; i++) {
+                    clone.appendChild(rows[i]);
+                }
+                table.replaceChild(clone,orgtbody);
+            }
+        }
+    });
+})();
