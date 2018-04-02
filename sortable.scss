@@ -1,63 +1,72 @@
+$sortable-stripe-color: #e4e4e4;
+$sortable-th-color: #fff;
+$sortable-th-bg: #808080;
+$sortable-th-color-active: #000;
+
 .sortable {
-	border-spacing: 0;
-	th, td {
-		padding: 10px;
-		&:first-child {
-			border-top-left-radius: 4px;
-		}
-		&:last-child {
-			border-top-right-radius: 4px;
-		}
-	}
 
-	thead {
-		td {
-			font-weight: bold;
-			text-align: center;
-			text-transform: uppercase;
-		}
-	}
+    border-spacing: 0;
 
-	th {
-		background: #808080;
-		color: #fff;
-		cursor: pointer;
-		font-weight: normal;
-		text-align: left;
-		text-transform: capitalize;
-		vertical-align: baseline;
-		white-space: nowrap;
-		&:hover {
-			color: #000;
-			&::after {
-				color: inherit;
-				content: " \025B8";
-			}
-		}
-		&::after {
-			color: transparent;
-			content: " \025B8";
-		}
-		&.dir-down {
-			color: #000;
-			&::after {
-				color: inherit;
-				content: " \025BE";
-			}
-		}
-		&.dir-up {
-			color: #000;
-			&::after {
-				color: inherit;
-				content: " \025B4";
-			}
-		}
-	}
-	tbody {
-		tr {
-			&:nth-child(odd) {
-				background: #e4e4e4;
-			}
-		}
-	}
+    thead {
+        td {
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+
+    tbody {
+        tr {
+            &:nth-child(odd) {
+                background: $sortable-stripe-color;
+            }
+        }
+    }
+
+    td,
+    th {
+        padding: 10px;
+        &:first-child {
+            border-top-left-radius: 4px;
+        }
+        &:last-child {
+            border-top-right-radius: 4px;
+        }
+    }
+
+    th {
+        background: $sortable-th-bg;
+        color: $sortable-th-color;
+        cursor: pointer;
+        font-weight: normal;
+        text-align: left;
+        text-transform: capitalize;
+        vertical-align: baseline;
+        white-space: nowrap;
+        &:hover {
+            color: $sortable-th-color-active;
+            &::after {
+                color: inherit;
+                content: " \025B8";
+            }
+        }
+        &::after {
+            color: transparent;
+            content: " \025B8";
+        }
+        &.dir-d {
+            color: $sortable-th-color-active;
+            &::after {
+                color: inherit;
+                content: " \025BE";
+            }
+        }
+        &.dir-u {
+            color: $sortable-th-color-active;
+            &::after {
+                color: inherit;
+                content: " \025B4";
+            }
+        }
+    }
 }

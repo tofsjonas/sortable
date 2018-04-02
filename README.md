@@ -8,13 +8,18 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 #### Worth mentioning:
 
-- **783 bytes** minified.
+- **630 bytes** minified.
 
 - Works with **JS/ajax generated tables**.(due to the eventListener)
 
-- **Lightning fast**. For Huge tables (>1000rows) it will slow down of course. That's just life I guess.
+- **Lightning fast**. For Huge tables it will slow down of course. That's just life I guess.
 
 - Requires thead and tbody.
+
+- cross browser, ie9+
+
+- eventListeners attached to the rows __**WILL**__ be removed
+
 
 ## An example
 ```html
@@ -39,6 +44,3 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 <link href="sortable.css" rel="stylesheet">
 <script src="sortable.js"></script>
 ```
-
-(**javascript:alert('Morty');** was added to show that links still work after sorting)
-
