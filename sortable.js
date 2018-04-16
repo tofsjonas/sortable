@@ -46,7 +46,9 @@ document.addEventListener( 'click', function ( e ) {
     var element = e.target;
 
     function reclassify( element, dir ) {
-        element.className = element.className.replace( regex_dir, '' ) + dir;
+        if(dir) {
+            element.className = element.className.replace( regex_dir, '' ) + dir;
+        }
     }
 
     if ( element.nodeName == 'TH' ) {
