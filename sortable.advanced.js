@@ -1,11 +1,11 @@
 /**
- * sortable 1.0
+ * sortable advanced 1.0
  *
  * Makes html tables sortable, ie9+
  *
  * Styling is done in css.
  *
- * Copyleft 2017 Jonas Earendel
+ * Copyright 2017 Jonas Earendel
  *
  * This is free and unencumbered software released into the public domain.
  *
@@ -46,13 +46,42 @@ document.addEventListener( 'click', function ( e ) {
     var element = e.target;
 
     /**
-     * So google closure doesn't throw a fit over the sometimes empty dir argument
+     * So google closure doesn't throw a fit
      * @param {EventTarget} element
      * @param  {string=} dir
      * @return void
      */
     function reclassify( element, dir ) {
         element.className = element.className.replace( regex_dir, '' ) + dir || '';
+    }
+    var sorts = {
+        'attr-datasize': {
+            getData: function ( td ) {
+                return td.getAttribute( "data-size" ).replace( 'kB', '0' ).replace( 'MB', '00' ).replace( 'GB', '000' ).replace( 'TB', '0000' ).replace( 'B', '' );
+            },
+            compare: function ( a, b ) {
+                return isNaN( a - b ) ? a.localeCompare( b ) : a - b;
+            },
+        },
+        '': { // default sorting methods
+            getData: function ( td ) {
+                return td.innerText;
+            },
+            compare: function ( a, b ) {
+                return isNaN( a - b ) ? a.localeCompare( b ) : a - b;
+            },
+        }
+    }
+
+    function getSortingFunction( element ) {
+        var sort = element.getAttribute( 'data-sort' ) || '';
+        return sorts[ sort ] || sorts[ '' ];
+        // if (element.hasAttribute) {
+        //
+        // }
+        // if (/data-sort/) {
+        //
+        // }
     }
 
     if ( element.nodeName == 'TH' ) {
@@ -92,20 +121,27 @@ document.addEventListener( 'click', function ( e ) {
 
             var reverse = ( dir == up_class );
 
+            // decide which sorting function to use
+            var func = getSortingFunction( element );
+
             // sort them using custom built in array sort.
             rows.sort( function ( a, b ) {
-                a = a.cells[ column_index ].innerText;
-                b = b.cells[ column_index ].innerText;
+                a = func.getData( a.cells[ column_index ] )
+                b = func.getData( b.cells[ column_index ] )
+                // a = a.cells[ column_index ].innerText;
+                // b = b.cells[ column_index ].innerText;
                 if ( reverse ) {
                     var c = a;
                     a = b;
                     b = c;
                 }
-                return isNaN( a - b ) ? a.localeCompare( b ) : a - b;
+                return func.compare( a, b );
+                // return isNaN( a - b ) ? a.localeCompare( b ) : a - b;
             } );
 
             // Make a clone without contents
             var clone_tbody = org_tbody.cloneNode();
+
 
             // Build a sorted table body and replace the old one.
             for ( i = 0; i < rows.length; i++ ) {
