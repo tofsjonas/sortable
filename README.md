@@ -44,3 +44,50 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 <link href="sortable.css" rel="stylesheet">
 <script src="sortable.js"></script>
 ```
+## Advanced example
+```html
+<table class="sortable">
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-sort="a">Master</td>
+      <td data-sort="1">Rick</td>
+    </tr>
+    <tr>
+      <td data-sort="b">Servant</td>
+      <td data-sort="2"><a href="javascript:alert('Morty');">Morty</a></td>
+    </tr>
+  </tbody>
+</table>
+<link href="sortable.css" rel="stylesheet">
+<script src="sortable.advanced.js"></script>
+```
+## Mega Advanced example
+(with weird date format)
+```html
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="size">Hard disk</th>
+      <th class="date">Manufacturing Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2TB</td>
+      <td>06/25/18</td>
+    </tr>
+    <tr>
+      <td>500GB</td>
+      <td>11/02/15</td>
+    </tr>
+  </tbody>
+</table>
+<link href="sortable.css" rel="stylesheet">
+<script src="sortable.mega-advanced.js"></script>
+```
