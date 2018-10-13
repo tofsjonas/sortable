@@ -8,7 +8,7 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 #### Worth mentioning:
 
-- **630 bytes** minified.
+- **637 bytes** minified.
 
 - Works with **JS/ajax generated tables**.(due to the eventListener)
 
