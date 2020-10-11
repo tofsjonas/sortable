@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta name="charset" content="UTF-8">
+  <meta name="author" content="Jonas Earendel">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Just testing some table sorting.">
+  <title>sortable - the example page</title>
+  <link rel="stylesheet" type="text/css" href="sortable.css" />
+</head>
+<style>
+  th.no-sort {
+    background: pink;
+    color: red;
+    pointer-events: none;
+  }
+
+</style>
+
+<body>
+  <h2>Small demo</h2>
+  <table class="sortable">
+    <thead>
+      <tr>
+        <td colspan="3">personal</td>
+        <td colspan="5">hardware</td>
+        <td colspan="4">software</td>
+      </tr>
+      <tr>
+        <th>job title</th>
+        <th>name</th>
+        <th>company</th>
+        <th>processor</th>
+        <th class="no-sort">ram(not sortable)</th>
+        <th>graphics card</th>
+        <th>screen width</th>
+        <th>screen height</th>
+        <th>platform</th>
+        <th>browser</th>
+        <th>browser version</th>
+        <th>language</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Boss</td>
+        <td>Stan the Man</td>
+        <td>Monsters Inc</td>
+        <td>AMD</td>
+        <td>2</td>
+        <td>Nvidia</td>
+        <td>1510</td>
+        <td>981</td>
+        <td>Win32</td>
+        <td>IE</td>
+        <td>11</td>
+        <td>en-us</td>
+      </tr>
+      <tr>
+        <td>Slave</td>
+        <td>Bridget Jones</td>
+        <td>The Hand</td>
+        <td>i7</td>
+        <td>8gb</td>
+        <td>-</td>
+        <td>1530</td>
+        <td>1080</td>
+        <td>Linux x86_64</td>
+        <td>Firefox</td>
+        <td>54</td>
+        <td>sv-se</td>
+      </tr>
+      <tr>
+        <td>HR</td>
+        <td>Bruce Wayne</td>
+        <td>League of Shadows</td>
+        <td>i5</td>
+        <td>-</td>
+        <td>GeForce</td>
+        <td>1520</td>
+        <td>1080</td>
+        <td>Linux x86_64</td>
+        <td>Opera</td>
+        <td>46</td>
+        <td>dk</td>
+      </tr>
+      <tr>
+        <td>Programmer</td>
+        <td>Bilbo Baggins</td>
+        <td>Brotherhood of Evil Mutants</td>
+        <td>i3</td>
+        <td>4 gigabyte</td>
+        <td>-</td>
+        <td>130</td>
+        <td>1080</td>
+        <td>Linux x86_64</td>
+        <td>Opera</td>
+        <td>46</td>
+        <td>en</td>
+      </tr>
+    </tbody>
+    <tfoot>
+    </tfoot>
+  </table>
+  <h2>Massive table (800+ lines)</h2>
+  <table class="sortable massive">
+    <thead>
+      <tr>
+        <td colspan="3">personal</td>
+        <td colspan="5">hardware</td>
+        <td colspan="4">software</td>
+      </tr>
+      <tr>
+        <th>job title</th>
+        <th>name</th>
+        <th>company</th>
+        <th>processor</th>
+        <th>ram</th>
+        <th>graphics card</th>
+        <th>screen width</th>
+        <th>screen height</th>
+        <th>platform</th>
+        <th>browser</th>
+        <th>browser version</th>
+        <th>language</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Boss</td>
+        <td>Stan the Man</td>
+        <td>Monsters Inc</td>
+        <td>AMD</td>
+        <td>2</td>
+        <td>Nvidia</td>
+        <td>1510</td>
+        <td>981</td>
+        <td>Win32</td>
+        <td>IE</td>
+        <td>11</td>
+        <td>en-us</td>
+      </tr>
+      <tr>
+        <td>Slave</td>
+        <td>Bridget Jones</td>
+        <td>The Hand</td>
+        <td>i7</td>
+        <td>8gb</td>
+        <td>-</td>
+        <td>1530</td>
+        <td>1080</td>
+        <td>Linux x86_64</td>
+        <td>Firefox</td>
+        <td>54</td>
+        <td>sv-se</td>
+      </tr>
+      <tr>
+        <td>HR</td>
+        <td>Bruce Wayne</td>
+        <td>League of Shadows</td>
+        <td>i5</td>
+        <td>-</td>
+        <td>GeForce</td>
+        <td>1520</td>
+        <td>1080</td>
+        <td>Linux x86_64</td>
+        <td>Opera</td>
+        <td>46</td>
+        <td>dk</td>
+      </tr>
+      <tr>
+        <td>Programmer</td>
+        <td>Bilbo Baggins</td>
+        <td>Brotherhood of Evil Mutants</td>
+        <td>i3</td>
+        <td>4 gigabyte</td>
+        <td>-</td>
+        <td>130</td>
+        <td>1080</td>
+        <td>Linux x86_64</td>
+        <td>Opera</td>
+        <td>46</td>
+        <td>en</td>
+      </tr>
+    </tbody>
+    <tfoot>
+    </tfoot>
+  </table>
+  <script>
+    var table = document.querySelector('.massive');
+    var tbody = table.tBodies[0];
+    var tbody_clone = tbody.cloneNode(true);
+    var rows = [].slice.call(tbody_clone.cloneNode(true).rows, 0);
+    for (var k = 0; k < 200; k++) {
+      for (var i = 0; i < rows.length; i++) {
+        tbody_clone.appendChild(rows[i].cloneNode(true));
+      }
+    }
+    table.replaceChild(tbody_clone, tbody);
+  </script>
+  <script type="text/javascript" src="sortable.js"></script>
+</body>
+</html>
