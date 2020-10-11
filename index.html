@@ -53,8 +53,8 @@
       </tr>
     </tbody>
   </table>
-  <h2>Slightly larger</h2>
-  <table class="sortable">
+  <h2>Slightly larger</h2> ("Ram" has class="no-sort", which has the css property "pointer-events: none;") <table
+    class="sortable">
     <thead>
       <tr>
         <td colspan="3">personal</td>
@@ -137,7 +137,7 @@
     <tfoot>
     </tfoot>
   </table>
-  <h2>Massive table (800+ lines)</h2>
+  <h2>Massive table</h2>
   <table class="sortable massive">
     <thead>
       <tr>
@@ -226,7 +226,7 @@
     var tbody = table.tBodies[0];
     var tbody_clone = tbody.cloneNode(true);
     var rows = [].slice.call(tbody_clone.cloneNode(true).rows, 0);
-    for (var k = 0; k < 200; k++) {
+    for (var k = 0; k < 100; k++) {
       for (var i = 0; i < rows.length; i++) {
         tbody_clone.appendChild(rows[i].cloneNode(true));
       }
