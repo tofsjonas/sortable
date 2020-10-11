@@ -34,7 +34,10 @@
  *
  */
 
-// why encapsulate what is already encapsulated?
+// sort is super fast, even with huge tables, so that is probably not the issue
+// Not solved with documentFragment, same issue... :(
+// My guess is that it is simply too much to hold in memory
+// it freezes even before sortable is called, if the table is too big in index.html
 
 document.addEventListener("click", function (e) {
   var down_class = " dir-d ";
@@ -86,15 +89,27 @@ document.addEventListener("click", function (e) {
       var reverse = dir == up_class;
 
       // sort them using custom built in array sort.
+
+      // rows.sort(function (a, b) {
+      //   function compare(a, b) {
+      //     return isNaN(a - b) ? a.localeCompare(b) : a - b;
+      //   }
+      //   a = a.cells[column_index].innerText;
+      //   b = b.cells[column_index].innerText;
+      //   if (reverse) {
+      //     return compare(b, a);
+      //     // var c = a;
+      //     // a = b;
+      //     // b = c;
+      //   }
+      //   return compare(a, b);
+      //   // return isNaN(a - b) ? a.localeCompare(b) : a - b;
+      // });
+
       rows.sort(function (a, b) {
-        a = a.cells[column_index].innerText;
-        b = b.cells[column_index].innerText;
-        if (reverse) {
-          var c = a;
-          a = b;
-          b = c;
-        }
-        return isNaN(a - b) ? a.localeCompare(b) : a - b;
+        var x = (reverse ? a : b).cells[column_index].innerText;
+        var y = (reverse ? b : a).cells[column_index].innerText;
+        return isNaN(x - y) ? x.localeCompare(y) : x - y;
       });
 
       // Make a clone without contents
@@ -114,3 +129,13 @@ document.addEventListener("click", function (e) {
     }
   }
 });
+
+// fragment doesn't seem to make any difference when it comes to huge tables
+// it's probably just too much in memory storage
+// var fragment = document.createDocumentFragment();
+
+// while (rows.length) {
+//   fragment.appendChild(rows.splice(0, 1)[0]);
+// }
+// org_tbody.innerHTML = "";
+// org_tbody.appendChild(fragment);
