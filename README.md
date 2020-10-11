@@ -24,7 +24,7 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 - Works with **JS/ajax generated tables**.(due to the eventListener)
 
-- **Lightning fast**. For Huge tables it will slow down of course. That's just life I guess.
+- **Lightning fast**. _Huge_ tables will make it slow and may freeze the browser, so you know...
 
 - Requires **thead** and **tbody**.
 
