@@ -226,7 +226,7 @@
     var tbody = table.tBodies[0];
     var tbody_clone = tbody.cloneNode(true);
     var rows = [].slice.call(tbody_clone.cloneNode(true).rows, 0);
-    for (var k = 0; k < 50; k++) {
+    for (var k = 0; k < 300; k++) {
       for (var i = 0; i < rows.length; i++) {
         tbody_clone.appendChild(rows[i].cloneNode(true));
       }
