@@ -108,7 +108,7 @@ document.addEventListener( 'click', function ( e ) {
                 // if the content of the table header element has a "date" in it:
                 // return /\bdate\b/i.test( th_element.innerText );
             },
-            getData: function () {
+            getData: function ( cell ) {
                 return cell.innerText.replace( /(\d+)\/(\d+)\/(\d+)/, '$3$1$2' )
             },
         },
