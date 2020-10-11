@@ -11,6 +11,18 @@
   <link rel="stylesheet" type="text/css" href="sortable.css" />
 </head>
 <style>
+  body {
+    font-size: 14px;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+      'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   th.no-sort {
     background: pink;
     color: red;
@@ -20,7 +32,28 @@
 </style>
 
 <body>
-  <h2>Small demo</h2>
+  <h1>Demos</h1> Here are some basic demos for the tiny, tiny table sorter found on <a
+    href="https://github.com/tofsjonas/sortable">https://github.com/tofsjonas/sortable</a>
+  <h2>The example from the readme:</h2>
+  <table class="sortable">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Master</td>
+        <td>Rick</td>
+      </tr>
+      <tr>
+        <td>Servant</td>
+        <td><a href="javascript:alert('Inline javascript still works, eventlisteners don\'t!');">Morty</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Slightly larger</h2>
   <table class="sortable">
     <thead>
       <tr>

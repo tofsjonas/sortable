@@ -4,69 +4,79 @@ $sortable-th-bg: #808080;
 $sortable-th-color-active: #000;
 
 .sortable {
+  border-spacing: 0;
 
-    border-spacing: 0;
+  thead {
+    td {
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
 
-    thead {
-        td {
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-        }
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        background: $sortable-stripe-color;
+      }
+    }
+  }
+
+  td,
+  th {
+    padding: 10px;
+
+    &:first-child {
+      border-top-left-radius: 4px;
     }
 
-    tbody {
-        tr {
-            &:nth-child(odd) {
-                background: $sortable-stripe-color;
-            }
-        }
+    &:last-child {
+      border-top-right-radius: 4px;
+    }
+  }
+
+  th {
+    background: $sortable-th-bg;
+    color: $sortable-th-color;
+    cursor: pointer;
+    font-weight: normal;
+    text-align: left;
+    text-transform: capitalize;
+    vertical-align: baseline;
+    white-space: nowrap;
+
+    &:hover {
+      color: $sortable-th-color-active;
+
+      &::after {
+        color: inherit;
+        font-size: 1.2em;
+        content: " \025B8";
+      }
     }
 
-    td,
-    th {
-        padding: 10px;
-        &:first-child {
-            border-top-left-radius: 4px;
-        }
-        &:last-child {
-            border-top-right-radius: 4px;
-        }
+    &::after {
+      font-size: 1.2em;
+      color: transparent;
+      content: " \025B8";
     }
 
-    th {
-        background: $sortable-th-bg;
-        color: $sortable-th-color;
-        cursor: pointer;
-        font-weight: normal;
-        text-align: left;
-        text-transform: capitalize;
-        vertical-align: baseline;
-        white-space: nowrap;
-        &:hover {
-            color: $sortable-th-color-active;
-            &::after {
-                color: inherit;
-                content: " \025B8";
-            }
-        }
-        &::after {
-            color: transparent;
-            content: " \025B8";
-        }
-        &.dir-d {
-            color: $sortable-th-color-active;
-            &::after {
-                color: inherit;
-                content: " \025BE";
-            }
-        }
-        &.dir-u {
-            color: $sortable-th-color-active;
-            &::after {
-                color: inherit;
-                content: " \025B4";
-            }
-        }
+    &.dir-d {
+      color: $sortable-th-color-active;
+
+      &::after {
+        color: inherit;
+        content: " \025BE";
+      }
     }
+
+    &.dir-u {
+      color: $sortable-th-color-active;
+
+      &::after {
+        color: inherit;
+        content: " \025B4";
+      }
+    }
+  }
 }
