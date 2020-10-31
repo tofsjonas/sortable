@@ -23,6 +23,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  table {
+    position: relative;
+  }
+
+  th {
+    position: relative;
+  }
+
   th.no-sort {
     background: pink;
     color: red;
@@ -224,8 +232,6 @@
   <script>
     var table = document.querySelector('.massive');
     var tbody = table.tBodies[0];
-    // var tbody_clone = tbody.cloneNode(true);
-    // var rows = [].slice.call(tbody_clone.cloneNode(true).rows, 0);
     var rows = [].slice.call(tbody.rows, 0);
     var fragment = document.createDocumentFragment()
 
@@ -236,7 +242,6 @@
     }
     tbody.innerHTML = ''
     tbody.appendChild(fragment)
-    // table.replaceChild(tbody_clone, tbody);
   </script>
   <script type="text/javascript" src="sortable.js"></script>
 </body>
