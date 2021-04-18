@@ -5,22 +5,14 @@ Makes any table with **class="sortable"**, er, sortable. That is the user can cl
 Just include the JavaScript and it will work. No function calls needed, all is done with an **eventListener**.
 (the CSS is not strictly needed, but makes it ~pretty and user friendly)
 
-<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [sortable - a tiny, vanilla JS table sorter](#sortable---a-tiny-vanilla-js-table-sorter)
-  - [Factoids](#factoids)
-  - [Demo](#demo)
-  - [An example](#an-example)
-    - [Non sortable field](#non-sortable-field)
-  - [Advanced example](#advanced-example)
-  - [Mega-advanced example](#mega-advanced-example)
-  - [ES6](#es6)
-
-<!-- /TOC -->
+> Please note that the **advanced** and **mega-advanced** version have been deprecated.
+> I just couldn't justify their existense 🤷‍♂️
+> If you need advanced sorting, prepare the tables with the **data-sort** attribute instead.
+> The same goes for the ES6 version, it seemed a bit pointless.
 
 ## Factoids
 
-- **649 bytes** minified.
+- **713 bytes** minified.
 
 - Works with **JS/ajax generated tables**.(due to the eventListener)
 
@@ -30,9 +22,10 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 - cross browser, ie9+
 
-- eventListeners attached to the rows _WILL_ be removed
+- ~~eventListeners attached to the rows _WILL_ be removed~~
+- eventListeners are no longer removed! 😊
 
-- NOT tested with react, Angular, Vue, etc. I would be _very_ surprised if it didn't implode.
+- NOT tested with react, Angular, Vue, etc. There's just no way it will work without messing them up. Literally **no** way.
 
 ## Demo
 
@@ -50,12 +43,12 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
   </thead>
   <tbody>
     <tr>
-      <td>Master</td>
+      <td>Genius</td>
       <td>Rick</td>
     </tr>
     <tr>
-      <td>Servant</td>
-      <td><a href="javascript:alert('Morty');">Morty</a></td>
+      <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+      <td>Morty</td>
     </tr>
   </tbody>
 </table>
@@ -63,7 +56,9 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 <script src="sortable.js"></script>
 ```
 
-### Non sortable field
+### Non-sortable field
+
+#### using `class=".no-sort"`
 
 If you wish to disable sorting for a specific field, the easiest way is to add a class to it, like so:
 
@@ -82,80 +77,53 @@ th.no-sort {
 }
 ```
 
-## Advanced example
+#### using css only
+
+This is a bit trickier, but it doesn't require any changes to the html, so I guess it could be worth it in some cases.
+
+```css
+/* the first column in every sortable table
+ should not be sortable*/
+.sortable th:nth-child(1) {
+  background: pink;
+  color: red;
+  pointer-events: none;
+}
+
+/* the seventh column in the second .sortable
+ table should not be sortable*/
+.sortable:nth-of-type(2) th:nth-child(7) {
+  background: pink;
+  color: red;
+  pointer-events: none;
+}
+```
+
+## The `data-sort` attribute
+
+Using the `data-sort` attribute you can have one visible value and one sortable value.
+This is useful in case you have for instance sizes like kb, Mb, GB, etc.
 
 ```html
 <table class="sortable">
   <thead>
     <tr>
-      <th>Role</th>
-      <th>Name</th>
+      <th>Movie Name</th>
+      <th>Size</th>
+      <th>Release date</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td data-sort="a">Master</td>
-      <td data-sort="1">Rick</td>
+      <td>Zack Snyder's Justice League</td>
+      <td data-sort="943718400">900MB</td>
+      <td data-sort="20210318">03/18/2021</td>
     </tr>
     <tr>
-      <td data-sort="b">Servant</td>
-      <td data-sort="2">
-        <a href="javascript:alert('Morty');">Morty</a>
-      </td>
+      <td>The Sound of Music</td>
+      <td data-sort="1610612736">1.5GB</td>
+      <td data-sort="19651209">12/09/1965</td>
     </tr>
   </tbody>
 </table>
-<link href="sortable.css" rel="stylesheet" />
-<script src="sortable.advanced.js"></script>
-```
-
-## Mega-advanced example
-
-With size(GB, MB, kB) and weird date format
-
-```html
-<table class="sortable">
-  <thead>
-    <tr>
-      <th class="size">Hard disk</th>
-      <th class="date">Manufacturing Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>2TB</td>
-      <td>06/25/18</td>
-    </tr>
-    <tr>
-      <td>500GB</td>
-      <td>11/02/15</td>
-    </tr>
-  </tbody>
-</table>
-<link href="sortable.css" rel="stylesheet" />
-<script src="sortable.mega-advanced.js"></script>
-```
-
-## ES6
-
-Slightly more code unfortunately, mainly due to reusability. Couldn't think of a way to prevent that without making separate sortable-functions, like in the old versions :(
-
-```js
-import getSortFunc from "sortfunc.default";
-//import getSortFunc from 'sortfunc.advanced';
-//import getSortFunc from 'sortfunc.mega-advanced';
-import sortable from "sortable.es6";
-sortable(document, getSortFunc);
-```
-
-OR
-
-```js
-import getSortFunc from "sortfunc.default";
-//import getSortFunc from 'sortfunc.advanced';
-//import getSortFunc from 'sortfunc.mega-advanced';
-import sortable from "sortable.es6";
-
-sortable(document.getElementById("[some-table-id]"), getSortFunc);
-sortable(document.getElementById("[another-table-id]"), getSortFunc);
 ```
