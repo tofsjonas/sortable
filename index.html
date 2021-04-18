@@ -15,6 +15,17 @@
     font-size: 14px;
   }
 
+  p {
+    line-height: 1.7em;
+  }
+
+  code {
+    font-family: monospace;
+    background: #eee;
+    padding: 5px;
+    border-radius: 2px;
+  }
+
   * {
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
@@ -31,10 +42,18 @@
     position: relative;
   }
 
+  .sortable:nth-of-type(3) th:nth-child(7),
   th.no-sort {
     background: pink;
     color: red;
     pointer-events: none;
+  }
+
+  .sortable:nth-of-type(3) th:nth-child(7)::after {
+    color: red;
+    content: "(also not sortable)";
+    font-size: .9em;
+    display: block;
   }
 
 </style>
@@ -52,16 +71,53 @@
     </thead>
     <tbody>
       <tr>
-        <td>Master</td>
+        <td>Genius</td>
         <td>Rick</td>
       </tr>
       <tr>
-        <td>Servant</td>
-        <td><a href="javascript:alert('Inline javascript still works, eventlisteners don\'t!');">Morty</a></td>
+        <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+        <td><a id="morty" href="#">Morty</a></td>
       </tr>
     </tbody>
   </table>
-  <h2>Slightly larger</h2> ("Ram" has class="no-sort", which has the css property "pointer-events: none;") <table
+  <script>
+    document.getElementById('morty').addEventListener('click', function (e) {
+      e.preventDefault();
+      alert('event listeners also work!');
+    })
+  </script>
+  <h2>Using the data-sort attribute</h2>
+  <p> Here 1.5GB has <code>data-sort="1610612736"</code> and 900MB has <code>data-sort="943718400"</code>
+  </p>
+  <p> The same with the dates. 03/18/2021 is turned into <code>data-sort="20210318"</code> and 12/09/1965 into
+    <code>data-sort="19651209"</code>
+  </p>
+  <p> Otherwise the sorting would be wrong. </p>
+  <table class="sortable advanced-table">
+    <thead>
+      <tr>
+        <th>Movie Name</th>
+        <th>Size</th>
+        <th>Release date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>The Sound of Music</td>
+        <td>1.5GB</td>
+        <td>12/09/1965</td>
+      </tr>
+      <tr>
+        <td>Zack Snyder's Justice League</td>
+        <td>900MB</td>
+        <td>03/18/2021</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Slightly larger</h2>
+  <p> "Ram" has class="no-sort", which has the css property "pointer-events: none;"</p>
+  <p> "Screen width" has the "css only" way of disabling sorting. </p>
+  <table
     class="sortable">
     <thead>
       <tr>
@@ -100,7 +156,7 @@
         <td>en-us</td>
       </tr>
       <tr>
-        <td>Slave</td>
+        <td>Stevedore</td>
         <td>Bridget Jones</td>
         <td>The Hand</td>
         <td>i7</td>
@@ -244,5 +300,34 @@
     tbody.appendChild(fragment)
   </script>
   <script type="text/javascript" src="sortable.js"></script>
+  <script>
+    function prepareAdvancedTable() {
+      function convertSizeToBytes(str) {
+        var matches = str.match(/^([0-9.]+)(\w+)$/)
+        if (matches) {
+          var vals = {
+            kB: 1, // 1024 B
+            KiB: 1, // 1024 B
+            MB: 2, // 1024 * 1024 B
+            GB: 3, // 1024 * 1024 * 1024 B
+            TB: 4, // 1024 * 1024 * 1024 *1024 B
+          };
+          return (matches[1] || 0) * Math.pow(1024, vals[matches[2]])
+        }
+        return str
+      }
+
+
+      var size_table = document.querySelector('.advanced-table')
+      var rows = size_table.tBodies[0].rows
+      for (let i = 0; i < rows.length; i++) {
+        const date_element = rows[i].cells[2];
+        const size_element = rows[i].cells[1];
+        date_element.setAttribute('data-sort', date_element.innerText.replace(/(\d+)\/(\d+)\/(\d+)/, '$3$1$2'))
+        size_element.setAttribute('data-sort', convertSizeToBytes(size_element.innerText))
+      }
+    }
+    prepareAdvancedTable()
+  </script>
 </body>
 </html>

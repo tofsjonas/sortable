@@ -6,13 +6,13 @@ $sortable-th-color-active: #000;
 .sortable {
   border-spacing: 0;
 
-  thead {
-    td {
-      font-weight: bold;
-      text-align: center;
-      text-transform: uppercase;
-    }
-  }
+  // thead {
+  //   td {
+  //     font-weight: bold;
+  //     text-align: center;
+  //     text-transform: uppercase;
+  //   }
+  // }
 
   tbody {
     tr {
@@ -51,14 +51,14 @@ $sortable-th-color-active: #000;
       &::after {
         color: inherit;
         font-size: 1.2em;
-        content: " \025B8";
+        content: ' \025B8';
       }
     }
 
     &::after {
       font-size: 1.2em;
       color: transparent;
-      content: " \025B8";
+      content: ' \025B8';
     }
 
     &.dir-d {
@@ -66,7 +66,7 @@ $sortable-th-color-active: #000;
 
       &::after {
         color: inherit;
-        content: " \025BE";
+        content: ' \025BE';
       }
     }
 
@@ -75,7 +75,7 @@ $sortable-th-color-active: #000;
 
       &::after {
         color: inherit;
-        content: " \025B4";
+        content: ' \025B4';
       }
     }
   }

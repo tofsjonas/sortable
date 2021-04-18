@@ -36,8 +36,8 @@
 
 // sort is super fast, even with huge tables, so that is probably not the issue
 // Not solved with documentFragment, same issue... :(
-// My guess is that it is simply too much to hold in memory
-// it freezes even before sortable is called, if the table is too big in index.html
+// My guess is that it is simply too much to hold in memory, since
+// it freezes even before sortable is called if the table is too big in index.html
 
 document.addEventListener('click', function (e) {
   var down_class = ' dir-d '
@@ -46,18 +46,25 @@ document.addEventListener('click', function (e) {
   var regex_table = /\bsortable\b/
   var element = e.target
 
-  function reclassify(element, dir) {
+  function reClassify(element, dir) {
     element.className = element.className.replace(regex_dir, '') + dir
+  }
+
+  function getValue(element) {
+    // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
+    // comment this line and uncomment the next one
+    return element.getAttribute('data-sort') || element.innerText
+    // return element.innerText
   }
 
   if (element.nodeName === 'TH') {
     try {
+      var tr = element.parentNode
       // var table = element.offsetParent; // Fails with positioned table elements
-      // this is the only way to make really, really sure. A few more bytes though... >:
-      var table = element.parentNode.parentNode.parentNode
+      // this is the only way to make really, really sure. A few more bytes though... 😡
+      var table = tr.parentNode.parentNode
       if (regex_table.test(table.className)) {
         var column_index
-        var tr = element.parentNode
         var nodes = tr.cells
 
         // reset thead cells and get column index
@@ -65,7 +72,7 @@ document.addEventListener('click', function (e) {
           if (nodes[i] === element) {
             column_index = i
           } else {
-            reclassify(nodes[i], '')
+            reClassify(nodes[i], '')
           }
         }
 
@@ -76,7 +83,7 @@ document.addEventListener('click', function (e) {
           dir = up_class
         }
 
-        reclassify(element, dir)
+        reClassify(element, dir)
 
         // extract all table rows, so the sorting can start.
         var org_tbody = table.tBodies[0]
@@ -88,12 +95,14 @@ document.addEventListener('click', function (e) {
 
         // sort them using custom built in array sort.
         rows.sort(function (a, b) {
-          var x = (reverse ? a : b).cells[column_index].innerText
-          var y = (reverse ? b : a).cells[column_index].innerText
+          var x = getValue((reverse ? a : b).cells[column_index])
+          var y = getValue((reverse ? b : a).cells[column_index])
+          // var y = (reverse ? b : a).cells[column_index].innerText
+          // var x = (reverse ? a : b).cells[column_index].innerText
           return isNaN(x - y) ? x.localeCompare(y) : x - y
         })
 
-        // Make a clone without contents
+        // Make a clone without content
         var clone_tbody = org_tbody.cloneNode()
 
         // Build a sorted table body and replace the old one.
