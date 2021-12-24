@@ -52,8 +52,8 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
     </tr>
   </tbody>
 </table>
-<link href="sortable.css" rel="stylesheet" />
-<script src="sortable.js"></script>
+<link href="https://tofsjonas.github.io/sortable/sortable.css" rel="stylesheet" />
+<script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
 ```
 
 ### Non-sortable field
