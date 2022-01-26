@@ -127,3 +127,7 @@ This is useful in case you have for instance sizes like kb, Mb, GB, etc.
   </tbody>
 </table>
 ```
+
+If you click on a table header while holding shift or alt an alternative 
+`data-sort-alt` attribute is used for sorting if available and the usual 
+`data-sort` otherwise.
