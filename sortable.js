@@ -45,6 +45,7 @@ document.addEventListener('click', function (e) {
   var regex_dir = / dir-(u|d) /
   var regex_table = /\bsortable\b/
   var element = e.target
+  var alt_sort = e.shiftKey || e.altKey
 
   function reClassify(element, dir) {
     element.className = element.className.replace(regex_dir, '') + dir
@@ -53,7 +54,7 @@ document.addEventListener('click', function (e) {
   function getValue(element) {
     // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
     // comment this line and uncomment the next one
-    return element.getAttribute('data-sort') || element.innerText
+    return alt_sort && element.getAttribute('data-sort-alt') || element.getAttribute('data-sort') || element.innerText
     // return element.innerText
   }
 
