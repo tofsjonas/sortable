@@ -58,6 +58,14 @@ document.addEventListener('click', function (e) {
     // return element.innerText
   }
 
+  // Support clicking on child elements, e.g. icons
+  while (element.nodeName !== 'TH') {
+    element = element.parentNode
+    if (element.nodeName === 'HTML') {
+      break
+    }
+  }
+
   if (element.nodeName === 'TH') {
     try {
       var tr = element.parentNode
