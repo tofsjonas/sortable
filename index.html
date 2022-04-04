@@ -1,333 +1,328 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
-<head>
-  <meta name="charset" content="UTF-8">
-  <meta name="author" content="Jonas Earendel">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Just testing some table sorting.">
-  <title>sortable - the example page</title>
-  <link rel="stylesheet" type="text/css" href="sortable.css" />
-</head>
-<style>
-  body {
-    font-size: 14px;
-  }
-
-  p {
-    line-height: 1.7em;
-  }
-
-  code {
-    font-family: monospace;
-    background: #eee;
-    padding: 5px;
-    border-radius: 2px;
-  }
-
-  * {
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-      'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  table {
-    position: relative;
-  }
-
-  th {
-    position: relative;
-  }
-
-  .sortable:nth-of-type(3) th:nth-child(7),
-  th.no-sort {
-    background: pink;
-    color: red;
-    pointer-events: none;
-  }
-
-  .sortable:nth-of-type(3) th:nth-child(7)::after {
-    color: red;
-    content: "(also not sortable)";
-    font-size: .9em;
-    display: block;
-  }
-
-</style>
-
-<body>
-  <h1>Demos</h1> Here are some basic demos for the tiny, tiny table sorter found on <a
-    href="https://github.com/tofsjonas/sortable">https://github.com/tofsjonas/sortable</a>
-  <h2>The example from the readme:</h2>
-  <table class="sortable">
-    <thead>
-      <tr>
-        <th>Role</th>
-        <th>Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Genius</td>
-        <td>Rick</td>
-      </tr>
-      <tr>
-        <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
-        <td><a id="morty" href="#">Morty</a></td>
-      </tr>
-    </tbody>
-  </table>
-  <script>
-    document.getElementById('morty').addEventListener('click', function (e) {
-      e.preventDefault();
-      alert('event listeners also work!');
-    })
-  </script>
-  <h2>Using the data-sort attribute</h2>
-  <p> Here 1.5GB has <code>data-sort="1610612736"</code> and 900MB has <code>data-sort="943718400"</code>
-  </p>
-  <p> The same with the dates. 03/18/2021 is turned into <code>data-sort="20210318"</code> and 12/09/1965 into
-    <code>data-sort="19651209"</code>
-  </p>
-  <p> Otherwise the sorting would be wrong. </p>
-  <table class="sortable advanced-table">
-    <thead>
-      <tr>
-        <th>Movie Name</th>
-        <th>Size</th>
-        <th>Release date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>The Sound of Music</td>
-        <td>1.5GB</td>
-        <td>12/09/1965</td>
-      </tr>
-      <tr>
-        <td>Zack Snyder's Justice League</td>
-        <td>900MB</td>
-        <td>03/18/2021</td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Slightly larger</h2>
-  <p> "Ram" has class="no-sort", which has the css property "pointer-events: none;"</p>
-  <p> "Screen width" has the "css only" way of disabling sorting. </p>
-  <table
-    class="sortable">
-    <thead>
-      <tr>
-        <td colspan="3">personal</td>
-        <td colspan="5">hardware</td>
-        <td colspan="4">software</td>
-      </tr>
-      <tr>
-        <th>job title</th>
-        <th>name</th>
-        <th>company</th>
-        <th>processor</th>
-        <th class="no-sort">ram(not sortable)</th>
-        <th>graphics card</th>
-        <th>screen width</th>
-        <th>screen height</th>
-        <th>platform</th>
-        <th>browser</th>
-        <th>browser version</th>
-        <th>language</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Boss</td>
-        <td>Stan the Man</td>
-        <td>Monsters Inc</td>
-        <td>AMD</td>
-        <td>2</td>
-        <td>Nvidia</td>
-        <td>1510</td>
-        <td>981</td>
-        <td>Win32</td>
-        <td>IE</td>
-        <td>11</td>
-        <td>en-us</td>
-      </tr>
-      <tr>
-        <td>Stevedore</td>
-        <td>Bridget Jones</td>
-        <td>The Hand</td>
-        <td>i7</td>
-        <td>8gb</td>
-        <td>-</td>
-        <td>1530</td>
-        <td>1080</td>
-        <td>Linux x86_64</td>
-        <td>Firefox</td>
-        <td>54</td>
-        <td>sv-se</td>
-      </tr>
-      <tr>
-        <td>HR</td>
-        <td>Bruce Wayne</td>
-        <td>League of Shadows</td>
-        <td>i5</td>
-        <td>-</td>
-        <td>GeForce</td>
-        <td>1520</td>
-        <td>1080</td>
-        <td>Linux x86_64</td>
-        <td>Opera</td>
-        <td>46</td>
-        <td>dk</td>
-      </tr>
-      <tr>
-        <td>Programmer</td>
-        <td>Bilbo Baggins</td>
-        <td>Brotherhood of Evil Mutants</td>
-        <td>i3</td>
-        <td>4 gigabyte</td>
-        <td>-</td>
-        <td>130</td>
-        <td>1080</td>
-        <td>Linux x86_64</td>
-        <td>Opera</td>
-        <td>46</td>
-        <td>en</td>
-      </tr>
-    </tbody>
-    <tfoot>
-    </tfoot>
-  </table>
-  <h2>Even larger table</h2>
-  <table class="sortable massive">
-    <thead>
-      <tr>
-        <td colspan="3">personal</td>
-        <td colspan="5">hardware</td>
-        <td colspan="4">software</td>
-      </tr>
-      <tr>
-        <th>job title</th>
-        <th>name</th>
-        <th>company</th>
-        <th>processor</th>
-        <th>ram</th>
-        <th>graphics card</th>
-        <th>screen width</th>
-        <th>screen height</th>
-        <th>platform</th>
-        <th>browser</th>
-        <th>browser version</th>
-        <th>language</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Boss</td>
-        <td>Stan the Man</td>
-        <td>Monsters Inc</td>
-        <td>AMD</td>
-        <td>2</td>
-        <td>Nvidia</td>
-        <td>1510</td>
-        <td>981</td>
-        <td>Win32</td>
-        <td>IE</td>
-        <td>11</td>
-        <td>en-us</td>
-      </tr>
-      <tr>
-        <td>Slave</td>
-        <td>Bridget Jones</td>
-        <td>The Hand</td>
-        <td>i7</td>
-        <td>8gb</td>
-        <td>-</td>
-        <td>1530</td>
-        <td>1080</td>
-        <td>Linux x86_64</td>
-        <td>Firefox</td>
-        <td>54</td>
-        <td>sv-se</td>
-      </tr>
-      <tr>
-        <td>HR</td>
-        <td>Bruce Wayne</td>
-        <td>League of Shadows</td>
-        <td>i5</td>
-        <td>-</td>
-        <td>GeForce</td>
-        <td>1520</td>
-        <td>1080</td>
-        <td>Linux x86_64</td>
-        <td>Opera</td>
-        <td>46</td>
-        <td>dk</td>
-      </tr>
-      <tr>
-        <td>Programmer</td>
-        <td>Bilbo Baggins</td>
-        <td>Brotherhood of Evil Mutants</td>
-        <td>i3</td>
-        <td>4 gigabyte</td>
-        <td>-</td>
-        <td>130</td>
-        <td>1080</td>
-        <td>Linux x86_64</td>
-        <td>Opera</td>
-        <td>46</td>
-        <td>en</td>
-      </tr>
-    </tbody>
-    <tfoot>
-    </tfoot>
-  </table>
-  <script>
-    var table = document.querySelector('.massive');
-    var tbody = table.tBodies[0];
-    var rows = [].slice.call(tbody.rows, 0);
-    var fragment = document.createDocumentFragment()
-
-    for (var k = 0; k < 50; k++) {
-      for (var i = 0; i < rows.length; i++) {
-        fragment.appendChild(rows[i].cloneNode(true));
-      }
+  <head>
+    <meta name="charset" content="UTF-8" />
+    <meta name="author" content="Jonas Earendel" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Just testing some table sorting." />
+    <title>sortable - the example page</title>
+    <link rel="stylesheet" type="text/css" href="sortable.css" />
+  </head>
+  <style>
+    body {
+      font-size: 14px;
     }
-    tbody.innerHTML = ''
-    tbody.appendChild(fragment)
-  </script>
-  <script type="text/javascript" src="sortable.js"></script>
-  <script>
-    function prepareAdvancedTable() {
-      function convertSizeToBytes(str) {
-        var matches = str.match(/^([0-9.]+)(\w+)$/)
-        if (matches) {
-          var vals = {
-            kB: 1, // 1024 B
-            KiB: 1, // 1024 B
-            MB: 2, // 1024 * 1024 B
-            GB: 3, // 1024 * 1024 * 1024 B
-            TB: 4, // 1024 * 1024 * 1024 *1024 B
-          };
-          return (matches[1] || 0) * Math.pow(1024, vals[matches[2]])
+
+    p {
+      line-height: 1.7em;
+    }
+
+    code {
+      font-family: monospace;
+      background: #eee;
+      padding: 5px;
+      border-radius: 2px;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+        'Droid Sans', 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    table {
+      position: relative;
+    }
+
+    th {
+      position: relative;
+    }
+
+    .sortable:nth-of-type(3) th:nth-child(7),
+    th.no-sort {
+      background: pink;
+      color: red;
+      pointer-events: none;
+    }
+
+    .sortable:nth-of-type(3) th:nth-child(7)::after {
+      color: red;
+      content: '(also not sortable)';
+      font-size: 0.9em;
+      display: block;
+    }
+  </style>
+
+  <body>
+    <h1>Demos</h1>
+    Here are some basic demos for the tiny, tiny table sorter found on
+    <a href="https://github.com/tofsjonas/sortable">https://github.com/tofsjonas/sortable</a>
+    <h2>The example from the readme:</h2>
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th><span>Role</span></th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+          <td><a id="morty" href="#">Morty</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      document.getElementById('morty').addEventListener('click', function (e) {
+        e.preventDefault()
+        alert('event listeners also work!')
+      })
+    </script>
+    <h2>Using the data-sort attribute</h2>
+    <p>Here 1.5GB has <code>data-sort="1610612736"</code> and 900MB has <code>data-sort="943718400"</code></p>
+    <p>
+      The same with the dates. 03/18/2021 is turned into <code>data-sort="20210318"</code> and 12/09/1965 into
+      <code>data-sort="19651209"</code>
+    </p>
+    <p>Otherwise the sorting would be wrong.</p>
+    <table class="sortable advanced-table">
+      <thead>
+        <tr>
+          <th>Movie Name</th>
+          <th>Size</th>
+          <th>Release date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>The Sound of Music</td>
+          <td>1.5GB</td>
+          <td>12/09/1965</td>
+        </tr>
+        <tr>
+          <td>Zack Snyder's Justice League</td>
+          <td>900MB</td>
+          <td>03/18/2021</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Slightly larger</h2>
+    <p>"Ram" has class="no-sort", which has the css property "pointer-events: none;"</p>
+    <p>"Screen width" has the "css only" way of disabling sorting.</p>
+    <table class="sortable">
+      <thead>
+        <tr>
+          <td colspan="3">personal</td>
+          <td colspan="5">hardware</td>
+          <td colspan="4">software</td>
+        </tr>
+        <tr>
+          <th>job title</th>
+          <th>name</th>
+          <th>company</th>
+          <th>processor</th>
+          <th class="no-sort">ram(not sortable)</th>
+          <th>graphics card</th>
+          <th>screen width</th>
+          <th>screen height</th>
+          <th>platform</th>
+          <th>browser</th>
+          <th>browser version</th>
+          <th>language</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Boss</td>
+          <td>Stan the Man</td>
+          <td>Monsters Inc</td>
+          <td>AMD</td>
+          <td>2</td>
+          <td>Nvidia</td>
+          <td>1510</td>
+          <td>981</td>
+          <td>Win32</td>
+          <td>IE</td>
+          <td>11</td>
+          <td>en-us</td>
+        </tr>
+        <tr>
+          <td>Stevedore</td>
+          <td>Bridget Jones</td>
+          <td>The Hand</td>
+          <td>i7</td>
+          <td>8gb</td>
+          <td>-</td>
+          <td>1530</td>
+          <td>1080</td>
+          <td>Linux x86_64</td>
+          <td>Firefox</td>
+          <td>54</td>
+          <td>sv-se</td>
+        </tr>
+        <tr>
+          <td>HR</td>
+          <td>Bruce Wayne</td>
+          <td>League of Shadows</td>
+          <td>i5</td>
+          <td>-</td>
+          <td>GeForce</td>
+          <td>1520</td>
+          <td>1080</td>
+          <td>Linux x86_64</td>
+          <td>Opera</td>
+          <td>46</td>
+          <td>dk</td>
+        </tr>
+        <tr>
+          <td>Programmer</td>
+          <td>Bilbo Baggins</td>
+          <td>Brotherhood of Evil Mutants</td>
+          <td>i3</td>
+          <td>4 gigabyte</td>
+          <td>-</td>
+          <td>130</td>
+          <td>1080</td>
+          <td>Linux x86_64</td>
+          <td>Opera</td>
+          <td>46</td>
+          <td>en</td>
+        </tr>
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+    <h2>Even larger table</h2>
+    <table class="sortable massive">
+      <thead>
+        <tr>
+          <td colspan="3">personal</td>
+          <td colspan="5">hardware</td>
+          <td colspan="4">software</td>
+        </tr>
+        <tr>
+          <th>job title</th>
+          <th>name</th>
+          <th>company</th>
+          <th>processor</th>
+          <th>ram</th>
+          <th>graphics card</th>
+          <th>screen width</th>
+          <th>screen height</th>
+          <th>platform</th>
+          <th>browser</th>
+          <th>browser version</th>
+          <th>language</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Boss</td>
+          <td>Stan the Man</td>
+          <td>Monsters Inc</td>
+          <td>AMD</td>
+          <td>2</td>
+          <td>Nvidia</td>
+          <td>1510</td>
+          <td>981</td>
+          <td>Win32</td>
+          <td>IE</td>
+          <td>11</td>
+          <td>en-us</td>
+        </tr>
+        <tr>
+          <td>Slave</td>
+          <td>Bridget Jones</td>
+          <td>The Hand</td>
+          <td>i7</td>
+          <td>8gb</td>
+          <td>-</td>
+          <td>1530</td>
+          <td>1080</td>
+          <td>Linux x86_64</td>
+          <td>Firefox</td>
+          <td>54</td>
+          <td>sv-se</td>
+        </tr>
+        <tr>
+          <td>HR</td>
+          <td>Bruce Wayne</td>
+          <td>League of Shadows</td>
+          <td>i5</td>
+          <td>-</td>
+          <td>GeForce</td>
+          <td>1520</td>
+          <td>1080</td>
+          <td>Linux x86_64</td>
+          <td>Opera</td>
+          <td>46</td>
+          <td>dk</td>
+        </tr>
+        <tr>
+          <td>Programmer</td>
+          <td>Bilbo Baggins</td>
+          <td>Brotherhood of Evil Mutants</td>
+          <td>i3</td>
+          <td>4 gigabyte</td>
+          <td>-</td>
+          <td>130</td>
+          <td>1080</td>
+          <td>Linux x86_64</td>
+          <td>Opera</td>
+          <td>46</td>
+          <td>en</td>
+        </tr>
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+    <script>
+      var table = document.querySelector('.massive')
+      var tbody = table.tBodies[0]
+      var rows = [].slice.call(tbody.rows, 0)
+      var fragment = document.createDocumentFragment()
+
+      for (var k = 0; k < 50; k++) {
+        for (var i = 0; i < rows.length; i++) {
+          fragment.appendChild(rows[i].cloneNode(true))
         }
-        return str
       }
+      tbody.innerHTML = ''
+      tbody.appendChild(fragment)
+    </script>
+    <script type="text/javascript" src="sortable.min.js"></script>
+    <script>
+      function prepareAdvancedTable() {
+        function convertSizeToBytes(str) {
+          var matches = str.match(/^([0-9.]+)(\w+)$/)
+          if (matches) {
+            var vals = {
+              kB: 1, // 1024 B
+              KiB: 1, // 1024 B
+              MB: 2, // 1024 * 1024 B
+              GB: 3, // 1024 * 1024 * 1024 B
+              TB: 4, // 1024 * 1024 * 1024 *1024 B
+            }
+            return (matches[1] || 0) * Math.pow(1024, vals[matches[2]])
+          }
+          return str
+        }
 
-
-      var size_table = document.querySelector('.advanced-table')
-      var rows = size_table.tBodies[0].rows
-      for (let i = 0; i < rows.length; i++) {
-        const date_element = rows[i].cells[2];
-        const size_element = rows[i].cells[1];
-        date_element.setAttribute('data-sort', date_element.innerText.replace(/(\d+)\/(\d+)\/(\d+)/, '$3$1$2'))
-        size_element.setAttribute('data-sort', convertSizeToBytes(size_element.innerText))
+        var size_table = document.querySelector('.advanced-table')
+        var rows = size_table.tBodies[0].rows
+        for (let i = 0; i < rows.length; i++) {
+          const date_element = rows[i].cells[2]
+          const size_element = rows[i].cells[1]
+          date_element.setAttribute('data-sort', date_element.innerText.replace(/(\d+)\/(\d+)\/(\d+)/, '$3$1$2'))
+          size_element.setAttribute('data-sort', convertSizeToBytes(size_element.innerText))
+        }
       }
-    }
-    prepareAdvancedTable()
-  </script>
-</body>
+      prepareAdvancedTable()
+    </script>
+  </body>
 </html>

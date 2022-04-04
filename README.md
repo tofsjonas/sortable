@@ -6,13 +6,13 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 (the CSS is not strictly needed, but makes it ~pretty and user friendly)
 
 > Please note that the **advanced** and **mega-advanced** version have been deprecated.
-> I just couldn't justify their existense 🤷‍♂️
+> I just couldn't justify their existence 🤷‍♂️
 > If you need advanced sorting, prepare the tables with the **data-sort** attribute instead.
 > The same goes for the ES6 version, it seemed a bit pointless.
 
 ## Factoids
 
-- **713 bytes** minified.
+- **795 bytes** minified.
 
 - Works with **JS/ajax generated tables**.(due to the eventListener)
 
@@ -25,7 +25,13 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 - ~~eventListeners attached to the rows _WILL_ be removed~~
 - eventListeners are no longer removed! 😊
 
-- NOT tested with react, Angular, Vue, etc. There's just no way it will work without messing them up. Literally **no** way.
+- NOT tested with React, Angular, Vue, etc. (The virtual DOM would not be updated, so it would most likely mess them up completely.)
+
+- Works with [Svelte](https://svelte.dev/)!
+
+- `data-sort-alt` allows for alternative sorting while holding **shift** or **alt**. Thanks [wodny](https://github.com/wodny)!
+
+- Elements inside `th` now works. Thanks [mxve](https://github.com/mxve)!
 
 ## Demo
 
@@ -37,7 +43,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 <table class="sortable">
   <thead>
     <tr>
-      <th>Role</th>
+      <th><span>Role</span></th>
       <th>Name</th>
     </tr>
   </thead>
@@ -55,6 +61,8 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 <link href="https://tofsjonas.github.io/sortable/sortable.css" rel="stylesheet" />
 <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
 ```
+
+(The `span` is just there to prove that elements inside the `th` works)
 
 ### Non-sortable field
 
@@ -128,6 +136,6 @@ This is useful in case you have for instance sizes like kb, Mb, GB, etc.
 </table>
 ```
 
-If you click on a table header while holding shift or alt an alternative 
-`data-sort-alt` attribute is used for sorting if available and the usual 
+If you click on a table header while holding shift or alt an alternative
+`data-sort-alt` attribute is used for sorting if available and the usual
 `data-sort` otherwise.
