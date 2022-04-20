@@ -83,7 +83,7 @@ document.addEventListener('click', function (e) {
       var dir = down_class
 
       // check if we're sorting up or down, and update the css accordingly
-      if (element.className.indexOf(down_class) !== -1) {
+      if (element.className.indexOf(down_class) !== -1 || (element.className.indexOf('asc') !== -1 && element.className.indexOf(up_class) == -1)) {
         dir = up_class
       }
 
