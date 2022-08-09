@@ -74,7 +74,7 @@ document.addEventListener('click', function (e) {
       // reset thead cells and get column index
       for (var i = 0; i < nodes.length; i++) {
         if (nodes[i] === element) {
-          column_index = i
+          column_index = element.getAttribute('data-sort-col') || i
         } else {
           reClassify(nodes[i], '')
         }

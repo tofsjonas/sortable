@@ -12,7 +12,7 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 ## Factoids
 
-- **795 bytes** minified.
+- **831 bytes** minified.
 
 - Works with **JS/ajax generated tables**.(due to the eventListener)
 
@@ -25,11 +25,13 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 - ~~eventListeners attached to the rows _WILL_ be removed~~
 - eventListeners are no longer removed! 😊
 
-- NOT tested with React, Angular, Vue, etc. (The virtual DOM would not be updated, so it would most likely mess them up completely.)
+- NOT tested with React, Angular, Vue, etc.
 
 - Works with [Svelte](https://svelte.dev/)!
 
-- `data-sort-alt` allows for alternative sorting while holding **shift** or **alt**. Thanks [wodny](https://github.com/wodny)!
+- `data-sort-alt` in `tbody` > `td` allows for alternative sorting while holding **shift** or **alt**. Thanks [wodny](https://github.com/wodny)!
+
+- `data-sort-col` in `thead` > `th` allows you to set which column should be sorted, in case you are using colspans, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
 
 - Elements inside `th` now works. Thanks [mxve](https://github.com/mxve)!
 
@@ -62,7 +64,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
 ```
 
-(The `span` is just there to prove that elements inside the `th` works)
+(The `span` is just there to prove that elements inside `th` works)
 
 ### Non-sortable field
 
@@ -109,7 +111,7 @@ This is a bit trickier, but it doesn't require any changes to the html, so I gue
 
 ## The `data-sort` attribute
 
-Using the `data-sort` attribute you can have one visible value and one sortable value.
+Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value.
 This is useful in case you have for instance sizes like kb, Mb, GB, etc.
 
 ```html
@@ -134,6 +136,36 @@ This is useful in case you have for instance sizes like kb, Mb, GB, etc.
     </tr>
   </tbody>
 </table>
+```
+
+## The `data-sort-col` attribute
+
+Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a different column than the one that was clicked. For instance if you want to have colspans. Like so:
+
+```html
+<thead>
+  <tr>
+    <th></th>
+    <th>Category</th>
+    <th class="show_name">Show</th>
+    <th colspan="2">Overall</th>
+    <th colspan="2" data-sort-col="5">On Our Dates</th>
+    <th data-sort-col="7">First Sold Out</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tags">&nbsp;</td>
+    <td class="category">Comedy</td>
+    <td class="show_name">Show 1</td>
+    <td class="ratio all" data-sort="72">18/25</td>
+    <td class="pct all">72%</td>
+    <td class="ratio ours" data-sort="75">3/4</td>
+    <td class="pct ours">75%</td>
+    <td>2022-07-30</td>
+  </tr>
+  ...
+</tbody>
 ```
 
 If you click on a table header while holding shift or alt an alternative
