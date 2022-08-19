@@ -54,6 +54,7 @@ $sortable-th-color-active: #000;
         content: ' \025B8';
       }
     }
+    // <h1>{title} <a on:click|preventDefault={() => expanded = !expanded}>{expanded ? '▲' : '▼'}</a></h1>
 
     &::after {
       font-size: 1.2em;

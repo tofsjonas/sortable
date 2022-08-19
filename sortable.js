@@ -1,5 +1,5 @@
 /**
- * sortable 1.0
+ * sortable 1.5 (or something, I always forget to update this)
  *
  * Makes html tables sortable, ie9+
  *
@@ -46,8 +46,9 @@ document.addEventListener('click', function (e) {
       return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag)
     }
 
-    var down_class = ' dir-d '
-    var up_class = ' dir-u '
+    var descending_th_class = ' dir-d '
+    var ascending_th_class = ' dir-u '
+    var ascending_table_sort_class = 'asc'
     var regex_dir = / dir-(u|d) /
     var regex_table = /\bsortable\b/
     var alt_sort = e.shiftKey || e.altKey
@@ -80,13 +81,18 @@ document.addEventListener('click', function (e) {
         }
       }
 
-      var dir = down_class
+      var dir = descending_th_class
 
-      // check if we're sorting up or down, and update the css accordingly
-      if (element.className.indexOf(down_class) !== -1) {
-        dir = up_class
+      // check if we're sorting up or down
+      if (
+        element.className.indexOf(descending_th_class) !== -1 ||
+        (table.className.indexOf(ascending_table_sort_class) !== -1 &&
+          element.className.indexOf(ascending_th_class) == -1)
+      ) {
+        dir = ascending_th_class
       }
 
+      // update the `th` class accordingly
       reClassify(element, dir)
 
       // extract all table rows, so the sorting can start.
@@ -95,7 +101,7 @@ document.addEventListener('click', function (e) {
       // get the array rows in an array, so we can sort them...
       var rows = [].slice.call(org_tbody.rows, 0)
 
-      var reverse = dir === up_class
+      var reverse = dir === ascending_th_class
 
       // sort them using custom built in array sort.
       rows.sort(function (a, b) {

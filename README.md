@@ -5,14 +5,9 @@ Makes any table with **class="sortable"**, er, sortable. That is the user can cl
 Just include the JavaScript and it will work. No function calls needed, all is done with an **eventListener**.
 (the CSS is not strictly needed, but makes it ~pretty and user friendly)
 
-> Please note that the **advanced** and **mega-advanced** version have been deprecated.
-> I just couldn't justify their existence 🤷‍♂️
-> If you need advanced sorting, prepare the tables with the **data-sort** attribute instead.
-> The same goes for the ES6 version, it seemed a bit pointless.
-
 ## Factoids
 
-- **831 bytes** minified.
+- **900 bytes** minified. (532 bytes gzipped)
 
 - Works with **JS/ajax generated tables**.(due to the eventListener)
 
@@ -28,6 +23,9 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 - NOT tested with React, Angular, Vue, etc.
 
 - Works with [Svelte](https://svelte.dev/)!
+
+- `table` > `class="sortable asc"` let's you sort ascending as default. Thanks [
+  Nikita Dunajevs](https://github.com/dunajevs)!
 
 - `data-sort-alt` in `tbody` > `td` allows for alternative sorting while holding **shift** or **alt**. Thanks [wodny](https://github.com/wodny)!
 
@@ -68,7 +66,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ### Non-sortable field
 
-#### using `class=".no-sort"`
+#### ...using `class` and `css`
 
 If you wish to disable sorting for a specific field, the easiest way is to add a class to it, like so:
 
@@ -82,34 +80,28 @@ If you wish to disable sorting for a specific field, the easiest way is to add a
 and then use css to block clicks. like so:
 
 ```css
-th.no-sort {
+.sortable th.no-sort {
   pointer-events: none;
 }
 ```
 
-#### using css only
+#### ...using css only
 
 This is a bit trickier, but it doesn't require any changes to the html, so I guess it could be worth it in some cases.
 
 ```css
-/* the first column in every sortable table
- should not be sortable*/
+/* the first column in every sortable table should not be sortable*/
 .sortable th:nth-child(1) {
-  background: pink;
-  color: red;
   pointer-events: none;
 }
 
-/* the seventh column in the second .sortable
- table should not be sortable*/
+/* the seventh column in the second .sortable table should not be sortable*/
 .sortable:nth-of-type(2) th:nth-child(7) {
-  background: pink;
-  color: red;
   pointer-events: none;
 }
 ```
 
-## The `data-sort` attribute
+## `td` > `data-sort`
 
 Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value.
 This is useful in case you have for instance sizes like kb, Mb, GB, etc.
@@ -138,7 +130,38 @@ This is useful in case you have for instance sizes like kb, Mb, GB, etc.
 </table>
 ```
 
-## The `data-sort-col` attribute
+## `td` > `data-sort-alt`
+
+If you click on a table header while holding **shift** or **alt** an alternative
+`data-sort-alt` attribute will override `data-sort`.
+
+```html
+<table class="sortable">
+  <thead>
+    <tr>
+      <th>Movie Name</th>
+      <th>Size</th>
+      <th>Release date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Something</td>
+      <td data-sort-alt="c" data-sort="a">A</td>
+      <td data-sort-alt="b" data-sort="c">B</td>
+      <td data-sort-alt="a" data-sort="b">C</td>
+    </tr>
+    <tr>
+      <td>Something else</td>
+      <td data-sort-alt="e" data-sort="f">D</td>
+      <td data-sort-alt="f" data-sort="e">E</td>
+      <td data-sort-alt="d" data-sort="d">F</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+## `th` > `data-sort-col`
 
 Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a different column than the one that was clicked. For instance if you want to have colspans. Like so:
 
@@ -168,6 +191,17 @@ Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a differe
 </tbody>
 ```
 
-If you click on a table header while holding shift or alt an alternative
-`data-sort-alt` attribute is used for sorting if available and the usual
-`data-sort` otherwise.
+## Ascending sort
+
+By adding `asc` to `table`, the default sorting direction will be **ascending** instead of descending
+
+```html
+<table class="sortable asc">
+  <thead>
+    ...
+  </thead>
+  <tbody>
+    ...
+  </tbody>
+</table>
+```
