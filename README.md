@@ -205,3 +205,38 @@ By adding `asc` to `table`, the default sorting direction will be **ascending** 
   </tbody>
 </table>
 ```
+
+## Sort on load
+
+If you wish to sort a table on load, I would recommend doing something like this:
+
+```html
+<table class="sortable">
+  <thead>
+    <tr>
+      <th>Movie Name</th>
+      <th id="movie-size">Size</th>
+      <th>Release date</th>
+    </tr>
+  </thead>
+  <tbody>
+    ...
+  </tbody>
+</table>
+
+<script>
+  window.addEventListener('load', function () {
+    const el = document.getElementById('movie-size')
+    // without id:
+    // const el = document.querySelector('.sortable th:first-child')
+    // const el = document.querySelector('.sortable th:nth-child(2)')
+    // const el = document.querySelectorAll('.sortable')[3].querySelector('th:nth-child(7)')
+    // etc.
+    if (el) {
+      el.click()
+    }
+  })
+</script>
+```
+
+Combine this with `<table class="sortable asc">` to reverse the sort order. Or do `el.click()` twice! Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
