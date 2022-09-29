@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Just testing some table sorting." />
     <title>sortable - the example page</title>
-    <link rel="stylesheet" type="text/css" href="sortable.css" />
+    <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.css"></script>
   </head>
   <style>
     body {
@@ -302,7 +302,8 @@
       tbody.innerHTML = ''
       tbody.appendChild(fragment)
     </script>
-    <script type="text/javascript" src="sortable.js"></script>
+    <!-- <script type="text/javascript" src="sortable.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.js"></script>
     <script>
       function prepareAdvancedTable() {
         function convertSizeToBytes(str) {

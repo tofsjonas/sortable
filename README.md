@@ -5,39 +5,58 @@ Makes any table with **class="sortable"**, er, sortable. That is the user can cl
 Just include the JavaScript and it will work. No function calls needed, all is done with an **eventListener**.
 (the CSS is not strictly needed, but makes it ~pretty and user friendly)
 
+- [sortable - a tiny, vanilla JS table sorter](#sortable---a-tiny-vanilla-js-table-sorter)
+  - [Factoids](#factoids)
+    - [...with a little help from my friends](#with-a-little-help-from-my-friends)
+  - [Demo](#demo)
+  - [A basic example](#a-basic-example)
+  - [Non-sortable field](#non-sortable-field)
+    - [...using `class` and `css`](#using-class-and-css)
+    - [...using `css` only](#using-css-only)
+  - [Sort on value other than the one shown](#sort-on-value-other-than-the-one-shown)
+  - [Alternative sorting](#alternative-sorting)
+  - [Specify which column should be sorted](#specify-which-column-should-be-sorted)
+  - [Ascending sort](#ascending-sort)
+  - [Sort on load](#sort-on-load)
+
 ## Factoids
 
 - **900 bytes** minified. (532 bytes gzipped)
 
-- Works with **JS/ajax generated tables**.(due to the eventListener)
+- Works with **JavaScript generated tables**. (since we are using an eventListener)
 
 - **Lightning fast**. _Huge_ tables will make it slow and may freeze the browser, especially for mobiles, so you know...
 
 - Requires **thead** and **tbody**.
 
-- cross browser, ie9+
+- **cross browser**, ie9+ (I think, there have been a _whole_ bunch of changes since I last tested it on ie9 🤷)
 
 - ~~eventListeners attached to the rows _WILL_ be removed~~
+
 - eventListeners are no longer removed! 😊
 
 - NOT tested with React, Angular, Vue, etc.
 
 - Works with [Svelte](https://svelte.dev/)!
 
-- `table` > `class="sortable asc"` let's you sort ascending as default. Thanks [
+### ...with a little help from my friends
+
+- `table` > `class="sortable asc"` let's you [sort ascending](#ascending-sort) as default. Thanks [
   Nikita Dunajevs](https://github.com/dunajevs)!
 
-- `data-sort-alt` in `tbody` > `td` allows for alternative sorting while holding **shift** or **alt**. Thanks [wodny](https://github.com/wodny)!
+- `data-sort-alt` in `tbody` > `td` allows for [alternative sorting](#alternative-sorting) while holding `shift` or `alt`. Thanks [wodny](https://github.com/wodny)!
 
-- `data-sort-col` in `thead` > `th` allows you to set which column should be sorted, in case you are using colspans, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
+- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#specify-which-column-should-be-sorted), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
 
-- Elements inside `th` now works. Thanks [mxve](https://github.com/mxve)!
+- **Nested elements** inside `th` now works. Thanks [mxve](https://github.com/mxve)!
+
+- [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
 
 ## Demo
 
 You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
-## An example
+## A basic example
 
 ```html
 <table class="sortable">
@@ -58,15 +77,15 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
     </tr>
   </tbody>
 </table>
-<link href="https://tofsjonas.github.io/sortable/sortable.css" rel="stylesheet" />
-<script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.js"></script>
 ```
 
-(The `span` is just there to prove that elements inside `th` works)
+_(The `span` is just there to prove that elements inside `th` works)_
 
-### Non-sortable field
+## Non-sortable field
 
-#### ...using `class` and `css`
+### ...using `class` and `css`
 
 If you wish to disable sorting for a specific field, the easiest way is to add a class to it, like so:
 
@@ -85,7 +104,7 @@ and then use css to block clicks. like so:
 }
 ```
 
-#### ...using css only
+### ...using `css` only
 
 This is a bit trickier, but it doesn't require any changes to the html, so I guess it could be worth it in some cases.
 
@@ -101,7 +120,7 @@ This is a bit trickier, but it doesn't require any changes to the html, so I gue
 }
 ```
 
-## `td` > `data-sort`
+## Sort on value other than the one shown
 
 Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value.
 This is useful in case you have for instance sizes like kb, Mb, GB, etc.
@@ -130,7 +149,7 @@ This is useful in case you have for instance sizes like kb, Mb, GB, etc.
 </table>
 ```
 
-## `td` > `data-sort-alt`
+## Alternative sorting
 
 If you click on a table header while holding **shift** or **alt** an alternative
 `data-sort-alt` attribute will override `data-sort`.
@@ -161,7 +180,7 @@ If you click on a table header while holding **shift** or **alt** an alternative
 </table>
 ```
 
-## `th` > `data-sort-col`
+## Specify which column should be sorted
 
 Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a different column than the one that was clicked. For instance if you want to have colspans. Like so:
 
@@ -239,4 +258,6 @@ If you wish to sort a table on load, I would recommend doing something like this
 </script>
 ```
 
-Combine this with `<table class="sortable asc">` to reverse the sort order. Or do `el.click()` twice! Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
+Combine this with `<table class="sortable asc">` to reverse the sort order. Or do `el.click()` twice!
+
+[![](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
