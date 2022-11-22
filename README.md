@@ -21,7 +21,7 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 ## Factoids
 
-- **900 bytes** minified. (532 bytes gzipped)
+- **921 bytes** minified. (541 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -51,6 +51,10 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 - **Nested elements** inside `th` now works. Thanks [mxve](https://github.com/mxve)!
 
 - [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
+
+- [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
+
+- Thanks to [chatcoda](https://github.com/chatcoda) for pointing out the bug where `<td></td>` and `<td>0</td>` would not sort!
 
 ## Demo
 
@@ -260,4 +264,4 @@ If you wish to sort a table on load, I would recommend doing something like this
 
 Combine this with `<table class="sortable asc">` to reverse the sort order. Or do `el.click()` twice!
 
-[![](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)

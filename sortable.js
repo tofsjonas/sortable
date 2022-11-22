@@ -1,5 +1,5 @@
 /**
- * sortable 1.5 (or something, I always forget to update this)
+ * sortable 1.5.1 (or something, I always forget to update this)
  *
  * Makes html tables sortable, ie9+
  *
@@ -63,16 +63,16 @@ document.addEventListener('click', function (e) {
     function getValue(element) {
       // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
       // comment this line and uncomment the next one
-      return (
+      var value =
         (alt_sort && element.getAttribute('data-sort-alt')) || element.getAttribute('data-sort') || element.innerText
-      )
+      return value
       // return element.innerText
     }
     if (regex_table.test(table.className)) {
       var column_index
       var nodes = tr.cells
 
-      // reset thead cells and get column index
+      // Reset thead cells and get column index
       for (var i = 0; i < nodes.length; i++) {
         if (nodes[i] === element) {
           column_index = element.getAttribute('data-sort-col') || i
@@ -83,7 +83,7 @@ document.addEventListener('click', function (e) {
 
       var dir = descending_th_class
 
-      // check if we're sorting up or down
+      // Check if we're sorting ascending or descending
       if (
         element.className.indexOf(descending_th_class) !== -1 ||
         (table.className.indexOf(ascending_table_sort_class) !== -1 &&
@@ -92,33 +92,34 @@ document.addEventListener('click', function (e) {
         dir = ascending_th_class
       }
 
-      // update the `th` class accordingly
+      // Update the `th` class accordingly
       reClassify(element, dir)
 
-      // extract all table rows, so the sorting can start.
+      // Extract all table rows
       var org_tbody = table.tBodies[0]
 
-      // get the array rows in an array, so we can sort them...
+      // Get the array rows in an array, so we can sort them...
       var rows = [].slice.call(org_tbody.rows, 0)
 
       var reverse = dir === ascending_th_class
 
-      // sort them using custom built in array sort.
+      // Sort them using Array.prototype.sort()
       rows.sort(function (a, b) {
         var x = getValue((reverse ? a : b).cells[column_index])
         var y = getValue((reverse ? b : a).cells[column_index])
-        return isNaN(x - y) ? x.localeCompare(y) : x - y
+        var bool = x.length && y.length && !isNaN(x - y) ? x - y : x.localeCompare(y)
+        return bool
       })
 
       // Make a clone without content
       var clone_tbody = org_tbody.cloneNode()
 
-      // Build a sorted table body and replace the old one.
+      // Fill it with the sorted values
       while (rows.length) {
         clone_tbody.appendChild(rows.splice(0, 1)[0])
       }
 
-      // And finally insert the end result
+      // And finally replace the unsorted table with the sorted one
       table.replaceChild(clone_tbody, org_tbody)
     }
   } catch (error) {
