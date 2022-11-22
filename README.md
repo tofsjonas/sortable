@@ -13,6 +13,8 @@ Just include the JavaScript and it will work. No function calls needed, all is d
   - [Non-sortable field](#non-sortable-field)
     - [...using `class` and `css`](#using-class-and-css)
     - [...using `css` only](#using-css-only)
+  - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
+  - [Note about css/scss](#note-about-cssscss)
   - [Sort on value other than the one shown](#sort-on-value-other-than-the-one-shown)
   - [Alternative sorting](#alternative-sorting)
   - [Specify which column should be sorted](#specify-which-column-should-be-sorted)
@@ -52,9 +54,7 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 - [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
 
-- [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
-
-- Thanks to [chatcoda](https://github.com/chatcoda) for pointing out the bug where `<td></td>` and `<td>0</td>` would not sort!
+- Thanks to [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
 
 ## Demo
 
@@ -122,6 +122,41 @@ This is a bit trickier, but it doesn't require any changes to the html, so I gue
 .sortable:nth-of-type(2) th:nth-child(7) {
   pointer-events: none;
 }
+```
+
+## Indicators/arrows on the left side
+
+If you have text that is aligned on the right side, you may want to have the arrows on the left side.
+
+This is solved by adding a class to the css and using `::before` instead of `::after`.
+
+(You can of course use a pure css solution, without class names - just like with the [non-sortable field](#non-sortable-field) - but _that_ I will leave for you to figure out.)
+
+```css
+.sortable th.indicator-left::after {
+  content: '';
+}
+.sortable th.indicator-left::before {
+  margin-right: 3px;
+  content: '▸';
+}
+/* etc. */
+```
+
+> _Full example: [CSS](https://github.com/tofsjonas/sortable/blob/main/sortable-base.css), [SCSS](https://github.com/tofsjonas/sortable/blob/main/sortable-base.scss)_
+
+## Note about css/scss
+
+The `css/scss` in this repo was only ever meant as an example. It was never intended to be actually _used_.
+
+That said, if you're feeling lazy, here are two stylesheets you can use:
+
+```html
+<!-- This will add arrows only -->
+<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable-base.min.css" rel="stylesheet" />
+
+<!-- This will make it look like the tables in the example, with arrows, striped rows etc. -->
+<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.css" rel="stylesheet" />
 ```
 
 ## Sort on value other than the one shown

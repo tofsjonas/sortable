@@ -1,27 +1,34 @@
-$sortable-stripe-color: #e4e4e4;
-$sortable-th-color: #fff;
-$sortable-th-bg: #808080;
-$sortable-th-color-active: #000;
+@import 'sortable-base.scss';
 
 .sortable {
-  border-spacing: 0;
+  --stripe-color: #e4e4e4;
+  --th-color: #fff;
+  --th-bg: #808080;
+  --td-color: #000;
+  --td-on-stripe-color: #000;
 
-  // thead {
-  //   td {
-  //     font-weight: bold;
-  //     text-align: center;
-  //     text-transform: uppercase;
-  //   }
-  // }
+  border-spacing: 0;
 
   tbody {
     tr {
       &:nth-child(odd) {
-        background: $sortable-stripe-color;
+        background-color: var(--stripe-color);
+        color: var(--td-on-stripe-color);
       }
     }
   }
-
+  th {
+    background: var(--th-bg);
+    color: var(--th-color);
+    font-weight: normal;
+    text-align: left;
+    text-transform: capitalize;
+    vertical-align: baseline;
+    white-space: nowrap;
+  }
+  td {
+    color: var(--td-color);
+  }
   td,
   th {
     padding: 10px;
@@ -32,52 +39,6 @@ $sortable-th-color-active: #000;
 
     &:last-child {
       border-top-right-radius: 4px;
-    }
-  }
-
-  th {
-    background: $sortable-th-bg;
-    color: $sortable-th-color;
-    cursor: pointer;
-    font-weight: normal;
-    text-align: left;
-    text-transform: capitalize;
-    vertical-align: baseline;
-    white-space: nowrap;
-
-    &:hover {
-      color: $sortable-th-color-active;
-
-      &::after {
-        color: inherit;
-        font-size: 1.2em;
-        content: ' \025B8';
-      }
-    }
-    // <h1>{title} <a on:click|preventDefault={() => expanded = !expanded}>{expanded ? '▲' : '▼'}</a></h1>
-
-    &::after {
-      font-size: 1.2em;
-      color: transparent;
-      content: ' \025B8';
-    }
-
-    &.dir-d {
-      color: $sortable-th-color-active;
-
-      &::after {
-        color: inherit;
-        content: ' \025BE';
-      }
-    }
-
-    &.dir-u {
-      color: $sortable-th-color-active;
-
-      &::after {
-        color: inherit;
-        content: ' \025B4';
-      }
     }
   }
 }

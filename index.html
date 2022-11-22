@@ -7,61 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Just testing some table sorting." />
     <title>sortable - the example page</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="sortable-base.css" />
+    <link rel="stylesheet" type="text/css" href="sortable.css" /> -->
+    <link rel="stylesheet" type="text/css" href="example.css" />
   </head>
-  <style>
-    body {
-      font-size: 14px;
-    }
-
-    p {
-      line-height: 1.7em;
-    }
-
-    code {
-      font-family: monospace;
-      background: #eee;
-      padding: 5px;
-      border-radius: 2px;
-    }
-
-    * {
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-        'Droid Sans', 'Helvetica Neue', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    table {
-      position: relative;
-    }
-
-    th {
-      position: relative;
-    }
-
-    .sortable:nth-of-type(3) th:nth-child(7),
-    th.no-sort {
-      background: pink;
-      color: red;
-      pointer-events: none;
-    }
-
-    .sortable:nth-of-type(3) th:nth-child(7)::after {
-      color: red;
-      content: '(also not sortable)';
-      font-size: 0.9em;
-      display: block;
-    }
-  </style>
+  <style></style>
 
   <body>
     <h1>Demos</h1>
-    Here are some basic demos for the tiny, tiny table sorter found on
+    Here are some basic demos for the tiny table sorter found on
     <a href="https://github.com/tofsjonas/sortable">https://github.com/tofsjonas/sortable</a>
     <h2>The example from the readme:</h2>
-    <table class="sortable">
+    <table class="sortable" style="--sortable-th-bg: pink">
       <thead>
         <tr>
           <th><span>Role</span></th>
@@ -79,6 +36,36 @@
         </tr>
       </tbody>
     </table>
+
+    <h2>An example with arrows on the left side:</h2>
+
+    <table class="sortable lefty">
+      <thead>
+        <tr>
+          <th><span>Text</span></th>
+          <th class="indicator-left">Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>jkl</td>
+          <td>0.4</td>
+        </tr>
+        <tr>
+          <td>abc</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>def</td>
+          <td>0.2</td>
+        </tr>
+        <tr>
+          <td>ghi</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
     <script>
       document.getElementById('morty').addEventListener('click', function (e) {
         e.preventDefault()
@@ -303,7 +290,7 @@
       tbody.appendChild(fragment)
     </script>
     <!-- <script type="text/javascript" src="sortable.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.js"></script>
+    <script src="sortable.js"></script>
     <script>
       function prepareAdvancedTable() {
         function convertSizeToBytes(str) {
