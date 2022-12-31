@@ -23,7 +23,7 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 ## Factoids
 
-- **921 bytes** minified. (541 bytes gzipped)
+- **954 bytes** minified. (545 bytes gzipped) Still under 1k! 🥳
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -43,7 +43,7 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 ### ...with a little help from my friends
 
-- `table` > `class="sortable asc"` let's you [sort ascending](#ascending-sort) as default. Thanks [
+- `<table class="sortable asc">` let's you [sort ascending](#ascending-sort) by default. Thanks [
   Nikita Dunajevs](https://github.com/dunajevs)!
 
 - `data-sort-alt` in `tbody` > `td` allows for [alternative sorting](#alternative-sorting) while holding `shift` or `alt`. Thanks [wodny](https://github.com/wodny)!
@@ -55,6 +55,8 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 - [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
 
 - Thanks to [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
+
+- If you have more than one `<tbody />`, they will all be sorted. (Multiple `<thead />`s are not "allowed".) Thanks [GazHay](https://github.com/gazhay)!
 
 ## Demo
 

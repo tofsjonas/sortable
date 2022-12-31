@@ -17,7 +17,7 @@
     <h1>Demos</h1>
     Here are some basic demos for the tiny table sorter found on
     <a href="https://github.com/tofsjonas/sortable">https://github.com/tofsjonas/sortable</a>
-    <h2>The example from the readme:</h2>
+    <h2>Table with three &lt;tbody/&gt;, sorted separately:</h2>
     <table class="sortable" style="--sortable-th-bg: pink">
       <thead>
         <tr>
@@ -26,6 +26,26 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+          <td><a id="morty" href="#">Morty</a></td>
+        </tr>
+      </tbody>
+      <tbody style="font-style: italic">
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+          <td><a id="morty" href="#">Morty</a></td>
+        </tr>
+      </tbody>
+      <tbody style="font-weight: bold">
         <tr>
           <td>Genius</td>
           <td>Rick</td>

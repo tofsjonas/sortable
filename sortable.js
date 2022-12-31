@@ -1,5 +1,5 @@
 /**
- * sortable 1.5.1 (or something, I always forget to update this)
+ * sortable 1.6.0 (or something, I always forget to update this)
  *
  * Makes html tables sortable, ie9+
  *
@@ -33,11 +33,6 @@
  * For more information, please refer to <http://unlicense.org>
  *
  */
-
-// sort is super fast, even with huge tables, so that is probably not the issue
-// Not solved with documentFragment, same issue... :(
-// My guess is that it is simply too much to hold in memory, since
-// it freezes even before sortable is called if the table is too big in index.html
 
 document.addEventListener('click', function (e) {
   try {
@@ -95,32 +90,34 @@ document.addEventListener('click', function (e) {
       // Update the `th` class accordingly
       reClassify(element, dir)
 
-      // Extract all table rows
-      var org_tbody = table.tBodies[0]
+      // loop through all tbodies and sort them
+      for (var i = 0; i < table.tBodies.length; i++) {
+        const org_tbody = table.tBodies[i]
 
-      // Get the array rows in an array, so we can sort them...
-      var rows = [].slice.call(org_tbody.rows, 0)
+        // Get the array rows in an array, so we can sort them...
+        var rows = [].slice.call(org_tbody.rows, 0)
 
-      var reverse = dir === ascending_th_class
+        var reverse = dir === ascending_th_class
 
-      // Sort them using Array.prototype.sort()
-      rows.sort(function (a, b) {
-        var x = getValue((reverse ? a : b).cells[column_index])
-        var y = getValue((reverse ? b : a).cells[column_index])
-        var bool = x.length && y.length && !isNaN(x - y) ? x - y : x.localeCompare(y)
-        return bool
-      })
+        // Sort them using Array.prototype.sort()
+        rows.sort(function (a, b) {
+          var x = getValue((reverse ? a : b).cells[column_index])
+          var y = getValue((reverse ? b : a).cells[column_index])
+          var bool = x.length && y.length && !isNaN(x - y) ? x - y : x.localeCompare(y)
+          return bool
+        })
 
-      // Make a clone without content
-      var clone_tbody = org_tbody.cloneNode()
+        // Make a clone without content
+        var clone_tbody = org_tbody.cloneNode()
 
-      // Fill it with the sorted values
-      while (rows.length) {
-        clone_tbody.appendChild(rows.splice(0, 1)[0])
+        // Fill it with the sorted values
+        while (rows.length) {
+          clone_tbody.appendChild(rows.splice(0, 1)[0])
+        }
+
+        // And finally replace the unsorted table with the sorted one
+        table.replaceChild(clone_tbody, org_tbody)
       }
-
-      // And finally replace the unsorted table with the sorted one
-      table.replaceChild(clone_tbody, org_tbody)
     }
   } catch (error) {
     // console.log(error)
