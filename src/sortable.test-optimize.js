@@ -41,8 +41,6 @@ document.addEventListener('click', function (e) {
       return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag)
     }
 
-    var descending_th_class = ' dir-d '
-    var ascending_th_class = ' dir-u '
     var ascending_table_sort_class = 'asc'
     var regex_dir = / dir-(u|d) /
     var regex_table = /\bsortable\b/
@@ -50,18 +48,19 @@ document.addEventListener('click', function (e) {
     var element = findElementRecursive(e.target, 'TH')
     var tr = findElementRecursive(element, 'TR')
     var table = findElementRecursive(tr, 'TABLE')
+    var class_name = element.className
 
     function reClassify(element, dir) {
-      element.className = element.className.replace(regex_dir, '') + dir
+      element.className = class_name.replace(regex_dir, '') + dir
     }
 
     function getValue(element) {
       // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
       // comment this line and uncomment the next one
       var value =
-        (alt_sort && element.getAttribute('data-sort-alt')) || element.getAttribute('data-sort') || element.innerText
+        (alt_sort && element.getAttribute('data-sort-alt')) || element.getAttribute('data-sort') || element.textContent
       return value
-      // return element.innerText
+      // return element.textContent
     }
     if (regex_table.test(table.className)) {
       var column_index
@@ -76,19 +75,16 @@ document.addEventListener('click', function (e) {
         }
       }
 
-      var dir = descending_th_class
+      var dir_before = (regex_dir.exec(class_name) || [, 'u'])[1]
+      var dir_after = 'd'
 
       // Check if we're sorting ascending or descending
-      if (
-        element.className.indexOf(descending_th_class) !== -1 ||
-        (table.className.indexOf(ascending_table_sort_class) !== -1 &&
-          element.className.indexOf(ascending_th_class) == -1)
-      ) {
-        dir = ascending_th_class
+      if (dir_before === 'd' || (table.className.indexOf(ascending_table_sort_class) !== -1 && dir_before == 'u')) {
+        dir_after = 'u'
       }
 
       // Update the `th` class accordingly
-      reClassify(element, dir)
+      reClassify(element, ' dir-' + dir_after + ' ')
 
       // loop through all tbodies and sort them
       for (var i = 0; i < table.tBodies.length; i++) {
@@ -97,7 +93,7 @@ document.addEventListener('click', function (e) {
         // Get the array rows in an array, so we can sort them...
         var rows = [].slice.call(org_tbody.rows, 0)
 
-        var reverse = dir === ascending_th_class
+        var reverse = dir_after === 'u'
 
         // Sort them using Array.prototype.sort()
         rows.sort(function (a, b) {
