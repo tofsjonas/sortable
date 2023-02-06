@@ -1,29 +1,37 @@
-# sortable - a tiny, vanilla JS table sorter
+<h1>sortable - a tiny, vanilla JS table sorter</h1>
 
-Makes any table with **class="sortable"**, er, sortable. That is the user can click on a table header and change the sorting of the table rows.
+Makes any table with **class="sortable"**, er, sortable. The user can click on a table header and change the sorting of the table rows.
 
-Just include the JavaScript and it will work. No function calls needed, all is done with an **eventListener**.
-(the CSS is not strictly needed, but makes it ~pretty and user friendly)
+Just include the JavaScript and it will work. No function calls needed, all is done with an **eventListener**. (the CSS is not strictly needed, but makes it pretty-ish and user friendly)
 
-- [sortable - a tiny, vanilla JS table sorter](#sortable---a-tiny-vanilla-js-table-sorter)
-  - [Factoids](#factoids)
-    - [...with a little help from my friends](#with-a-little-help-from-my-friends)
-  - [Demo](#demo)
-  - [A basic example](#a-basic-example)
-  - [Non-sortable field](#non-sortable-field)
-    - [...using `class` and `css`](#using-class-and-css)
-    - [...using `css` only](#using-css-only)
-  - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
-  - [Note about css/scss](#note-about-cssscss)
-  - [Sort on value other than the one shown](#sort-on-value-other-than-the-one-shown)
-  - [Alternative sorting](#alternative-sorting)
-  - [Specify which column should be sorted](#specify-which-column-should-be-sorted)
-  - [Ascending sort](#ascending-sort)
-  - [Sort on load](#sort-on-load)
+<h2>Demo</h2>
+
+You can find a simple demo on <https://tofsjonas.github.io/sortable/>
+
+<h2>Table of Contents</h2>
+
+- [Factoids](#factoids)
+- ["Installation"](#installation)
+  - [1. link to jsDelivr](#1-link-to-jsdelivr)
+  - [2. copy file to assets folder](#2-copy-file-to-assets-folder)
+  - [3. npm package](#3-npm-package)
+    - [a) include in the html](#a-include-in-the-html)
+    - [b) import files in javascript](#b-import-files-in-javascript)
+- [Non-sortable field](#non-sortable-field)
+  - [...using `class` and `css`](#using-class-and-css)
+  - [...using `css` only](#using-css-only)
+- [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
+- [Note about css/scss](#note-about-cssscss)
+- [Sort on value other than the one shown](#sort-on-value-other-than-the-one-shown)
+- [Alternative sorting](#alternative-sorting)
+- [Specify which column should be sorted](#specify-which-column-should-be-sorted)
+- [Ascending sort](#ascending-sort)
+- [Sort on load](#sort-on-load)
+- [...with a little help from my friends](#with-a-little-help-from-my-friends)
 
 ## Factoids
 
-- **954 bytes** minified. (545 bytes gzipped) Still under 1k! 🥳
+- **954 bytes** minified. Still under 1k! 🥳 (545 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -31,7 +39,7 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 - Requires **thead** and **tbody**.
 
-- **cross browser**, ie9+ (I think, there have been a _whole_ bunch of changes since I last tested it on ie9 🤷)
+- **cross browser**, ie9+ (Probably not anymore, there have been a _whole_ bunch of changes since I last tested it on ie9 🤷)
 
 - ~~eventListeners attached to the rows _WILL_ be removed~~
 
@@ -41,28 +49,17 @@ Just include the JavaScript and it will work. No function calls needed, all is d
 
 - Works with [Svelte](https://svelte.dev/)!
 
-### ...with a little help from my friends
+## "Installation"
 
-- `<table class="sortable asc">` let's you [sort ascending](#ascending-sort) by default. Thanks [
-  Nikita Dunajevs](https://github.com/dunajevs)!
+There are three ways to use sortable, all of which have their pros and cons. [S Anand](https://github.com/sanand0) and [dkhgh](https://github.com/dkhgh) had some [interesting thoughts](https://github.com/tofsjonas/sortable/issues/28) about it.
 
-- `data-sort-alt` in `tbody` > `td` allows for [alternative sorting](#alternative-sorting) while holding `shift` or `alt`. Thanks [wodny](https://github.com/wodny)!
+1. Including a link to [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable). (easiest)
 
-- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#specify-which-column-should-be-sorted), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
+2. Copy the file from [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable) or [Github](https://github.com/tofsjonas/sortable) and put it in your assets folder. (in between)
 
-- **Nested elements** inside `th` now works. Thanks [mxve](https://github.com/mxve)!
+3. Installing the [npm package](https://www.npmjs.com/package/sortable-tablesort). (most work)
 
-- [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
-
-- Thanks to [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
-
-- If you have more than one `<tbody />`, they will all be sorted. (Multiple `<thead />`s are not "allowed".) Thanks [GazHay](https://github.com/gazhay)!
-
-## Demo
-
-You can find a simple demo on <https://tofsjonas.github.io/sortable/>
-
-## A basic example
+### 1. link to jsDelivr
 
 ```html
 <table class="sortable">
@@ -87,7 +84,51 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.js"></script>
 ```
 
-_(The `span` is just there to prove that elements inside `th` works)_
+_(The `span` on line four is just there to prove that elements inside `th` works)_
+
+### 2. copy file to assets folder
+
+Same as above, but link to your own files
+
+```html
+...
+<link href="/assets/sortable.min.css" rel="stylesheet" />
+<script src="/assets/sortable.min.js"></script>
+...
+```
+
+### 3. npm package
+
+First,
+
+```bash
+npm install sortable-tablesort
+# yarn add sortable-tablesort
+# pnpm install sortable-tablesort
+```
+
+Now you can
+
+#### a) include in the html
+
+Same as above, with files
+
+```html
+...
+<link href="./node_modules/sortable-tablesort/example.css" rel="stylesheet" />
+<script src="./node_modules/sortable-tablesort/sortable.js"></script>
+...
+```
+
+or
+
+#### b) import files in javascript
+
+```javascript
+// main.js
+import 'sortable-tablesort/sortable.min.css'
+import 'sortable-tablesort/sortable.min.js'
+```
 
 ## Non-sortable field
 
@@ -300,5 +341,22 @@ If you wish to sort a table on load, I would recommend doing something like this
 ```
 
 Combine this with `<table class="sortable asc">` to reverse the sort order. Or do `el.click()` twice!
+
+## ...with a little help from my friends
+
+- `<table class="sortable asc">` let's you [sort ascending](#ascending-sort) by default. Thanks [
+  Nikita Dunajevs](https://github.com/dunajevs)!
+
+- `data-sort-alt` in `tbody` > `td` allows for [alternative sorting](#alternative-sorting) while holding `shift` or `alt`. Thanks [wodny](https://github.com/wodny)!
+
+- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#specify-which-column-should-be-sorted), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
+
+- **Nested elements** inside `th` now works. Thanks [mxve](https://github.com/mxve)!
+
+- [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
+
+- Thanks to [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
+
+- If you have more than one `<tbody />`, they will all be sorted. (Multiple `<thead />`s are not "allowed".) Thanks [GazHay](https://github.com/gazhay)!
 
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)

@@ -42,4 +42,6 @@
 .sortable th.indicator-left.dir-u::before {
   color: inherit;
   content: "▴";
-}/*# sourceMappingURL=sortable-base.css.map */
+}
+
+/*# sourceMappingURL=sortable-base.css.map */

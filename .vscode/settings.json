@@ -1,0 +1,17 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "compressed",
+      "extensionName": ".min.css",
+      "savePath": "/",
+      "savePathReplacementPairs": null
+    },
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "/",
+      "savePathReplacementPairs": null
+    }
+  ],
+  "liveSassCompile.settings.showOutputWindowOn": "Warning"
+}
