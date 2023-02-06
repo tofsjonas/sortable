@@ -1,7 +1,10 @@
 /**
- * sortable 1.6.1 (or something, I always forget to update this)
+ * sortable
  *
- * Makes html tables sortable, ie9+ (I think. It used to be..)
+ * https://www.npmjs.com/package/sortable-tablesort
+ * https://github.com/tofsjonas/sortable
+ *
+ * Makes html tables sortable, ie9+ (At least it used to be, probably not anymore)
  *
  * Styling is done in css.
  *
