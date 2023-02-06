@@ -309,34 +309,28 @@
       tbody.innerHTML = ''
       tbody.appendChild(fragment)
     </script>
-    <!-- <script type="text/javascript" src="sortable.js"></script> -->
     <script src="sortable.js"></script>
     <script>
       function prepareAdvancedTable() {
-        function convertSizeToBytes(str) {
-          var matches = str.match(/^([0-9.]+)(\w+)$/)
-          if (matches) {
-            var vals = {
-              kB: 1, // 1024 B
-              KiB: 1, // 1024 B
-              MB: 2, // 1024 * 1024 B
-              GB: 3, // 1024 * 1024 * 1024 B
-              TB: 4, // 1024 * 1024 * 1024 *1024 B
-            }
-            return (matches[1] || 0) * Math.pow(1024, vals[matches[2]])
-          }
-          return str
-        }
-
         var size_table = document.querySelector('.advanced-table')
         var rows = size_table.tBodies[0].rows
         for (let i = 0; i < rows.length; i++) {
           const date_element = rows[i].cells[2]
           const size_element = rows[i].cells[1]
           date_element.setAttribute('data-sort', date_element.innerText.replace(/(\d+)\/(\d+)\/(\d+)/, '$3$1$2'))
-          size_element.setAttribute('data-sort', convertSizeToBytes(size_element.innerText))
+          size_element.setAttribute('data-sort', toBytes(size_element.innerText))
         }
       }
+
+      function toBytes(size) {
+        const units = [, 'k', 'm', 'g', 't']
+        const match = size.match(/(\d+\.\d+|\d+)\s*([kmgt]b?)/i)
+        if (!match) return parseFloat(size)
+        const [value, unit] = match.slice(1)
+        const index = units.indexOf(unit.toLowerCase())
+        return Math.round(parseFloat(value) * Math.pow(1024, index))
+      }
+
       prepareAdvancedTable()
     </script>
   </body>
