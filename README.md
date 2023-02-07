@@ -31,7 +31,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **956 bytes** minified. Still under 1k! 🥳 (545 bytes gzipped)
+- **969 bytes** minified. Still under 1k! 🥳 (549 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -80,8 +80,8 @@ There are three ways to use sortable, all of which have their pros and cons. [S 
     </tr>
   </tbody>
 </table>
-<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.js"></script>
 ```
 
 _(The `span` on line four is just there to prove that elements inside `th` works)_
@@ -115,8 +115,8 @@ Same as above, with files
 
 ```html
 ...
-<link href="./node_modules/sortable-tablesort/example.css" rel="stylesheet" />
-<script src="./node_modules/sortable-tablesort/sortable.js"></script>
+<link href="./node_modules/sortable-tablesort/example.min.css" rel="stylesheet" />
+<script src="./node_modules/sortable-tablesort/sortable.min.js"></script>
 ...
 ```
 
@@ -186,7 +186,7 @@ This is solved by adding a class to the css and using `::before` instead of `::a
 /* etc. */
 ```
 
-> _Full example: [CSS](https://github.com/tofsjonas/sortable/blob/main/sortable-base.css), [SCSS](https://github.com/tofsjonas/sortable/blob/main/sortable-base.scss)_
+> _Full example: [CSS](https://github.com/tofsjonas/sortable/blob/main/sortable-base.css), [SCSS](https://github.com/tofsjonas/sortable/blob/main/src/sortable-base.scss)_
 
 ## Note about css/scss
 
@@ -196,10 +196,10 @@ That said, if you're feeling lazy, here are two stylesheets you can use:
 
 ```html
 <!-- This will add arrows only -->
-<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable-base.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable-base.min.css" rel="stylesheet" />
 
 <!-- This will make it look like the tables in the example, with arrows, striped rows etc. -->
-<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.css" rel="stylesheet" />
 ```
 
 ## Sort on value other than the one shown

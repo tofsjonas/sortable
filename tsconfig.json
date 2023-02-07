@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": ".",
+    "sourceMap": false,
+    "strict": false,
+    "target": "ES5",
+    "allowSyntheticDefaultImports": true
+  },
+  "compileOnSave": true,
+  "include": ["src/sortable.ts"],
+  "exclude": ["node_modules", "**/node_modules/*"]
+}

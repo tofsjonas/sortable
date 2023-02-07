@@ -5,7 +5,7 @@ import { JSDOM } from 'jsdom'
 import fs from 'fs'
 import path from 'path'
 
-const js = fs.readFileSync(path.resolve(__dirname, './sortable.js'), 'utf8')
+const js = fs.readFileSync(path.resolve(__dirname, '../sortable.min.js'), 'utf8')
 const html = fs
   .readFileSync(path.resolve(__dirname, './sortable.test.html'), 'utf8')
   .replace('<script src="./sortable.js"></script>', `<script>${js}</script>`)
@@ -30,18 +30,15 @@ describe('sortable.test.html', () => {
     expect(h1).toBeInTheDocument()
   })
 
-  it('renders ths and tds', () => {
+  it('renders table headers and cells', () => {
     const th = getByRole(container, 'columnheader', { name: /Name/i })
     expect(th).toBeInTheDocument()
-
-    // > getByRole('columnheader', { name: /name/i })
-
     const tds = getAllByRole(container, 'cell')
     expect(tds[0]).toBeInTheDocument()
     expect(tds[1]).toBeInTheDocument()
   })
 
-  it('sorts the table', async () => {
+  it('sorts the table on click', async () => {
     const th = getByRole(container, 'columnheader', { name: /Name/i })
 
     const first = getAllByRole(container, 'cell')[1].textContent

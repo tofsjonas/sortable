@@ -37,49 +37,49 @@
  *
  */
 
-document.addEventListener('click', function (e) {
+document.addEventListener('click', function (e: MouseEvent) {
   try {
     // allows for elements inside TH
-    function findElementRecursive(element, tag) {
+    function findElementRecursive(element: ParentNode, tag: string) {
       return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag)
     }
 
-    var descending_th_class = ' dir-d '
-    var ascending_th_class = ' dir-u '
-    var ascending_table_sort_class = 'asc'
-    var regex_dir = / dir-(u|d) /
-    var regex_table = /\bsortable\b/
-    var alt_sort = e.shiftKey || e.altKey
-    var element = findElementRecursive(e.target, 'TH')
-    var tr = findElementRecursive(element, 'TR')
-    var table = findElementRecursive(tr, 'TABLE')
+    const descending_th_class = ' dir-d '
+    const ascending_th_class = ' dir-u '
+    const ascending_table_sort_class = 'asc'
+    const regex_dir = / dir-(u|d) /
+    const regex_table = /\bsortable\b/
+    const alt_sort = e.shiftKey || e.altKey
+    const element: HTMLTableCellElement = findElementRecursive(e.target as HTMLElement, 'TH')
+    const tr: HTMLTableRowElement = findElementRecursive(element, 'TR')
+    const table: HTMLTableElement = findElementRecursive(tr, 'TABLE')
 
-    function reClassify(element, dir) {
+    function reClassify(element: HTMLElement, dir: string) {
       element.className = element.className.replace(regex_dir, '') + dir
     }
 
-    function getValue(element) {
+    function getValue(element: HTMLTableCellElement) {
       // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
       // comment this line and uncomment the next one
-      var value =
+      const value =
         (alt_sort && element.getAttribute('data-sort-alt')) || element.getAttribute('data-sort') || element.textContent
       return value
       // return element.textContent
     }
     if (regex_table.test(table.className)) {
-      var column_index
-      var nodes = tr.cells
+      let column_index: number
+      const nodes = tr.cells
 
       // Reset thead cells and get column index
-      for (var i = 0; i < nodes.length; i++) {
+      for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === element) {
-          column_index = element.getAttribute('data-sort-col') || i
+          column_index = parseInt(element.getAttribute('data-sort-col')) || i
         } else {
           reClassify(nodes[i], '')
         }
       }
 
-      var dir = descending_th_class
+      let dir = descending_th_class
 
       // Check if we're sorting ascending or descending
       if (
@@ -92,26 +92,27 @@ document.addEventListener('click', function (e) {
 
       // Update the `th` class accordingly
       reClassify(element, dir)
+      const reverse = dir === ascending_th_class
 
       // loop through all tbodies and sort them
-      for (var i = 0; i < table.tBodies.length; i++) {
-        const org_tbody = table.tBodies[i]
+      for (let i = 0; i < table.tBodies.length; i++) {
+        const org_tbody: HTMLTableSectionElement = table.tBodies[i]
 
         // Get the array rows in an array, so we can sort them...
-        var rows = [].slice.call(org_tbody.rows, 0)
-
-        var reverse = dir === ascending_th_class
+        const rows: HTMLTableRowElement[] = [].slice.call(org_tbody.rows, 0)
 
         // Sort them using Array.prototype.sort()
-        rows.sort(function (a, b) {
-          var x = getValue((reverse ? a : b).cells[column_index])
-          var y = getValue((reverse ? b : a).cells[column_index])
-          var bool = x.length && y.length && !isNaN(x - y) ? x - y : x.localeCompare(y)
+        rows.sort(function (a: HTMLTableRowElement, b: HTMLTableRowElement) {
+          const x = getValue((reverse ? a : b).cells[column_index])
+          const y = getValue((reverse ? b : a).cells[column_index])
+          const temp = parseInt(x) - parseInt(y)
+          const bool = !isNaN(temp) ? temp : x.localeCompare(y)
+
           return bool
         })
 
         // Make a clone without content
-        var clone_tbody = org_tbody.cloneNode()
+        const clone_tbody = org_tbody.cloneNode()
 
         // Fill it with the sorted values
         while (rows.length) {
