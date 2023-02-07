@@ -30,7 +30,10 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
+
+      - name: Run linters
+        run: npm run lint
 
       # - name: Set up Node.js
       #   uses: actions/setup-node@v1
@@ -41,8 +44,8 @@ jobs:
       # - name: Install Node.js dependencies
       #   run: npm ci
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          prettier: true
+      # - name: Run linters
+      #   uses: wearerequired/lint-action@v2
+      #   with:
+      #     eslint: true
+      #     prettier: true
