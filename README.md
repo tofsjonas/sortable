@@ -115,8 +115,8 @@ Same as above, with files
 
 ```html
 ...
-<link href="./node_modules/sortable-tablesort/example.css" rel="stylesheet" />
-<script src="./node_modules/sortable-tablesort/sortable.js"></script>
+<link href="./node_modules/sortable-tablesort/example.min.css" rel="stylesheet" />
+<script src="./node_modules/sortable-tablesort/sortable.min.js"></script>
 ...
 ```
 
