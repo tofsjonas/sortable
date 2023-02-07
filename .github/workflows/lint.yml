@@ -30,8 +30,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        working-directory: ${{env.working-directory}}
-        run: pnpm install && npm run build
+        run: pnpm install
 
       # - name: Set up Node.js
       #   uses: actions/setup-node@v1
