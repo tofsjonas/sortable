@@ -31,7 +31,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{env.working-directory}}
-        run: npm run build
+        run: pnpm install && npm run build
 
       # - name: Set up Node.js
       #   uses: actions/setup-node@v1
