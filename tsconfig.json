@@ -10,6 +10,6 @@
     "allowSyntheticDefaultImports": true
   },
   "compileOnSave": true,
-  "include": ["src/*.ts"],
+  "include": ["src/sortable.ts"],
   "exclude": ["node_modules", "**/node_modules/*"]
 }
