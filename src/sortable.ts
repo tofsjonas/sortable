@@ -105,9 +105,8 @@ document.addEventListener('click', function (e: MouseEvent) {
         rows.sort(function (a: HTMLTableRowElement, b: HTMLTableRowElement) {
           const x = getValue((reverse ? a : b).cells[column_index])
           const y = getValue((reverse ? b : a).cells[column_index])
-          const temp = parseInt(x) - parseInt(y)
+          const temp = parseFloat(x) - parseFloat(y)
           const bool = !isNaN(temp) ? temp : x.localeCompare(y)
-
           return bool
         })
 

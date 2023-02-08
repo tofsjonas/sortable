@@ -92,7 +92,7 @@ document.addEventListener('click', function (e) {
                 rows.sort(function (a, b) {
                     var x = getValue((reverse_1 ? a : b).cells[column_index_1]);
                     var y = getValue((reverse_1 ? b : a).cells[column_index_1]);
-                    var temp = parseInt(x) - parseInt(y);
+                    var temp = parseFloat(x) - parseFloat(y);
                     var bool = !isNaN(temp) ? temp : x.localeCompare(y);
                     return bool;
                 });
