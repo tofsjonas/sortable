@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Just testing some table sorting." />
     <title>sortable - the example page</title>
-    <!-- <link rel="stylesheet" type="text/css" href="sortable-base.css" />
-    <link rel="stylesheet" type="text/css" href="sortable.css" /> -->
     <link rel="stylesheet" type="text/css" href="example.css" />
   </head>
   <style></style>
@@ -42,7 +40,7 @@
         </tr>
         <tr>
           <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
-          <td><a id="morty" href="#">Morty</a></td>
+          <td>Morty</td>
         </tr>
       </tbody>
       <tbody style="font-weight: bold">
@@ -52,7 +50,7 @@
         </tr>
         <tr>
           <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
-          <td><a id="morty" href="#">Morty</a></td>
+          <td>Morty</td>
         </tr>
       </tbody>
     </table>
@@ -112,13 +110,13 @@
       <tbody>
         <tr>
           <td>The Sound of Music</td>
-          <td>1.5GB</td>
-          <td>12/09/1965</td>
+          <td data-sort="1610612736">1.5GB</td>
+          <td data-sort="19651209">12/09/1965</td>
         </tr>
         <tr>
           <td>Zack Snyder's Justice League</td>
-          <td>900MB</td>
-          <td>03/18/2021</td>
+          <td data-sort="943718400">900MB</td>
+          <td data-sort="20210318">03/18/2021</td>
         </tr>
       </tbody>
     </table>
@@ -309,7 +307,7 @@
       tbody.innerHTML = ''
       tbody.appendChild(fragment)
     </script>
-    <script src="sortable.min.js"></script>
+    <script src="sortable.js"></script>
     <script>
       function prepareAdvancedTable() {
         var size_table = document.querySelector('.advanced-table')
@@ -324,13 +322,12 @@
 
       function toBytes(size) {
         const units = [, 'k', 'm', 'g', 't']
-        const match = size.match(/(\d+\.\d+|\d+)\s*([kmgt]b?)/i)
+        const match = size.match(/(\d+\.\d+|\d+)\s*([kmgt])b?/i)
         if (!match) return parseFloat(size)
         const [value, unit] = match.slice(1)
         const index = units.indexOf(unit.toLowerCase())
         return Math.round(parseFloat(value) * Math.pow(1024, index))
       }
-
       prepareAdvancedTable()
     </script>
   </body>

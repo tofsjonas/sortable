@@ -1,14 +1,16 @@
 name: Lint and Test
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
   push:
     branches:
       - main
+    paths:
+      - 'sortable.min.js'
   pull_request:
     branches:
       - main
+    paths:
+      - 'sortable.min.js'
 
 jobs:
   run-linters-and-tests:
