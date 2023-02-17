@@ -106,7 +106,7 @@ document.addEventListener('click', function (e: MouseEvent) {
           const x = getValue((reverse ? a : b).cells[column_index])
           const y = getValue((reverse ? b : a).cells[column_index])
           const temp = parseFloat(x) - parseFloat(y)
-          const bool = !isNaN(temp) ? temp : x.localeCompare(y)
+          const bool = isNaN(temp) ? x.localeCompare(y) : temp
           return bool
         })
 

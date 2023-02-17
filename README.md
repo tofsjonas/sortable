@@ -22,9 +22,9 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
   - [...using `css` only](#using-css-only)
 - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
 - [Note about css/scss](#note-about-cssscss)
-- [Sort on value other than the one shown](#sort-on-value-other-than-the-one-shown)
+- [Sorting dates, sizes and such](#sorting-dates-sizes-and-such)
 - [Alternative sorting](#alternative-sorting)
-- [Specify which column should be sorted](#specify-which-column-should-be-sorted)
+- [Sort on specific column](#sort-on-specific-column)
 - [Ascending sort](#ascending-sort)
 - [Sort on load](#sort-on-load)
 - [...with a little help from my friends](#with-a-little-help-from-my-friends)
@@ -115,7 +115,7 @@ Same as above, with files
 
 ```html
 ...
-<link href="./node_modules/sortable-tablesort/example.min.css" rel="stylesheet" />
+<link href="./node_modules/sortable-tablesort/sortable.min.css" rel="stylesheet" />
 <script src="./node_modules/sortable-tablesort/sortable.min.js"></script>
 ...
 ```
@@ -195,17 +195,16 @@ The `css/scss` in this repo was only ever meant as an example. It was never inte
 That said, if you're feeling lazy, here are two stylesheets you can use:
 
 ```html
-<!-- This will add arrows only -->
+<!-- This will add arrows, as well as support for .no-sort and .indicator-left -->
 <link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable-base.min.css" rel="stylesheet" />
 
 <!-- This will make it look like the tables in the example, with arrows, striped rows etc. -->
 <link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.css" rel="stylesheet" />
 ```
 
-## Sort on value other than the one shown
+## Sorting dates, sizes and such
 
-Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value.
-This is useful in case you have for instance sizes like kb, Mb, GB, etc.
+Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value. This is useful in case you have for instance sizes like kb, Mb, GB, or just really weird dates/other (feet, inches, stone, yards, miles, etc.). 😉
 
 ```html
 <table class="sortable">
@@ -262,7 +261,7 @@ If you click on a table header while holding **shift** or **alt** an alternative
 </table>
 ```
 
-## Specify which column should be sorted
+## Sort on specific column
 
 Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a different column than the one that was clicked. For instance if you want to have colspans. Like so:
 
@@ -349,7 +348,7 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - `data-sort-alt` in `tbody` > `td` allows for [alternative sorting](#alternative-sorting) while holding `shift` or `alt`. Thanks [wodny](https://github.com/wodny)!
 
-- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#specify-which-column-should-be-sorted), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
+- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#sort-on-specific-column), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
 
 - **Nested elements** inside `th` now works. Thanks [mxve](https://github.com/mxve)!
 

@@ -93,7 +93,7 @@ document.addEventListener('click', function (e) {
                     var x = getValue((reverse_1 ? a : b).cells[column_index_1]);
                     var y = getValue((reverse_1 ? b : a).cells[column_index_1]);
                     var temp = parseFloat(x) - parseFloat(y);
-                    var bool = !isNaN(temp) ? temp : x.localeCompare(y);
+                    var bool = isNaN(temp) ? x.localeCompare(y) : temp;
                     return bool;
                 });
                 // Make a clone without content
