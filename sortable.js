@@ -57,7 +57,7 @@ document.addEventListener('click', function (e) {
         function getValue(element) {
             // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
             // comment this line and uncomment the next one
-            var value = (alt_sort_1 && element.getAttribute('data-sort-alt')) || element.getAttribute('data-sort') || element.textContent;
+            var value = (alt_sort_1 && element.dataset['sort-alt']) || element.dataset['sort'] || element.textContent;
             return value;
             // return element.textContent
         }
@@ -67,7 +67,7 @@ document.addEventListener('click', function (e) {
             // Reset thead cells and get column index
             for (var i = 0; i < nodes.length; i++) {
                 if (nodes[i] === element) {
-                    column_index_1 = parseInt(element.getAttribute('data-sort-col')) || i;
+                    column_index_1 = parseInt(element.dataset['sort-col']) || i;
                 }
                 else {
                     reClassify(nodes[i], '');

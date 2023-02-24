@@ -47,8 +47,10 @@ document.addEventListener('click', function (e: MouseEvent) {
     const descending_th_class = ' dir-d '
     const ascending_th_class = ' dir-u '
     const ascending_table_sort_class = 'asc'
+
     const regex_dir = / dir-(u|d) /
     const regex_table = /\bsortable\b/
+
     const alt_sort = e.shiftKey || e.altKey
     const element: HTMLTableCellElement = findElementRecursive(e.target as HTMLElement, 'TH')
     const tr: HTMLTableRowElement = findElementRecursive(element, 'TR')
@@ -61,8 +63,7 @@ document.addEventListener('click', function (e: MouseEvent) {
     function getValue(element: HTMLTableCellElement) {
       // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
       // comment this line and uncomment the next one
-      const value =
-        (alt_sort && element.getAttribute('data-sort-alt')) || element.getAttribute('data-sort') || element.textContent
+      const value = (alt_sort && element.dataset['sort-alt']) || element.dataset['sort'] || element.textContent
       return value
       // return element.textContent
     }
@@ -73,7 +74,7 @@ document.addEventListener('click', function (e: MouseEvent) {
       // Reset thead cells and get column index
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === element) {
-          column_index = parseInt(element.getAttribute('data-sort-col')) || i
+          column_index = parseInt(element.dataset['sort-col']) || i
         } else {
           reClassify(nodes[i], '')
         }
