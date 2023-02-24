@@ -4,7 +4,7 @@
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
  *
- * Makes html tables sortable, ie9+ (At least it used to be, probably not anymore)
+ * Makes html tables sortable, No longer ie9+ 😢
  *
  * Styling is done in css.
  *
@@ -42,51 +42,49 @@ document.addEventListener('click', function (e) {
         function findElementRecursive(element, tag) {
             return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag);
         }
-        var descending_th_class = ' dir-d ';
-        var ascending_th_class = ' dir-u ';
+        var descending_th_class_1 = 'dir-d';
+        var ascending_th_class_1 = 'dir-u';
         var ascending_table_sort_class = 'asc';
-        var regex_dir_1 = / dir-(u|d) /;
-        var regex_table = /\bsortable\b/;
+        var table_class_name = 'sortable';
         var alt_sort_1 = e.shiftKey || e.altKey;
         var element = findElementRecursive(e.target, 'TH');
         var tr = findElementRecursive(element, 'TR');
         var table = findElementRecursive(tr, 'TABLE');
         function reClassify(element, dir) {
-            element.className = element.className.replace(regex_dir_1, '') + dir;
+            element.classList.remove(descending_th_class_1);
+            element.classList.remove(ascending_th_class_1);
+            if (dir)
+                element.classList.add(dir);
         }
         function getValue(element) {
-            // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
-            // comment this line and uncomment the next one
-            var value = (alt_sort_1 && element.getAttribute('data-sort-alt')) || element.getAttribute('data-sort') || element.textContent;
+            var value = (alt_sort_1 && element.dataset['sort-alt']) || element.dataset['sort'] || element.textContent;
             return value;
-            // return element.textContent
         }
-        if (regex_table.test(table.className)) {
+        if (table.classList.contains(table_class_name)) {
             var column_index_1;
             var nodes = tr.cells;
             // Reset thead cells and get column index
             for (var i = 0; i < nodes.length; i++) {
                 if (nodes[i] === element) {
-                    column_index_1 = parseInt(element.getAttribute('data-sort-col')) || i;
+                    column_index_1 = parseInt(element.dataset['sort-col']) || i;
                 }
                 else {
                     reClassify(nodes[i], '');
                 }
             }
-            var dir = descending_th_class;
+            var dir = descending_th_class_1;
             // Check if we're sorting ascending or descending
-            if (element.className.indexOf(descending_th_class) !== -1 ||
-                (table.className.indexOf(ascending_table_sort_class) !== -1 &&
-                    element.className.indexOf(ascending_th_class) == -1)) {
-                dir = ascending_th_class;
+            if (element.classList.contains(descending_th_class_1) ||
+                (table.classList.contains(ascending_table_sort_class) && !element.classList.contains(ascending_th_class_1))) {
+                dir = ascending_th_class_1;
             }
             // Update the `th` class accordingly
             reClassify(element, dir);
-            var reverse_1 = dir === ascending_th_class;
+            var reverse_1 = dir === ascending_th_class_1;
             // loop through all tbodies and sort them
             for (var i = 0; i < table.tBodies.length; i++) {
                 var org_tbody = table.tBodies[i];
-                // Get the array rows in an array, so we can sort them...
+                // Put the array rows in an array, so we can sort them...
                 var rows = [].slice.call(org_tbody.rows, 0);
                 // Sort them using Array.prototype.sort()
                 rows.sort(function (a, b) {
@@ -96,9 +94,9 @@ document.addEventListener('click', function (e) {
                     var bool = isNaN(temp) ? x.localeCompare(y) : temp;
                     return bool;
                 });
-                // Make a clone without content
+                // Make an empty clone
                 var clone_tbody = org_tbody.cloneNode();
-                // Fill it with the sorted values
+                // Fill the clone with the sorted rows
                 while (rows.length) {
                     clone_tbody.appendChild(rows.splice(0, 1)[0]);
                 }

@@ -31,7 +31,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **973 bytes** minified. Still under 1k! Barely, but still! 🥳 (550 bytes gzipped)
+- **942 bytes** minified. 🥳 (532 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -39,7 +39,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 - Requires **thead** and **tbody**.
 
-- **cross browser**, ie9+ (Probably not anymore, there have been a _whole_ bunch of changes since I last tested it on ie9 🤷)
+- **cross browser**, ~~ie9+~~ No longer ie9 compatible. Then again, maybe it already wasn't 🤷
 
 - ~~eventListeners attached to the rows _WILL_ be removed~~
 

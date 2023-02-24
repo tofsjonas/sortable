@@ -4,7 +4,7 @@
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
  *
- * Makes html tables sortable, ie9+ (At least it used to be, probably not anymore)
+ * Makes html tables sortable, No longer ie9+ 😢
  *
  * Styling is done in css.
  *
@@ -44,36 +44,36 @@ document.addEventListener('click', function (e: MouseEvent) {
       return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag)
     }
 
-    const descending_th_class = ' dir-d '
-    const ascending_th_class = ' dir-u '
+    const descending_th_class = 'dir-d'
+    const ascending_th_class = 'dir-u'
     const ascending_table_sort_class = 'asc'
-    const regex_dir = / dir-(u|d) /
-    const regex_table = /\bsortable\b/
+
+    const table_class_name = 'sortable'
+
     const alt_sort = e.shiftKey || e.altKey
     const element: HTMLTableCellElement = findElementRecursive(e.target as HTMLElement, 'TH')
     const tr: HTMLTableRowElement = findElementRecursive(element, 'TR')
     const table: HTMLTableElement = findElementRecursive(tr, 'TABLE')
 
     function reClassify(element: HTMLElement, dir: string) {
-      element.className = element.className.replace(regex_dir, '') + dir
+      element.classList.remove(descending_th_class)
+      element.classList.remove(ascending_th_class)
+      if (dir) element.classList.add(dir)
     }
 
     function getValue(element: HTMLTableCellElement) {
-      // If you aren't using data-sort and want to make it just the tiniest bit smaller/faster
-      // comment this line and uncomment the next one
-      const value =
-        (alt_sort && element.getAttribute('data-sort-alt')) || element.getAttribute('data-sort') || element.textContent
+      const value = (alt_sort && element.dataset['sort-alt']) || element.dataset['sort'] || element.textContent
       return value
-      // return element.textContent
     }
-    if (regex_table.test(table.className)) {
+
+    if (table.classList.contains(table_class_name)) {
       let column_index: number
       const nodes = tr.cells
 
       // Reset thead cells and get column index
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === element) {
-          column_index = parseInt(element.getAttribute('data-sort-col')) || i
+          column_index = parseInt(element.dataset['sort-col']) || i
         } else {
           reClassify(nodes[i], '')
         }
@@ -83,9 +83,8 @@ document.addEventListener('click', function (e: MouseEvent) {
 
       // Check if we're sorting ascending or descending
       if (
-        element.className.indexOf(descending_th_class) !== -1 ||
-        (table.className.indexOf(ascending_table_sort_class) !== -1 &&
-          element.className.indexOf(ascending_th_class) == -1)
+        element.classList.contains(descending_th_class) ||
+        (table.classList.contains(ascending_table_sort_class) && !element.classList.contains(ascending_th_class))
       ) {
         dir = ascending_th_class
       }
@@ -98,7 +97,7 @@ document.addEventListener('click', function (e: MouseEvent) {
       for (let i = 0; i < table.tBodies.length; i++) {
         const org_tbody: HTMLTableSectionElement = table.tBodies[i]
 
-        // Get the array rows in an array, so we can sort them...
+        // Put the array rows in an array, so we can sort them...
         const rows: HTMLTableRowElement[] = [].slice.call(org_tbody.rows, 0)
 
         // Sort them using Array.prototype.sort()
@@ -110,10 +109,10 @@ document.addEventListener('click', function (e: MouseEvent) {
           return bool
         })
 
-        // Make a clone without content
+        // Make an empty clone
         const clone_tbody = org_tbody.cloneNode()
 
-        // Fill it with the sorted values
+        // Fill the clone with the sorted rows
         while (rows.length) {
           clone_tbody.appendChild(rows.splice(0, 1)[0])
         }
