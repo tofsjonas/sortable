@@ -66,7 +66,7 @@ document.addEventListener('click', function (e) {
             // Reset thead cells and get column index
             for (var i = 0; i < nodes.length; i++) {
                 if (nodes[i] === element) {
-                    column_index_1 = parseInt(element.dataset['sort-col']) || i;
+                    column_index_1 = parseInt(element.dataset['sortCol']) || i;
                 }
                 else {
                     reClassify(nodes[i], '');
