@@ -8,7 +8,7 @@ import path from 'path'
 const js = fs.readFileSync(path.resolve(__dirname, '../sortable.min.js'), 'utf8')
 const html = fs
   .readFileSync(path.resolve(__dirname, './sortable.test.html'), 'utf8')
-  .replace('<script src="./sortable.js"></script>', `<script>${js}</script>`)
+  .replace('<script src="../sortable.js"></script>', `<script>${js}</script>`)
 
 let dom
 let container

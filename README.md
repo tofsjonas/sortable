@@ -24,14 +24,14 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 - [Note about css/scss](#note-about-cssscss)
 - [Sorting dates, sizes and such](#sorting-dates-sizes-and-such)
 - [Alternative sorting](#alternative-sorting)
-- [Sort on specific column](#sort-on-specific-column)
+- [Colspans/Sort on specific column](#colspanssort-on-specific-column)
 - [Ascending sort](#ascending-sort)
 - [Sort on load](#sort-on-load)
 - [...with a little help from my friends](#with-a-little-help-from-my-friends)
 
 ## Factoids
 
-- **942 bytes** minified. 🥳 (532 bytes gzipped)
+- **934 bytes** minified. 🥳 (526 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -261,7 +261,7 @@ If you click on a table header while holding **shift** or **alt** an alternative
 </table>
 ```
 
-## Sort on specific column
+## Colspans/Sort on specific column
 
 Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a different column than the one that was clicked. For instance if you want to have colspans. Like so:
 
@@ -348,7 +348,7 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - `data-sort-alt` in `tbody` > `td` allows for [alternative sorting](#alternative-sorting) while holding `shift` or `alt`. Thanks [wodny](https://github.com/wodny)!
 
-- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#sort-on-specific-column), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
+- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#colspanssort-on-specific-column), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
 
 - **Nested elements** inside `th` now works. Thanks [mxve](https://github.com/mxve)!
 

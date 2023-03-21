@@ -62,7 +62,7 @@ document.addEventListener('click', function (e: MouseEvent) {
     }
 
     function getValue(element: HTMLTableCellElement) {
-      const value = (alt_sort && element.dataset['sort-alt']) || element.dataset['sort'] || element.textContent
+      const value = (alt_sort && element.dataset.sortAlt) || element.dataset.sort || element.textContent
       return value
     }
 
@@ -73,7 +73,7 @@ document.addEventListener('click', function (e: MouseEvent) {
       // Reset thead cells and get column index
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === element) {
-          column_index = parseInt(element.dataset['sortCol']) || i
+          column_index = parseInt(element.dataset.sortCol) || i
         } else {
           reClassify(nodes[i], '')
         }

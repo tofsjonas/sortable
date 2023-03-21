@@ -5,10 +5,10 @@ import fs from 'fs'
 import { JSDOM } from 'jsdom'
 import path from 'path'
 
-const js = fs.readFileSync(path.resolve(__dirname, '../sortable.min.js'), 'utf8')
+const js = fs.readFileSync(path.resolve(__dirname, '../sortable.js'), 'utf8')
 const html = fs
   .readFileSync(path.resolve(__dirname, './sortable-sort-cols.test.html'), 'utf8')
-  .replace('<script src="./sortable.js"></script>', `<script>${js}</script>`)
+  .replace('<script src="../sortable.js"></script>', `<script>${js}</script>`)
 
 let dom
 let container
@@ -47,7 +47,6 @@ describe('sortable-sort-cols.test.html', () => {
     const middle = getAllByRole(container, 'cell')[2].textContent
     fireEvent.click(th)
     const last = getAllByRole(container, 'cell')[2].textContent
-
     expect(first).toBe('BB')
     expect(middle).toBe('CCC')
     expect(last).toBe('A')

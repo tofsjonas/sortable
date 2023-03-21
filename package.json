@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "scripts": {
     "dev": "tsc -w",
@@ -29,21 +29,21 @@
   "author": "Jonas Earendel",
   "license": "Unlicense",
   "devDependencies": {
-    "@babel/core": "^7.21.0",
+    "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
-    "@testing-library/dom": "^9.0.0",
+    "@testing-library/dom": "^9.0.1",
     "@testing-library/jest-dom": "^5.16.5",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "babel-jest": "^29.4.3",
-    "eslint": "^8.34.0",
-    "eslint-config-prettier": "^8.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "babel-jest": "^29.5.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "google-closure-compiler": "^20230206.0.0",
-    "jest": "^29.4.3",
-    "jsdom": "^21.1.0",
-    "prettier": "^2.8.4",
-    "sass": "^1.58.3",
+    "jest": "^29.5.0",
+    "jsdom": "^21.1.1",
+    "prettier": "^2.8.6",
+    "sass": "^1.59.3",
     "typescript": "^4.9.5"
   }
 }

@@ -57,7 +57,7 @@ document.addEventListener('click', function (e) {
                 element.classList.add(dir);
         }
         function getValue(element) {
-            var value = (alt_sort_1 && element.dataset['sort-alt']) || element.dataset['sort'] || element.textContent;
+            var value = (alt_sort_1 && element.dataset.sortAlt) || element.dataset.sort || element.textContent;
             return value;
         }
         if (table.classList.contains(table_class_name)) {
@@ -66,7 +66,7 @@ document.addEventListener('click', function (e) {
             // Reset thead cells and get column index
             for (var i = 0; i < nodes.length; i++) {
                 if (nodes[i] === element) {
-                    column_index_1 = parseInt(element.dataset['sortCol']) || i;
+                    column_index_1 = parseInt(element.dataset.sortCol) || i;
                 }
                 else {
                     reClassify(nodes[i], '');
