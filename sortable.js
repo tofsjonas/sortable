@@ -63,6 +63,7 @@ document.addEventListener('click', function (e) {
         if (table.classList.contains(table_class_name)) {
             var column_index_1;
             var nodes = tr.cells;
+            var tiebreaker_1 = parseInt(element.dataset.sortTbr);
             // Reset thead cells and get column index
             for (var i = 0; i < nodes.length; i++) {
                 if (nodes[i] === element) {
@@ -81,18 +82,21 @@ document.addEventListener('click', function (e) {
             // Update the `th` class accordingly
             reClassify(element, dir);
             var reverse_1 = dir === ascending_th_class_1;
+            var compare_1 = function (a, b, index) {
+                var x = getValue((reverse_1 ? a : b).cells[index]);
+                var y = getValue((reverse_1 ? b : a).cells[index]);
+                var temp = parseFloat(x) - parseFloat(y);
+                var bool = isNaN(temp) ? x.localeCompare(y) : temp;
+                return bool;
+            };
             // loop through all tbodies and sort them
             for (var i = 0; i < table.tBodies.length; i++) {
                 var org_tbody = table.tBodies[i];
                 // Put the array rows in an array, so we can sort them...
                 var rows = [].slice.call(org_tbody.rows, 0);
-                // Sort them using Array.prototype.sort()
                 rows.sort(function (a, b) {
-                    var x = getValue((reverse_1 ? a : b).cells[column_index_1]);
-                    var y = getValue((reverse_1 ? b : a).cells[column_index_1]);
-                    var temp = parseFloat(x) - parseFloat(y);
-                    var bool = isNaN(temp) ? x.localeCompare(y) : temp;
-                    return bool;
+                    var bool = compare_1(a, b, column_index_1);
+                    return bool === 0 && tiebreaker_1 ? compare_1(a, b, tiebreaker_1) : bool;
                 });
                 // Make an empty clone
                 var clone_tbody = org_tbody.cloneNode();

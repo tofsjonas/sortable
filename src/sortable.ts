@@ -69,6 +69,7 @@ document.addEventListener('click', function (e: MouseEvent) {
     if (table.classList.contains(table_class_name)) {
       let column_index: number
       const nodes = tr.cells
+      const tiebreaker = parseInt(element.dataset.sortTbr)
 
       // Reset thead cells and get column index
       for (let i = 0; i < nodes.length; i++) {
@@ -93,6 +94,14 @@ document.addEventListener('click', function (e: MouseEvent) {
       reClassify(element, dir)
       const reverse = dir === ascending_th_class
 
+      const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement, index: number) => {
+        const x = getValue((reverse ? a : b).cells[index])
+        const y = getValue((reverse ? b : a).cells[index])
+        const temp = parseFloat(x) - parseFloat(y)
+        const bool = isNaN(temp) ? x.localeCompare(y) : temp
+        return bool
+      }
+
       // loop through all tbodies and sort them
       for (let i = 0; i < table.tBodies.length; i++) {
         const org_tbody: HTMLTableSectionElement = table.tBodies[i]
@@ -100,13 +109,9 @@ document.addEventListener('click', function (e: MouseEvent) {
         // Put the array rows in an array, so we can sort them...
         const rows: HTMLTableRowElement[] = [].slice.call(org_tbody.rows, 0)
 
-        // Sort them using Array.prototype.sort()
         rows.sort(function (a: HTMLTableRowElement, b: HTMLTableRowElement) {
-          const x = getValue((reverse ? a : b).cells[column_index])
-          const y = getValue((reverse ? b : a).cells[column_index])
-          const temp = parseFloat(x) - parseFloat(y)
-          const bool = isNaN(temp) ? x.localeCompare(y) : temp
-          return bool
+          const bool = compare(a, b, column_index)
+          return bool === 0 && tiebreaker ? compare(a, b, tiebreaker) : bool
         })
 
         // Make an empty clone
