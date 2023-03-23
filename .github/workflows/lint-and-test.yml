@@ -39,3 +39,6 @@ jobs:
 
       - name: Run tests
         run: npm run test
+
+      - name: Build, just in case
+        run: npm run build

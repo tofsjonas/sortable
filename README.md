@@ -26,12 +26,13 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 - [Alternative sorting](#alternative-sorting)
 - [Colspans/Sort on specific column](#colspanssort-on-specific-column)
 - [Ascending sort](#ascending-sort)
+- [Tiebreaker / secondary sort](#tiebreaker--secondary-sort)
 - [Sort on load](#sort-on-load)
 - [...with a little help from my friends](#with-a-little-help-from-my-friends)
 
 ## Factoids
 
-- **934 bytes** minified. 🥳 (526 bytes gzipped)
+- **1026 bytes** minified. No longer < 1000! 😭😭😭 (558 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -306,6 +307,41 @@ By adding `asc` to `table`, the default sorting direction will be **ascending** 
 </table>
 ```
 
+## Tiebreaker / secondary sort
+
+If you wish to sort by a different column when two values are equal, you can use the `data-sort-tbr` attribute, like so:
+
+```html
+<table class="sortable asc">
+  <thead>
+    <tr>
+      <th data-sort-tbr="1">Year</th>
+      <th>Month</th>
+      <th>Day</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2010</td>
+      <td>07</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>2010</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>2010</td>
+      <td>04</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+When clicking Year, if they are the same, we will sort on month.
+
 ## Sort on load
 
 If you wish to sort a table on load, I would recommend doing something like this:
@@ -354,8 +390,12 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
 
+- If you have more than one `<tbody />`, they will all be sorted. (Multiple `<thead />`s are not "allowed".) Thanks [GazHay](https://github.com/gazhay)!
+
+- Thanks to [Gordan Ratkovic](https://github.com/GordanRatkovic) for the [Tiebreaker / secondary sort](#tiebreaker--secondary-sort) idea!
+
 - Thanks to [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
 
-- If you have more than one `<tbody />`, they will all be sorted. (Multiple `<thead />`s are not "allowed".) Thanks [GazHay](https://github.com/gazhay)!
+- Thanks to [Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
 
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
