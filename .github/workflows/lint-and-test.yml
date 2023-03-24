@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'sortable.min.js'
+      - 'src/sortable.ts'
   pull_request:
     branches:
       - main
     paths:
-      - 'sortable.min.js'
+      - 'src/sortable.ts'
 
 jobs:
   run-linters-and-tests:

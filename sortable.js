@@ -96,7 +96,7 @@ document.addEventListener('click', function (e) {
                 var rows = [].slice.call(org_tbody.rows, 0);
                 rows.sort(function (a, b) {
                     var bool = compare_1(a, b, column_index_1);
-                    return bool === 0 && tiebreaker_1 ? compare_1(a, b, tiebreaker_1) : bool;
+                    return bool === 0 && !isNaN(tiebreaker_1) ? compare_1(a, b, tiebreaker_1) : bool;
                 });
                 // Make an empty clone
                 var clone_tbody = org_tbody.cloneNode();

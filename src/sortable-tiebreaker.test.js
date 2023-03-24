@@ -42,11 +42,11 @@ describe('sortable-sort-tiebreaker.test.html', () => {
   it('sorts the column given by data-sort-col on click', async () => {
     const th = getByRole(container, 'columnheader', { name: /Year/ })
 
-    const first = getAllByRole(container, 'cell')[1].textContent
+    const first = getAllByRole(container, 'cell')[0].textContent
     fireEvent.click(th)
-    const middle = getAllByRole(container, 'cell')[1].textContent
+    const middle = getAllByRole(container, 'cell')[0].textContent
     fireEvent.click(th)
-    const last = getAllByRole(container, 'cell')[1].textContent
+    const last = getAllByRole(container, 'cell')[0].textContent
     expect(first).toBe('07')
     expect(middle).toBe('04')
     expect(last).toBe('11')

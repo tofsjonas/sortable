@@ -111,7 +111,7 @@ document.addEventListener('click', function (e: MouseEvent) {
 
         rows.sort(function (a: HTMLTableRowElement, b: HTMLTableRowElement) {
           const bool = compare(a, b, column_index)
-          return bool === 0 && tiebreaker ? compare(a, b, tiebreaker) : bool
+          return bool === 0 && !isNaN(tiebreaker) ? compare(a, b, tiebreaker) : bool
         })
 
         // Make an empty clone
