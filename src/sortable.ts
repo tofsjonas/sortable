@@ -1,5 +1,5 @@
 /**
- * sortable
+ * sortable v2.1.2
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -109,20 +109,19 @@ document.addEventListener('click', function (e: MouseEvent) {
         // Put the array rows in an array, so we can sort them...
         const rows: HTMLTableRowElement[] = [].slice.call(org_tbody.rows, 0)
 
+        // Sort them using Array.prototype.sort()
         rows.sort(function (a: HTMLTableRowElement, b: HTMLTableRowElement) {
           const bool = compare(a, b, column_index)
           return bool === 0 && !isNaN(tiebreaker) ? compare(a, b, tiebreaker) : bool
         })
 
         // Make an empty clone
-        const clone_tbody = org_tbody.cloneNode()
+        const clone_tbody = org_tbody.cloneNode() as HTMLTableSectionElement
 
-        // Fill the clone with the sorted rows
-        while (rows.length) {
-          clone_tbody.appendChild(rows.splice(0, 1)[0])
-        }
+        // Put the sorted rows inside the clone
+        clone_tbody.append(...rows)
 
-        // And finally replace the unsorted table with the sorted one
+        // And finally replace the unsorted tbody with the sorted one
         table.replaceChild(clone_tbody, org_tbody)
       }
     }

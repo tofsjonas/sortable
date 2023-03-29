@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "scripts": {
     "dev": "tsc -w",
@@ -14,6 +14,10 @@
     "sass:dist:minify": "sass src/sortable.scss:sortable.min.css src/example.scss:example.min.css src/sortable-base.scss:sortable-base.min.css --style compressed"
   },
   "homepage": "https://github.com/tofsjonas/sortable",
+  "files": [
+    "./sortable.*",
+    "./CHANGELOG.md"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/tofsjonas/sortable"
