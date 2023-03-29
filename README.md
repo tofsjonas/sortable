@@ -398,6 +398,6 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - Thanks to [Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
 
-- Thanks to [Witold Baryluk](https://github.com/baryluk) for pointing out some ineffiencies, bringing it back under 1k in size!
+- Thanks to [Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies, bringing it back under 1k in size!
 
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
