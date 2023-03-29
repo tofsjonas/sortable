@@ -32,7 +32,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **1033 bytes** minified. No longer < 1000! 😭😭😭 (562 bytes gzipped)
+- **1006 bytes** minified. Back under 1k! 🥳 (550 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -397,5 +397,7 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 - Thanks to [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
 
 - Thanks to [Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
+
+- Thanks to [Witold Baryluk](https://github.com/baryluk) for pointing out some ineffiencies, bringing it back under 1k in size!
 
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
