@@ -106,6 +106,8 @@ document.addEventListener('click', function (e) {
                 // And finally replace the unsorted tbody with the sorted one
                 table.replaceChild(clone_tbody, org_tbody);
             }
+            const event = new Event("sortEnd");
+            table.dispatchEvent(event);
         }
     }
     catch (error) {
