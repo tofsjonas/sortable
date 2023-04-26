@@ -1,8 +1,10 @@
-<h1>sortable - a tiny, vanilla JS table sorter</h1>
+<!-- markdownlint-disable MD033 -->
+<h1>sortable</h1>
+<h5>- a tiny, vanilla/plain JavaScript table sorter</h5>
 
 Makes any table with **class="sortable"**, er, sortable. The user can click on a table header and change the sorting of the table rows.
 
-Just include the JavaScript and it will work. No function calls needed, all is done with an **eventListener**. (the CSS is not strictly needed, but makes it pretty-ish and user friendly)
+Just include the JavaScript and it will work. No function calls are needed, everything is handled by an **eventListener**.
 
 <h2>Demo</h2>
 
@@ -15,13 +17,14 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
   - [1. link to jsDelivr](#1-link-to-jsdelivr)
   - [2. copy file to assets folder](#2-copy-file-to-assets-folder)
   - [3. npm package](#3-npm-package)
-    - [a) include in the html](#a-include-in-the-html)
+    - [a) use links in the html](#a-use-links-in-the-html)
     - [b) import files in javascript](#b-import-files-in-javascript)
 - [Non-sortable field](#non-sortable-field)
   - [...using `class` and `css`](#using-class-and-css)
   - [...using `css` only](#using-css-only)
+  - [...using `td` instead of `th`](#using-td-instead-of-th)
 - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
-- [Note about css/scss](#note-about-cssscss)
+- [NOTE ABOUT CSS/SCSS](#note-about-cssscss)
 - [Sorting dates, sizes and such](#sorting-dates-sizes-and-such)
 - [Alternative sorting](#alternative-sorting)
 - [Colspans/Sort on specific column](#colspanssort-on-specific-column)
@@ -54,11 +57,11 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 There are three ways to use sortable, all of which have their pros and cons. [S Anand](https://github.com/sanand0) and [dkhgh](https://github.com/dkhgh) had some [interesting thoughts](https://github.com/tofsjonas/sortable/issues/28) about it.
 
-1. Including a link to [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable). (easiest)
+1. Include a link to [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable). (easiest)
 
 2. Copy the file from [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable) or [Github](https://github.com/tofsjonas/sortable) and put it in your assets folder. (in between)
 
-3. Installing the [npm package](https://www.npmjs.com/package/sortable-tablesort). (most work)
+3. Install the [npm package](https://www.npmjs.com/package/sortable-tablesort). (most reliable)
 
 ### 1. link to jsDelivr
 
@@ -85,7 +88,9 @@ There are three ways to use sortable, all of which have their pros and cons. [S 
 <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.js"></script>
 ```
 
-_(The `span` on line four is just there to prove that elements inside `th` works)_
+The `span` on line four is just there to prove that you can have elements inside `th`!
+
+:warning: _If you are concerned about bugs, I recommend using version numbers instead of "latest"._
 
 ### 2. copy file to assets folder
 
@@ -110,9 +115,9 @@ npm install sortable-tablesort
 
 Now you can
 
-#### a) include in the html
+#### a) use links in the html
 
-Same as above, with files
+Same as above, with links to files
 
 ```html
 ...
@@ -135,13 +140,15 @@ import 'sortable-tablesort/sortable.min.js'
 
 ### ...using `class` and `css`
 
-If you wish to disable sorting for a specific field, the easiest way is to add a class to it, like so:
+If you wish to disable sorting for a specific field, the easiest (and best) way is to add a class to it, like so:
 
 ```html
-<tr>
-  <th class="no-sort">Role</th>
-  <th>Name</th>
-</tr>
+<thead>
+  <tr>
+    <th class="no-sort">Role</th>
+    <th>Name</th>
+  </tr>
+</thead>
 ```
 
 and then use css to block clicks. like so:
@@ -168,6 +175,21 @@ This is a bit trickier, but it doesn't require any changes to the html, so I gue
 }
 ```
 
+### ...using `td` instead of `th`
+
+The eventListener only triggers on `th`, not `td`, so this would disable sorting for "Role":
+
+```html
+<thead>
+  <tr>
+    <td>Role</td>
+    <th>Name</th>
+  </tr>
+</thead>
+```
+
+:warning: _Since `th` and `td` are not the same thing, you would most likely still have to use CSS to make them look the way you want. (It might also mess with accessibility.) In **some** cases it could be worth it, but I recommend the `.no-sort` alternative_.
+
 ## Indicators/arrows on the left side
 
 If you have text that is aligned on the right side, you may want to have the arrows on the left side.
@@ -189,7 +211,7 @@ This is solved by adding a class to the css and using `::before` instead of `::a
 
 > _Full example: [CSS](https://github.com/tofsjonas/sortable/blob/main/sortable-base.css), [SCSS](https://github.com/tofsjonas/sortable/blob/main/src/sortable-base.scss)_
 
-## Note about css/scss
+## NOTE ABOUT CSS/SCSS
 
 The `css/scss` in this repo was only ever meant as an example. It was never intended to be actually _used_.
 
@@ -340,7 +362,7 @@ If you wish to sort by a different column when two values are equal, you can use
 </table>
 ```
 
-When clicking Year, if they are the same, we will sort on month.
+When clicking **Year**, if they are the same, we will sort on **Month**.
 
 ## Sort on load
 
@@ -399,5 +421,3 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 - Thanks to [Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
 
 - Thanks to [Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies, bringing it back under 1k in size!
-
-[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
