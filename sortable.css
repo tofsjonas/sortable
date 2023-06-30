@@ -1,45 +1,42 @@
 @charset "UTF-8";
-.sortable thead th {
+.sortable thead th:not(.no-sort) {
   cursor: pointer;
 }
-.sortable thead th.no-sort {
-  pointer-events: none;
-}
-.sortable thead th::after, .sortable thead th::before {
+.sortable thead th:not(.no-sort)::after, .sortable thead th:not(.no-sort)::before {
   transition: color 0.1s ease-in-out;
   font-size: 1.2em;
   color: transparent;
 }
-.sortable thead th::after {
+.sortable thead th:not(.no-sort)::after {
   margin-left: 3px;
   content: "▸";
 }
-.sortable thead th:hover::after {
+.sortable thead th:not(.no-sort):hover::after {
   color: inherit;
 }
-.sortable thead th.dir-d::after {
+.sortable thead th:not(.no-sort).dir-d::after {
   color: inherit;
   content: "▾";
 }
-.sortable thead th.dir-u::after {
+.sortable thead th:not(.no-sort).dir-u::after {
   color: inherit;
   content: "▴";
 }
-.sortable thead th.indicator-left::after {
+.sortable thead th:not(.no-sort).indicator-left::after {
   content: "";
 }
-.sortable thead th.indicator-left::before {
+.sortable thead th:not(.no-sort).indicator-left::before {
   margin-right: 3px;
   content: "▸";
 }
-.sortable thead th.indicator-left:hover::before {
+.sortable thead th:not(.no-sort).indicator-left:hover::before {
   color: inherit;
 }
-.sortable thead th.indicator-left.dir-d::before {
+.sortable thead th:not(.no-sort).indicator-left.dir-d::before {
   color: inherit;
   content: "▾";
 }
-.sortable thead th.indicator-left.dir-u::before {
+.sortable thead th:not(.no-sort).indicator-left.dir-u::before {
   color: inherit;
   content: "▴";
 }
@@ -79,4 +76,6 @@
 .sortable td:last-child,
 .sortable th:last-child {
   border-top-right-radius: 4px;
-}/*# sourceMappingURL=sortable.css.map */
+}
+
+/*# sourceMappingURL=sortable.css.map */

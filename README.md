@@ -20,8 +20,8 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
     - [a) use links in the html](#a-use-links-in-the-html)
     - [b) import files in javascript](#b-import-files-in-javascript)
 - [Non-sortable field](#non-sortable-field)
-  - [...using `class` and `css`](#using-class-and-css)
-  - [...using `css` only](#using-css-only)
+  - [...using `class` ~~and CSS~~](#using-class-and-css)
+  - [...using `CSS`](#using-css)
   - [...using `td` instead of `th`](#using-td-instead-of-th)
 - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
 - [NOTE ABOUT CSS/SCSS](#note-about-cssscss)
@@ -35,7 +35,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **1006 bytes** minified. Back under 1k! 🥳 (550 bytes gzipped)
+- **1081 bytes** minified. (565 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -44,10 +44,6 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 - Requires **thead** and **tbody**.
 
 - **cross browser**, ~~ie9+~~ No longer ie9 compatible. Then again, maybe it already wasn't 🤷
-
-- ~~eventListeners attached to the rows _WILL_ be removed~~
-
-- eventListeners are no longer removed! 😊
 
 - NOT tested with React, Angular, Vue, etc.
 
@@ -138,9 +134,9 @@ import 'sortable-tablesort/sortable.min.js'
 
 ## Non-sortable field
 
-### ...using `class` and `css`
+### ...using `class` ~~and CSS~~
 
-If you wish to disable sorting for a specific field, the easiest (and best) way is to add a class to it, like so:
+If you wish to disable sorting for a specific field, the easiest (and best) way is to add a `class` to it, like so:
 
 ```html
 <thead>
@@ -151,15 +147,9 @@ If you wish to disable sorting for a specific field, the easiest (and best) way 
 </thead>
 ```
 
-and then use css to block clicks. like so:
+Sorting will not be triggered if you click on that `th`.
 
-```css
-.sortable th.no-sort {
-  pointer-events: none;
-}
-```
-
-### ...using `css` only
+### ...using `CSS`
 
 This is a bit trickier, but it doesn't require any changes to the html, so I guess it could be worth it in some cases.
 
@@ -420,4 +410,8 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - Thanks to [Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
 
-- Thanks to [Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies, bringing it back under 1k in size!
+- Thanks to [Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies!
+
+- Thanks to [Nick](https://github.com/data-handler) for raising a whole bunch of issues. 🤯️
+
+[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
