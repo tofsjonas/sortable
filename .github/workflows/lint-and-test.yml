@@ -11,6 +11,7 @@ on:
       - main
     paths:
       - 'src/sortable.ts'
+      - '.github/workflows/lint-and-test.yml'
 
 jobs:
   run-linters-and-tests:
