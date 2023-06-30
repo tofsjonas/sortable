@@ -1,47 +1,45 @@
 @charset "UTF-8";
-.sortable th {
+.sortable thead th {
   cursor: pointer;
 }
-.sortable th.no-sort {
+.sortable thead th.no-sort {
   pointer-events: none;
 }
-.sortable th::after, .sortable th::before {
+.sortable thead th::after, .sortable thead th::before {
   transition: color 0.1s ease-in-out;
   font-size: 1.2em;
   color: transparent;
 }
-.sortable th::after {
+.sortable thead th::after {
   margin-left: 3px;
   content: "▸";
 }
-.sortable th:hover::after {
+.sortable thead th:hover::after {
   color: inherit;
 }
-.sortable th.dir-d::after {
+.sortable thead th.dir-d::after {
   color: inherit;
   content: "▾";
 }
-.sortable th.dir-u::after {
+.sortable thead th.dir-u::after {
   color: inherit;
   content: "▴";
 }
-.sortable th.indicator-left::after {
+.sortable thead th.indicator-left::after {
   content: "";
 }
-.sortable th.indicator-left::before {
+.sortable thead th.indicator-left::before {
   margin-right: 3px;
   content: "▸";
 }
-.sortable th.indicator-left:hover::before {
+.sortable thead th.indicator-left:hover::before {
   color: inherit;
 }
-.sortable th.indicator-left.dir-d::before {
+.sortable thead th.indicator-left.dir-d::before {
   color: inherit;
   content: "▾";
 }
-.sortable th.indicator-left.dir-u::before {
+.sortable thead th.indicator-left.dir-u::before {
   color: inherit;
   content: "▴";
-}
-
-/*# sourceMappingURL=sortable-base.css.map */
+}/*# sourceMappingURL=sortable-base.css.map */

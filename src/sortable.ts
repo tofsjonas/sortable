@@ -52,8 +52,9 @@ document.addEventListener('click', function (e: MouseEvent) {
 
     const alt_sort = e.shiftKey || e.altKey
     const element: HTMLTableCellElement = findElementRecursive(e.target as HTMLElement, 'TH')
-    const tr: HTMLTableRowElement = findElementRecursive(element, 'TR')
-    const table: HTMLTableElement = findElementRecursive(tr, 'TABLE')
+    const tr = element.parentNode as HTMLTableRowElement
+    const thead = tr.parentNode as HTMLTableSectionElement
+    const table = thead.parentNode as HTMLTableElement
 
     function reClassify(element: HTMLElement, dir: string) {
       element.classList.remove(descending_th_class)
@@ -66,7 +67,10 @@ document.addEventListener('click', function (e: MouseEvent) {
       return value
     }
 
-    if (table.classList.contains(table_class_name)) {
+    if (
+      thead.nodeName === 'THEAD' && // sortable only triggered in `thead`
+      table.classList.contains(table_class_name)
+    ) {
       let column_index: number
       const nodes = tr.cells
       const tiebreaker = parseInt(element.dataset.sortTbr)

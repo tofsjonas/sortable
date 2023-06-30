@@ -48,8 +48,9 @@ document.addEventListener('click', function (e) {
         var table_class_name = 'sortable';
         var alt_sort_1 = e.shiftKey || e.altKey;
         var element = findElementRecursive(e.target, 'TH');
-        var tr = findElementRecursive(element, 'TR');
-        var table = findElementRecursive(tr, 'TABLE');
+        var tr = element.parentNode;
+        var thead = tr.parentNode;
+        var table = thead.parentNode;
         function reClassify(element, dir) {
             element.classList.remove(descending_th_class_1);
             element.classList.remove(ascending_th_class_1);
@@ -60,7 +61,8 @@ document.addEventListener('click', function (e) {
             var value = (alt_sort_1 && element.dataset.sortAlt) || element.dataset.sort || element.textContent;
             return value;
         }
-        if (table.classList.contains(table_class_name)) {
+        if (thead.nodeName === 'THEAD' && // sortable only triggered in `thead`
+            table.classList.contains(table_class_name)) {
             var column_index_1;
             var nodes = tr.cells;
             var tiebreaker_1 = parseInt(element.dataset.sortTbr);

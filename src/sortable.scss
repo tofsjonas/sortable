@@ -17,14 +17,16 @@
       }
     }
   }
-  th {
-    background: var(--th-bg);
-    color: var(--th-color);
-    font-weight: normal;
-    text-align: left;
-    text-transform: capitalize;
-    vertical-align: baseline;
-    white-space: nowrap;
+  thead {
+    th {
+      background: var(--th-bg);
+      color: var(--th-color);
+      font-weight: normal;
+      text-align: left;
+      text-transform: capitalize;
+      vertical-align: baseline;
+      white-space: nowrap;
+    }
   }
   td {
     color: var(--td-color);
