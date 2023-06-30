@@ -1,66 +1,65 @@
 .sortable {
   thead {
     th {
-      &.no-sort {
-        pointer-events: none;
-      }
-      cursor: pointer;
-      &::after,
-      &::before {
-        transition: color 0.1s ease-in-out;
-        font-size: 1.2em;
-        color: transparent;
-      }
-
-      &::after {
-        margin-left: 3px;
-        content: '\025B8';
-      }
-      &:hover {
-        &::after {
-          color: inherit;
-        }
-      }
-
-      &.dir-d {
-        &::after {
-          color: inherit;
-          content: '\025BE';
-        }
-      }
-
-      &.dir-u {
-        &::after {
-          color: inherit;
-          content: '\025B4';
-        }
-      }
-      &.indicator-left {
-        &::after {
-          content: '';
-        }
+      &:not(.no-sort) {
+        cursor: pointer;
+        &::after,
         &::before {
-          margin-right: 3px;
+          transition: color 0.1s ease-in-out;
+          font-size: 1.2em;
+          color: transparent;
+        }
+
+        &::after {
+          margin-left: 3px;
           content: '\025B8';
         }
-
         &:hover {
-          &::before {
+          &::after {
             color: inherit;
           }
         }
 
         &.dir-d {
-          &::before {
+          &::after {
             color: inherit;
             content: '\025BE';
           }
         }
 
         &.dir-u {
-          &::before {
+          &::after {
             color: inherit;
             content: '\025B4';
+          }
+        }
+        &.indicator-left {
+          &::after {
+            content: '';
+          }
+          &::before {
+            margin-right: 3px;
+            content: '\025B8';
+          }
+
+          &:hover {
+            &::before {
+              color: inherit;
+            }
+          }
+
+          &.dir-d {
+            &::before {
+              color: inherit;
+              content: '\025BE';
+            }
+          }
+
+          &.dir-u {
+            &::before {
+              color: inherit;
+              content: '\025B4';
+            }
           }
         }
       }
