@@ -45,6 +45,7 @@ document.addEventListener('click', function (e) {
         var descending_th_class_1 = 'dir-d';
         var ascending_th_class_1 = 'dir-u';
         var ascending_table_sort_class = 'asc';
+        var no_sort_class = 'no-sort';
         var table_class_name = 'sortable';
         var alt_sort_1 = e.shiftKey || e.altKey;
         var element = findElementRecursive(e.target, 'TH');
@@ -62,7 +63,9 @@ document.addEventListener('click', function (e) {
             return value;
         }
         if (thead.nodeName === 'THEAD' && // sortable only triggered in `thead`
-            table.classList.contains(table_class_name)) {
+            table.classList.contains(table_class_name) &&
+            !element.classList.contains(no_sort_class) // .no-sort is now core functionality, no longer handled in CSS
+        ) {
             var column_index_1;
             var nodes = tr.cells;
             var tiebreaker_1 = parseInt(element.dataset.sortTbr);

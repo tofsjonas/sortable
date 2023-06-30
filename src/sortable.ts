@@ -47,6 +47,7 @@ document.addEventListener('click', function (e: MouseEvent) {
     const descending_th_class = 'dir-d'
     const ascending_th_class = 'dir-u'
     const ascending_table_sort_class = 'asc'
+    const no_sort_class = 'no-sort'
 
     const table_class_name = 'sortable'
 
@@ -69,7 +70,8 @@ document.addEventListener('click', function (e: MouseEvent) {
 
     if (
       thead.nodeName === 'THEAD' && // sortable only triggered in `thead`
-      table.classList.contains(table_class_name)
+      table.classList.contains(table_class_name) &&
+      !element.classList.contains(no_sort_class) // .no-sort is now core functionality, no longer handled in CSS
     ) {
       let column_index: number
       const nodes = tr.cells
