@@ -9,6 +9,8 @@
   </head>
   <body>
     <h1>sortable test</h1>
+
+    <h2>Basic test</h2>
     <table class="sortable">
       <thead>
         <tr>
@@ -27,6 +29,92 @@
         </tr>
       </tbody>
     </table>
+
+    <h2>Tiebreaker</h2>
+    <table class="sortable asc">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th data-sort-tbr="0">Year</th>
+          <th>Day</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>07</td>
+          <td>2010</td>
+          <td>25</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>2010</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <td>04</td>
+          <td>2010</td>
+          <td>25</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Colspans</h2>
+
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th colspan="2"><span>nums + chars</span></th>
+          <th data-sort-col="2">CHARS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>333</td>
+          <td>222</td>
+          <td>BB</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>111</td>
+          <td>CCC</td>
+        </tr>
+        <tr>
+          <td>22</td>
+          <td>333</td>
+          <td>A</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Empty/null sorted last</h2>
+
+    <table class="sortable n-last">
+      <thead>
+        <tr>
+          <th>Text</th>
+          <th>Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>jkl</td>
+          <td>0.4</td>
+        </tr>
+        <tr>
+          <td>abc</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>ghi</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>def</td>
+          <td>0.2</td>
+        </tr>
+      </tbody>
+    </table>
+
     <script src="../sortable.js"></script>
   </body>
 </html>
