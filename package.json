@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "scripts": {
     "dev": "tsc -w",
