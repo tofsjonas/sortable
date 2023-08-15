@@ -1,6 +1,6 @@
 // https://dev.to/thawkin3/how-to-unit-test-html-and-vanilla-javascript-without-a-ui-framework-4io
 import { fireEvent, getByRole, getAllByRole } from '@testing-library/dom'
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import { JSDOM } from 'jsdom'
 import fs from 'fs'
 import path from 'path'
@@ -38,17 +38,74 @@ describe('sortable.test.html', () => {
     expect(tds[1]).toBeInTheDocument()
   })
 
-  it('sorts the table on click', async () => {
-    const th = getByRole(container, 'columnheader', { name: /Name/i })
+  it('sorts a table on click', async () => {
+    const table = getAllByRole(container, 'table')[0]
 
-    const first = getAllByRole(container, 'cell')[1].textContent
+    const th = getByRole(table, 'columnheader', { name: /Name/i })
+    const first = getAllByRole(table, 'cell')[1].textContent
     fireEvent.click(th)
-    const middle = getAllByRole(container, 'cell')[1].textContent
+    const middle = getAllByRole(table, 'cell')[1].textContent
     fireEvent.click(th)
-    const last = getAllByRole(container, 'cell')[1].textContent
+    const last = getAllByRole(table, 'cell')[1].textContent
 
     expect(first).toBe('Rick')
     expect(middle).toBe('Rick') // since it is already sorted in that direction
     expect(last).toBe('Morty')
+  })
+
+  it('sorts a table ascending', async () => {
+    const table = getAllByRole(container, 'table')[0]
+    table.classList.add('asc')
+
+    const th = getByRole(table, 'columnheader', { name: /Name/i })
+    const first = getAllByRole(table, 'cell')[1].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[1].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[1].textContent
+
+    expect(first).toBe('Rick')
+    expect(middle).toBe('Morty') // since it is already sorted in that direction
+    expect(last).toBe('Rick')
+  })
+
+  it('sorts a table using tie breaker', async () => {
+    const table = getAllByRole(container, 'table')[1]
+    const th = getByRole(table, 'columnheader', { name: /Year/ })
+    const first = getAllByRole(table, 'cell')[0].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[0].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[0].textContent
+    expect(first).toBe('07')
+    expect(middle).toBe('04')
+    expect(last).toBe('11')
+  })
+
+  it('sorts a table using colspans', async () => {
+    const table = getAllByRole(container, 'table')[2]
+    const th = getByRole(table, 'columnheader', { name: /CHARS/ })
+
+    const first = getAllByRole(table, 'cell')[2].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[2].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[2].textContent
+    expect(first).toBe('BB')
+    expect(middle).toBe('CCC')
+    expect(last).toBe('A')
+  })
+
+  it('sorts a table with empty rows last', async () => {
+    const table = getAllByRole(container, 'table')[3]
+    const th = getByRole(table, 'columnheader', { name: /Number/ })
+    const first = getAllByRole(table, 'cell')[7].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[7].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[7].textContent
+    expect(first).toBe('0.2')
+    expect(middle).toBe('')
+    expect(last).toBe('')
   })
 })

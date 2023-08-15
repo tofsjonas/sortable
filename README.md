@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD033 MD026 -->
 <h1>sortable</h1>
 <h5>- a tiny, vanilla/plain JavaScript table sorter</h5>
 
@@ -20,22 +20,23 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
     - [a) use links in the html](#a-use-links-in-the-html)
     - [b) import files in javascript](#b-import-files-in-javascript)
 - [Non-sortable field](#non-sortable-field)
-  - [...using `class` ~~and CSS~~](#using-class-and-css)
+  - [...using `class="no-sort"`](#using-classno-sort)
   - [...using `CSS`](#using-css)
   - [...using `td` instead of `th`](#using-td-instead-of-th)
 - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
 - [NOTE ABOUT CSS/SCSS](#note-about-cssscss)
-- [Sorting dates, sizes and such](#sorting-dates-sizes-and-such)
+- [Sorting sizes, dates and such](#sorting-sizes-dates-and-such)
 - [Alternative sorting](#alternative-sorting)
 - [Colspans/Sort on specific column](#colspanssort-on-specific-column)
 - [Ascending sort](#ascending-sort)
 - [Tiebreaker / secondary sort](#tiebreaker--secondary-sort)
+- [Empty/null rows always last](#emptynull-rows-always-last)
 - [Sort on load](#sort-on-load)
-- [...with a little help from my friends](#with-a-little-help-from-my-friends)
+- [Thank you...](#thank-you)
 
 ## Factoids
 
-- **1081 bytes** minified. (565 bytes gzipped)
+- **1167 bytes** minified. (606 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -134,9 +135,9 @@ import 'sortable-tablesort/sortable.min.js'
 
 ## Non-sortable field
 
-### ...using `class` ~~and CSS~~
+### ...using `class="no-sort"`
 
-If you wish to disable sorting for a specific field, the easiest (and best) way is to add a `class` to it, like so:
+If you wish to disable sorting for a specific field, the easiest (and best) way is to add `class="no-sort"` to it, like so:
 
 ```html
 <thead>
@@ -147,7 +148,7 @@ If you wish to disable sorting for a specific field, the easiest (and best) way 
 </thead>
 ```
 
-Sorting will not be triggered if you click on that `th`.
+Sorting will not be triggered if you click on "Role".
 
 ### ...using `CSS`
 
@@ -215,9 +216,9 @@ That said, if you're feeling lazy, here are two stylesheets you can use:
 <link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.css" rel="stylesheet" />
 ```
 
-## Sorting dates, sizes and such
+## Sorting sizes, dates and such
 
-Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value. This is useful in case you have for instance sizes like kb, Mb, GB, or just really weird dates/other (feet, inches, stone, yards, miles, etc.). 😉
+Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value. This is useful in case you have for instance sizes like kb, Mb, GB, or really weird date formats. 😉
 
 ```html
 <table class="sortable">
@@ -354,6 +355,39 @@ If you wish to sort by a different column when two values are equal, you can use
 
 When clicking **Year**, if they are the same, we will sort on **Month**.
 
+## Empty/null rows always last
+
+Adding `class="n-last"` to `<table class="sortable">` will make empty/null values always be sorted last, similar to what SQL does with `ORDER BY foo NULLS LAST`.
+
+```html
+<table class="sortable n-last">
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th class="indicator-left">Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>jkl</td>
+      <td>0.4</td>
+    </tr>
+    <tr>
+      <td>This will always be sorted after the others</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>abc</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>def</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+```
+
 ## Sort on load
 
 If you wish to sort a table on load, I would recommend doing something like this:
@@ -389,29 +423,30 @@ If you wish to sort a table on load, I would recommend doing something like this
 
 Combine this with `<table class="sortable asc">` to reverse the sort order. Or do `el.click()` twice!
 
-## ...with a little help from my friends
+## Thank you...
 
-- `<table class="sortable asc">` let's you [sort ascending](#ascending-sort) by default. Thanks [
-  Nikita Dunajevs](https://github.com/dunajevs)!
+- ...[Nikita Dunajevs](https://github.com/dunajevs) for the [ascending sort](#ascending-sort) idea!
 
-- `data-sort-alt` in `tbody` > `td` allows for [alternative sorting](#alternative-sorting) while holding `shift` or `alt`. Thanks [wodny](https://github.com/wodny)!
+- ...[wodny](https://github.com/wodny)! for the [alternative sorting](#alternative-sorting) idea.
 
-- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#colspanssort-on-specific-column), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
+- ...[Nick Kocharhook](https://github.com/nk9) for the [colspan sorting](#colspanssort-on-specific-column) idea!
 
-- **Nested elements** inside `th` now works. Thanks [mxve](https://github.com/mxve)!
+- ...[mxve](https://github.com/mxve) for the **nested elements** inside `th` fix!
 
-- [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
+- ...[Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu) for the [sort on load](#sort-on-load) example!
 
-- If you have more than one `<tbody />`, they will all be sorted. (Multiple `<thead />`s are not "allowed".) Thanks [GazHay](https://github.com/gazhay)!
+- ...[GazHay](https://github.com/gazhay) for the idea to sort multiple `<tbody />`.
 
-- Thanks to [Gordan Ratkovic](https://github.com/GordanRatkovic) for the [Tiebreaker / secondary sort](#tiebreaker--secondary-sort) idea!
+- ...[Gordan Ratkovic](https://github.com/GordanRatkovic) for the [tiebreaker / secondary sort](#tiebreaker--secondary-sort) idea!
 
-- Thanks to [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
+- ...[chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
 
-- Thanks to [Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
+- ...[Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
 
-- Thanks to [Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies!
+- ...[Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies!
 
-- Thanks to [Nick](https://github.com/data-handler) for raising a whole bunch of issues. 🤯️
+- ...[Nick](https://github.com/data-handler) for raising a whole bunch of issues. 🤯️
+
+- ...[James Pudson](https://github.com/nepsilon) for the [empty last](#emptynull-rows-always-last) suggestion.
 
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)

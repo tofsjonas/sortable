@@ -1,5 +1,5 @@
 /**
- * sortable v2.2.0
+ * sortable v2.3.0
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -46,6 +46,7 @@ document.addEventListener('click', function (e) {
         var ascending_th_class_1 = 'dir-u';
         var ascending_table_sort_class = 'asc';
         var no_sort_class = 'no-sort';
+        var null_last_class = 'n-last';
         var table_class_name = 'sortable';
         var alt_sort_1 = e.shiftKey || e.altKey;
         var element = findElementRecursive(e.target, 'TH');
@@ -87,12 +88,21 @@ document.addEventListener('click', function (e) {
             // Update the `th` class accordingly
             reClassify(element, dir);
             var reverse_1 = dir === ascending_th_class_1;
+            var sort_null_last_1 = table.classList.contains(null_last_class);
             var compare_1 = function (a, b, index) {
-                var x = getValue((reverse_1 ? a : b).cells[index]);
-                var y = getValue((reverse_1 ? b : a).cells[index]);
+                var x = getValue(b.cells[index]);
+                var y = getValue(a.cells[index]);
+                if (sort_null_last_1) {
+                    if (x === '' && y !== '') {
+                        return -1;
+                    }
+                    if (y === '' && x !== '') {
+                        return 1;
+                    }
+                }
                 var temp = parseFloat(x) - parseFloat(y);
                 var bool = isNaN(temp) ? x.localeCompare(y) : temp;
-                return bool;
+                return reverse_1 ? -bool : bool;
             };
             // loop through all tbodies and sort them
             for (var i = 0; i < table.tBodies.length; i++) {

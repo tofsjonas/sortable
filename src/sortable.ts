@@ -1,5 +1,5 @@
 /**
- * sortable v2.2.0
+ * sortable v2.3.0
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -48,6 +48,7 @@ document.addEventListener('click', function (e: MouseEvent) {
     const ascending_th_class = 'dir-u'
     const ascending_table_sort_class = 'asc'
     const no_sort_class = 'no-sort'
+    const null_last_class = 'n-last'
 
     const table_class_name = 'sortable'
 
@@ -99,13 +100,23 @@ document.addEventListener('click', function (e: MouseEvent) {
       // Update the `th` class accordingly
       reClassify(element, dir)
       const reverse = dir === ascending_th_class
+      const sort_null_last = table.classList.contains(null_last_class)
 
       const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement, index: number) => {
-        const x = getValue((reverse ? a : b).cells[index])
-        const y = getValue((reverse ? b : a).cells[index])
+        const x = getValue(b.cells[index])
+        const y = getValue(a.cells[index])
+        if (sort_null_last) {
+          if (x === '' && y !== '') {
+            return -1
+          }
+          if (y === '' && x !== '') {
+            return 1
+          }
+        }
+
         const temp = parseFloat(x) - parseFloat(y)
         const bool = isNaN(temp) ? x.localeCompare(y) : temp
-        return bool
+        return reverse ? -bool : bool
       }
 
       // loop through all tbodies and sort them
