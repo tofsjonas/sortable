@@ -96,7 +96,7 @@ describe('sortable.test.html', () => {
     expect(last).toBe('A')
   })
 
-  it('sorts a table with empty rows last ', async () => {
+  it('sorts a table with empty rows last', async () => {
     const table = getAllByRole(container, 'table')[3]
     const th = getByRole(table, 'columnheader', { name: /Number/ })
     const first = getAllByRole(table, 'cell')[7].textContent
