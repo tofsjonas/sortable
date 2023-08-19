@@ -5,7 +5,7 @@ import { JSDOM } from 'jsdom'
 import fs from 'fs'
 import path from 'path'
 
-const js = fs.readFileSync(path.resolve(__dirname, '../sortable.min.js'), 'utf8')
+const js = fs.readFileSync(path.resolve(__dirname, '../sortable.js'), 'utf8')
 const html = fs
   .readFileSync(path.resolve(__dirname, './sortable.test.html'), 'utf8')
   .replace('<script src="../sortable.js"></script>', `<script>${js}</script>`)
@@ -96,7 +96,7 @@ describe('sortable.test.html', () => {
     expect(last).toBe('A')
   })
 
-  it('sorts a table with empty rows last', async () => {
+  it('sorts a table with empty rows last ', async () => {
     const table = getAllByRole(container, 'table')[3]
     const th = getByRole(table, 'columnheader', { name: /Number/ })
     const first = getAllByRole(table, 'cell')[7].textContent
@@ -105,7 +105,7 @@ describe('sortable.test.html', () => {
     fireEvent.click(th)
     const last = getAllByRole(table, 'cell')[7].textContent
     expect(first).toBe('0.2')
-    expect(middle).toBe('')
-    expect(last).toBe('')
+    expect(middle).toBe('last')
+    expect(last).toBe('last')
   })
 })

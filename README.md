@@ -36,7 +36,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **1167 bytes** minified. (606 bytes gzipped)
+- **1195 bytes** minified. (621 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -87,7 +87,7 @@ There are three ways to use sortable, all of which have their pros and cons. [S 
 
 The `span` on line four is just there to prove that you can have elements inside `th`!
 
-:warning: _If you are concerned about bugs, I recommend using version numbers instead of "latest"._
+⚠️ _If you are concerned about bugs, I recommend using version numbers instead of "latest"._
 
 ### 2. copy file to assets folder
 
@@ -179,7 +179,7 @@ The eventListener only triggers on `th`, not `td`, so this would disable sorting
 </thead>
 ```
 
-:warning: _Since `th` and `td` are not the same thing, you would most likely still have to use CSS to make them look the way you want. (It might also mess with accessibility.) In **some** cases it could be worth it, but I recommend the `.no-sort` alternative_.
+⚠️ _Since `th` and `td` are not the same thing, you would most likely still have to use CSS to make them look the way you want. (It might also mess with accessibility.) In **some** cases it could be worth it, but I recommend the `.no-sort` alternative_.
 
 ## Indicators/arrows on the left side
 
@@ -388,6 +388,8 @@ Adding `class="n-last"` to `<table class="sortable">` will make empty/null value
 </table>
 ```
 
+⚠️ _Note that a string of blank spaces is **not** considered null/empty. `<td data-sort=" "></td>` will be sorted normally._
+
 ## Sort on load
 
 If you wish to sort a table on load, I would recommend doing something like this:
@@ -427,7 +429,7 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - ...[Nikita Dunajevs](https://github.com/dunajevs) for the [ascending sort](#ascending-sort) idea!
 
-- ...[wodny](https://github.com/wodny)! for the [alternative sorting](#alternative-sorting) idea.
+- ...[wodny](https://github.com/wodny) for the [alternative sorting](#alternative-sorting) idea!
 
 - ...[Nick Kocharhook](https://github.com/nk9) for the [colspan sorting](#colspanssort-on-specific-column) idea!
 
@@ -435,7 +437,7 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - ...[Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu) for the [sort on load](#sort-on-load) example!
 
-- ...[GazHay](https://github.com/gazhay) for the idea to sort multiple `<tbody />`.
+- ...[GazHay](https://github.com/gazhay) for the idea to sort multiple `<tbody />`!
 
 - ...[Gordan Ratkovic](https://github.com/GordanRatkovic) for the [tiebreaker / secondary sort](#tiebreaker--secondary-sort) idea!
 
@@ -445,8 +447,8 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - ...[Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies!
 
-- ...[Nick](https://github.com/data-handler) for raising a whole bunch of issues. 🤯️
+- ...[Nick](https://github.com/data-handler) for raising a whole bunch of issues! 🤯️
 
-- ...[James Pudson](https://github.com/nepsilon) for the [empty last](#emptynull-rows-always-last) suggestion.
+- ...[James Pudson](https://github.com/nepsilon) for the [empty last](#emptynull-rows-always-last) suggestion, AND for finding the "`data-sort` ignored when empty" bug! 🥳️
 
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
