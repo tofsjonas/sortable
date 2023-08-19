@@ -1,5 +1,5 @@
 /**
- * sortable v2.3.0
+ * sortable v2.3.1
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -65,7 +65,7 @@ document.addEventListener('click', function (e: MouseEvent) {
     }
 
     function getValue(element: HTMLTableCellElement) {
-      const value = (alt_sort && element.dataset.sortAlt) || element.dataset.sort || element.textContent
+      const value = alt_sort ? element.dataset.sortAlt : element.dataset.sort ?? element.textContent
       return value
     }
 

@@ -1,5 +1,5 @@
 /**
- * sortable v2.3.0
+ * sortable v2.3.1
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -60,7 +60,8 @@ document.addEventListener('click', function (e) {
                 element.classList.add(dir);
         }
         function getValue(element) {
-            var value = (alt_sort_1 && element.dataset.sortAlt) || element.dataset.sort || element.textContent;
+            var _a;
+            var value = alt_sort_1 ? element.dataset.sortAlt : (_a = element.dataset.sort) !== null && _a !== void 0 ? _a : element.textContent;
             return value;
         }
         if (thead.nodeName === 'THEAD' && // sortable only triggered in `thead`
