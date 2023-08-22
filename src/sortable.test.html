@@ -63,7 +63,7 @@
     <table class="sortable">
       <thead>
         <tr>
-          <th colspan="2"><span>nums + chars</span></th>
+          <th colspan="2">nums + chars</th>
           <th data-sort-col="2">CHARS</th>
         </tr>
       </thead>
@@ -114,6 +114,52 @@
         </tr>
       </tbody>
     </table>
+    <h2>class="no-sort"</h2>
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th class="no-sort">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td>Sidekick</td>
+          <td>Morty</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>times</h2>
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>12:00:12</td>
+        </tr>
+        <tr>
+          <td>Sidekick</td>
+          <td>12:22:11</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      document.getElementById('morty').addEventListener('click', function (e) {
+        e.preventDefault()
+        alert('event listeners also work!')
+      })
+    </script>
 
     <script src="../sortable.js"></script>
   </body>
