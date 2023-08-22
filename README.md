@@ -451,4 +451,6 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 
 - ...[James Pudson](https://github.com/nepsilon) for the [empty last](#emptynull-rows-always-last) suggestion, AND for finding the "`data-sort` ignored when empty" bug! 🥳️
 
+- ...[Jojo-IO](https://github.com/Jojo-IO) for the finding the "`parseFloat` messes up time values" bug!
+
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)

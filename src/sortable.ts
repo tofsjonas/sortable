@@ -1,5 +1,5 @@
 /**
- * sortable v2.3.1
+ * sortable v2.3.2
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -114,8 +114,9 @@ document.addEventListener('click', function (e: MouseEvent) {
           }
         }
 
-        const temp = parseFloat(x) - parseFloat(y)
+        const temp = Number(x) - Number(y)
         const bool = isNaN(temp) ? x.localeCompare(y) : temp
+
         return reverse ? -bool : bool
       }
 

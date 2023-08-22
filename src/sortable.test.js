@@ -31,9 +31,11 @@ describe('sortable.test.html', () => {
   })
 
   it('renders table headers and cells', () => {
-    const th = getByRole(container, 'columnheader', { name: /Name/i })
+    const table = getAllByRole(container, 'table')[0]
+
+    const th = getByRole(table, 'columnheader', { name: /Name/i })
     expect(th).toBeInTheDocument()
-    const tds = getAllByRole(container, 'cell')
+    const tds = getAllByRole(table, 'cell')
     expect(tds[0]).toBeInTheDocument()
     expect(tds[1]).toBeInTheDocument()
   })
@@ -107,5 +109,29 @@ describe('sortable.test.html', () => {
     expect(first).toBe('0.2')
     expect(middle).toBe('last')
     expect(last).toBe('last')
+  })
+  it('respects class="no-sort" in th', async () => {
+    const table = getAllByRole(container, 'table')[4]
+    const th = getByRole(table, 'columnheader', { name: /Name/ })
+    const first = getAllByRole(table, 'cell')[1].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[1].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[1].textContent
+    expect(first).toBe('Rick')
+    expect(middle).toBe('Rick')
+    expect(last).toBe('Rick')
+  })
+  it('treats time formats like strings', async () => {
+    const table = getAllByRole(container, 'table')[5]
+    const th = getByRole(table, 'columnheader', { name: /Time/ })
+    const first = getAllByRole(table, 'cell')[1].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[1].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[1].textContent
+    expect(first).toBe('12:00:12')
+    expect(middle).toBe('12:22:11')
+    expect(last).toBe('12:00:12')
   })
 })
