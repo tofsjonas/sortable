@@ -134,4 +134,30 @@ describe('sortable.test.html', () => {
     expect(middle).toBe('12:22:11')
     expect(last).toBe('12:00:12')
   })
+
+  it('treats amounts like strings', async () => {
+    const table = getAllByRole(container, 'table')[5]
+    const th = getByRole(table, 'columnheader', { name: /Amount/ })
+    const first = getAllByRole(table, 'cell')[2].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[2].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[2].textContent
+    expect(first).toBe('$18.49')
+    expect(middle).toBe('$2.49')
+    expect(last).toBe('$1.96')
+  })
+
+  it('treats numbers like numbers', async () => {
+    const table = getAllByRole(container, 'table')[5]
+    const th = getByRole(table, 'columnheader', { name: /Number/ })
+    const first = getAllByRole(table, 'cell')[3].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[3].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[3].textContent
+    expect(first).toBe('2.49')
+    expect(middle).toBe('18.49')
+    expect(last).toBe('1.96')
+  })
 })
