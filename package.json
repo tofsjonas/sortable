@@ -8,7 +8,9 @@
     "test": "jest",
     "lint": "eslint src/sortable.ts",
     "build": "npm run compile && npm run sass",
-    "compile": "google-closure-compiler --js=./sortable.js --js_output_file=./sortable.min.js",
+    "compile": "npm run compile:sortable && npm run compile:a11y",
+    "compile:sortable": "google-closure-compiler --js=./sortable.js --js_output_file=./sortable.min.js",
+    "compile:a11y": "google-closure-compiler --js=./sortable.a11y.js --js_output_file=./sortable.a11y.min.js",
     "sass": "npm run sass:dist && npm run sass:dist:minify",
     "sass:dist": "sass src/sortable.scss:sortable.css src/example.scss:example.css src/sortable-base.scss:sortable-base.css",
     "sass:dist:minify": "sass src/sortable.scss:sortable.min.css src/example.scss:example.min.css src/sortable-base.scss:sortable-base.min.css --style compressed"
