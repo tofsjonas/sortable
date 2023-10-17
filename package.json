@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "scripts": {
     "dev": "tsc -w",
@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tofsjonas/sortable"
+    "url": "git+https://github.com/tofsjonas/sortable.git"
   },
   "keywords": [
     "sort",

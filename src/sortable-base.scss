@@ -20,14 +20,14 @@
           }
         }
 
-        &.dir-d {
+        &[aria-sort="descending"]{
           &::after {
             color: inherit;
             content: '\025BE';
           }
         }
 
-        &.dir-u {
+        &[aria-sort="ascending"] {
           &::after {
             color: inherit;
             content: '\025B4';
@@ -48,14 +48,14 @@
             }
           }
 
-          &.dir-d {
+          &[aria-sort="descending"]{
             &::before {
               color: inherit;
               content: '\025BE';
             }
           }
 
-          &.dir-u {
+          &[aria-sort="ascending"] {
             &::before {
               color: inherit;
               content: '\025B4';
