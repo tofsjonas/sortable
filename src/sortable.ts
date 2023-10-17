@@ -80,11 +80,10 @@ document.addEventListener('click', function (e: MouseEvent) {
 
       let direction = 'descending'
 
-      if(element.getAttribute('aria-sort') === 'descending'
-        ||
-        (table.classList.contains(ascending_table_sort_class) && element.getAttribute('aria-sort')!=='ascending')      
-      )
-      {
+      if (
+        element.getAttribute('aria-sort') === 'descending' ||
+        (table.classList.contains(ascending_table_sort_class) && element.getAttribute('aria-sort') !== 'ascending')
+      ) {
         direction = 'ascending'
       }
 
