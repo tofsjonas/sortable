@@ -31,6 +31,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 - [Ascending sort](#ascending-sort)
 - [Tiebreaker / secondary sort](#tiebreaker--secondary-sort)
 - [Empty/null rows always last](#emptynull-rows-always-last)
+- [Accessibility](#accessibility)
 - [Sort on load](#sort-on-load)
 - [Thank you...](#thank-you)
 
@@ -389,6 +390,27 @@ Adding `class="n-last"` to `<table class="sortable">` will make empty/null value
 ```
 
 ⚠️ _Note that a string of blank spaces is **not** considered null/empty. `<td data-sort=" "></td>` will be sorted normally._
+
+## Accessibility
+
+Sortable is not very accessible in its raw form. It does not support screen readers, and it does not have any keyboard support. Including `sortable.a11y.min.js` in your project will add some basic accessibility features.
+
+```html
+<table class="sortable">
+  ...
+</table>
+<link href="sortable.min.css" rel="stylesheet" />
+<script src="sortable.min.js"></script>
+<script src="sortable.a11y.min.js"></script>
+```
+
+By including the file the global function `enhanceSortableAccessibility` will automatically run through all existing `.sortable` tables, but you can also run it manually, like so:
+
+```javascript
+enhanceSortableAccessibility([table1, table2,...etc.])
+```
+
+The function adds an `aria-label` to each th, as well as `tabindex="0"` to each th in the thead of each table, making it possible to tab through the headers. It updates the `aria-label` depending on the direction.
 
 ## Sort on load
 
