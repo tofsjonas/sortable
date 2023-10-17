@@ -1,5 +1,5 @@
 /**
- * sortable v2.4.0
+ * sortable v3.0.0
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -44,12 +44,9 @@ document.addEventListener('click', function (e: MouseEvent) {
       return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag)
     }
 
-    const descending_th_class = 'dir-d'
-    const ascending_th_class = 'dir-u'
     const ascending_table_sort_class = 'asc'
     const no_sort_class = 'no-sort'
     const null_last_class = 'n-last'
-
     const table_class_name = 'sortable'
 
     const alt_sort = e.shiftKey || e.altKey
@@ -57,12 +54,6 @@ document.addEventListener('click', function (e: MouseEvent) {
     const tr = element.parentNode as HTMLTableRowElement
     const thead = tr.parentNode as HTMLTableSectionElement
     const table = thead.parentNode as HTMLTableElement
-
-    function reClassify(element: HTMLElement, dir: string) {
-      element.classList.remove(descending_th_class)
-      element.classList.remove(ascending_th_class)
-      if (dir) element.classList.add(dir)
-    }
 
     function getValue(element: HTMLTableCellElement) {
       const value = alt_sort ? element.dataset.sortAlt : element.dataset.sort ?? element.textContent
@@ -83,23 +74,25 @@ document.addEventListener('click', function (e: MouseEvent) {
         if (nodes[i] === element) {
           column_index = parseInt(element.dataset.sortCol) || i
         } else {
-          reClassify(nodes[i], '')
+          nodes[i].setAttribute('aria-sort', 'none')
         }
       }
 
-      let dir = descending_th_class
+      let direction = 'descending'
 
-      // Check if we're sorting ascending or descending
-      if (
-        element.classList.contains(descending_th_class) ||
-        (table.classList.contains(ascending_table_sort_class) && !element.classList.contains(ascending_th_class))
-      ) {
-        dir = ascending_th_class
+      if(element.getAttribute('aria-sort') === 'descending'
+        ||
+        (table.classList.contains(ascending_table_sort_class) && element.getAttribute('aria-sort')!=='ascending')      
+      )
+      {
+        direction = 'ascending'
       }
 
       // Update the `th` class accordingly
-      reClassify(element, dir)
-      const reverse = dir === ascending_th_class
+      element.setAttribute('aria-sort', direction)
+
+      const reverse = direction === 'ascending'
+
       const sort_null_last = table.classList.contains(null_last_class)
 
       const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement, index: number) => {

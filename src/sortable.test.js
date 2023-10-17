@@ -56,21 +56,20 @@ describe('sortable.test.html', () => {
     expect(last).toBe('Morty')
   })
 
-  it('sorts a table ascending', async () => {
+  it('sorts a table using Enter key', async () => {
     const table = getAllByRole(container, 'table')[0]
-    table.classList.add('asc')
-
     const th = getByRole(table, 'columnheader', { name: /Name/i })
     const first = getAllByRole(table, 'cell')[1].textContent
-    fireEvent.click(th)
+    fireEvent.keyDown(th, { key: 'Enter', code: 'Enter' })
     const middle = getAllByRole(table, 'cell')[1].textContent
-    fireEvent.click(th)
+    fireEvent.keyDown(th, { key: 'Enter', code: 'Enter' })
     const last = getAllByRole(table, 'cell')[1].textContent
 
     expect(first).toBe('Rick')
-    expect(middle).toBe('Morty') // since it is already sorted in that direction
-    expect(last).toBe('Rick')
+    expect(middle).toBe('Rick')
+    expect(last).toBe('Morty')
   })
+
 
   it('sorts a table using tie breaker', async () => {
     const table = getAllByRole(container, 'table')[1]
@@ -162,8 +161,24 @@ describe('sortable.test.html', () => {
     expect(last).toBe('1.96')
   })
 
-  it('sorts a table on Enter key', async () => {
-    const table = getAllByRole(container, 'table')[0]
+
+  it('sorts a table ascending', async () => {
+    const table = getAllByRole(container, 'table')[6]
+
+    const th = getByRole(table, 'columnheader', { name: /Name/i })
+    const first = getAllByRole(table, 'cell')[1].textContent
+    fireEvent.click(th)
+    const middle = getAllByRole(table, 'cell')[1].textContent
+    fireEvent.click(th)
+    const last = getAllByRole(table, 'cell')[1].textContent
+
+    expect(first).toBe('Rick')
+    expect(middle).toBe('Morty')
+    expect(last).toBe('Rick')
+  })
+
+  it('sorts a table ascending using Enter key', async () => {
+    const table = getAllByRole(container, 'table')[6]
     const th = getByRole(table, 'columnheader', { name: /Name/i })
     const first = getAllByRole(table, 'cell')[1].textContent
     fireEvent.keyDown(th, { key: 'Enter', code: 'Enter' })
@@ -172,7 +187,9 @@ describe('sortable.test.html', () => {
     const last = getAllByRole(table, 'cell')[1].textContent
 
     expect(first).toBe('Rick')
-    expect(middle).toBe('Rick')
-    expect(last).toBe('Morty')
+    expect(middle).toBe('Morty')
+    expect(last).toBe('Rick')
   })
+
+
 })

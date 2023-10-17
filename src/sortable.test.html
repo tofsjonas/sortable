@@ -166,7 +166,30 @@
       </tbody>
     </table>
 
-    <script>
+    <h2>Ascending sort</h2>
+
+    <table class="sortable asc">
+      <thead>
+        <tr>
+          <th><span>Role</span></th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+          <td><a id="morty" href="#">Morty</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+<script>
       document.getElementById('morty').addEventListener('click', function (e) {
         e.preventDefault()
         alert('event listeners also work!')
