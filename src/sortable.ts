@@ -1,5 +1,5 @@
 /**
- * sortable v2.3.2
+ * sortable v2.4.0
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable

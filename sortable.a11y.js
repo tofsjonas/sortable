@@ -31,6 +31,5 @@ var enhanceSortableAccessibility = function (tables) {
     });
 };
 document.addEventListener('DOMContentLoaded', function () {
-    var tables = document.querySelectorAll('.sortable');
-    enhanceSortableAccessibility(tables);
+    enhanceSortableAccessibility(document.querySelectorAll('.sortable'));
 });

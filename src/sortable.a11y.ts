@@ -39,6 +39,5 @@ const enhanceSortableAccessibility = (tables: NodeListOf<HTMLTableElement>) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tables = document.querySelectorAll<HTMLTableElement>('.sortable')
-  enhanceSortableAccessibility(tables)
+  enhanceSortableAccessibility(document.querySelectorAll<HTMLTableElement>('.sortable'))
 })
