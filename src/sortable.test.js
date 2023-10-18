@@ -70,7 +70,6 @@ describe('sortable.test.html', () => {
     expect(last).toBe('Morty')
   })
 
-
   it('sorts a table using tie breaker', async () => {
     const table = getAllByRole(container, 'table')[1]
     const th = getByRole(table, 'columnheader', { name: /Year/ })
@@ -161,7 +160,6 @@ describe('sortable.test.html', () => {
     expect(last).toBe('1.96')
   })
 
-
   it('sorts a table ascending', async () => {
     const table = getAllByRole(container, 'table')[6]
 
@@ -190,6 +188,4 @@ describe('sortable.test.html', () => {
     expect(middle).toBe('Morty')
     expect(last).toBe('Rick')
   })
-
-
 })
