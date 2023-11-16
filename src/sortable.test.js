@@ -5,8 +5,18 @@ import { JSDOM } from 'jsdom'
 import fs from 'fs'
 import path from 'path'
 
-const js = fs.readFileSync(path.resolve(__dirname, '../sortable.js'), 'utf8')
-const a11y_js = fs.readFileSync(path.resolve(__dirname, '../sortable.a11y.js'), 'utf8')
+// Determine whether to use minified versions based on an environment variable
+const use_minified = process.env.USE_MINIFIED === 'true'
+
+// Construct file paths based on the above flag
+const js_filename = use_minified ? 'sortable.min.js' : 'sortable.js'
+const a11y_js_filename = use_minified ? 'sortable.a11y.min.js' : 'sortable.a11y.js'
+
+console.log(`Testing with ${js_filename} and ${a11y_js_filename}`)
+
+const js = fs.readFileSync(path.resolve(__dirname, `../${js_filename}`), 'utf8')
+const a11y_js = fs.readFileSync(path.resolve(__dirname, `../${a11y_js_filename}`), 'utf8')
+
 const html = fs
   .readFileSync(path.resolve(__dirname, './sortable.test.html'), 'utf8')
   .replace('<script src="../sortable.js"></script>', `<script>${js}</script>`)

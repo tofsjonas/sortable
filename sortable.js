@@ -1,5 +1,5 @@
 /**
- * sortable v3.0.0
+ * sortable v3.1.0
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -73,9 +73,8 @@ document.addEventListener('click', function (e) {
                 }
             }
             var direction = 'descending';
-            if (element.getAttribute('aria-sort') === 'descending'
-                ||
-                    (table.classList.contains(ascending_table_sort_class) && element.getAttribute('aria-sort') !== 'ascending')) {
+            if (element.getAttribute('aria-sort') === 'descending' ||
+                (table.classList.contains(ascending_table_sort_class) && element.getAttribute('aria-sort') !== 'ascending')) {
                 direction = 'ascending';
             }
             // Update the `th` class accordingly
