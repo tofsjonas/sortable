@@ -13,7 +13,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'no-inner-declarations': 'off',
-    // For some reason setting the target target ES5 messes up the code, and es2020 does not
+    // For some reason setting the target ES5 messes up the code, and es2020 does not
     // 'no-var': 'off',
   },
 }

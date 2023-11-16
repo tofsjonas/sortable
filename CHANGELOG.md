@@ -7,11 +7,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2023-11-16
+
+### Changed
+
+- Using `rollup` instead of `tsc` to generate javascript files.
+- `src/` folder now included in npm package, so that `enhanceSortableAccessibility` can be used in TypeScript projects.
+
+### Added
+
+- Test minified files also.
+- Added `focus` eventListener to `enhanceSortableAccessibility`, so that the `aria-label` is kept up to date.
+
 ## [3.0.0] - 2023-10-17
 
 ### Changed
 
-- `aria-sort="ascending|descending"` used instead of `class="dir-d|dir-up"`  to keep track of direction.
+- `aria-sort="ascending|descending"` used instead of `class="dir-d|dir-up"` to keep track of direction.
 
 ### Breaking Changes
 
@@ -106,6 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This CHANGELOG.md was generated with the assistance of [ChatGPT by OpenAI](https://www.openai.com/research/chatgpt).
 
+[3.1.0]: https://github.com/tofsjonas/sortable/releases/tag/3.1.0
 [3.0.0]: https://github.com/tofsjonas/sortable/releases/tag/3.0.0
 [2.4.0]: https://github.com/tofsjonas/sortable/releases/tag/2.4.0
 [2.3.2]: https://github.com/tofsjonas/sortable/releases/tag/2.3.2
