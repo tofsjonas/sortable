@@ -26,7 +26,7 @@ export const enhanceSortableAccessibility = (tables: NodeListOf<HTMLTableElement
     const aria_label = `Click to sort table by ${header_text} in ${new_direction} order`
 
     element.setAttribute('aria-label', aria_label)
-    element.setAttribute('title', aria_label)
+    // element.setAttribute('title', aria_label) REMEMBER TO COMMENT OUT WHEN NOT TESTING!!
   }
 
   /**
@@ -48,6 +48,9 @@ export const enhanceSortableAccessibility = (tables: NodeListOf<HTMLTableElement
     // Iterate over each header cell in the table
     headers.forEach((header) => {
       const element = header as HTMLTableCellElement
+
+      // Skip if the header cell already has a tabindex attribute
+      if (element.hasAttribute('tabindex')) return
 
       const update = () => {
         updateAriaLabel(element, default_direction)

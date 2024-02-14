@@ -406,11 +406,18 @@ Sortable is not very accessible in its raw form. It does not support screen read
 
 By including the file the global function `enhanceSortableAccessibility` will automatically run through all existing `.sortable` tables, but you can also run it manually, like so:
 
-```javascript
+```js
 enhanceSortableAccessibility([table1, table2,...etc.])
 ```
 
 The function adds an `aria-label` to each th, as well as `tabindex="0"` to each th in the thead of each table, making it possible to tab through the headers. It updates the `aria-label` depending on the direction.
+
+if you want to import it instead this _should_ work: (I haven't tested it)
+
+```ts
+import { enhanceSortableAccessibility } from 'sortable-tablesort/enhanceSortableAccessibility'
+enhanceSortableAccessibility([table1, table2,...etc.])
+```
 
 ## Sort on load
 

@@ -28,6 +28,27 @@ export default [
     plugins: [typescript()],
   },
   {
+    input: './src/sortable.ts',
+    output: {
+      file: './sortable.min.js',
+    },
+    plugins: [typescript(), terser(terser_config)],
+  },
+  {
+    input: './src/enhanceSortableAccessibility.ts',
+    output: {
+      file: './enhanceSortableAccessibility.js',
+    },
+    plugins: [typescript()],
+  },
+  {
+    input: './src/enhanceSortableAccessibility.ts',
+    output: {
+      file: './enhanceSortableAccessibility.min.js',
+    },
+    plugins: [typescript(), terser(terser_config)],
+  },
+  {
     input: './src/sortable.a11y.ts',
     output: {
       file: './sortable.a11y.js',
@@ -39,13 +60,6 @@ export default [
     input: './src/sortable.a11y.ts',
     output: {
       file: './sortable.a11y.min.js',
-    },
-    plugins: [typescript(), terser(terser_config)],
-  },
-  {
-    input: './src/sortable.ts',
-    output: {
-      file: './sortable.min.js',
     },
     plugins: [typescript(), terser(terser_config)],
   },

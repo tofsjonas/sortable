@@ -65,7 +65,4 @@ var enhanceSortableAccessibility = function (tables) {
     });
 };
 
-// Attach function to DOMContentLoaded event to execute when page is loaded
-document.addEventListener('DOMContentLoaded', function () {
-    enhanceSortableAccessibility(document.querySelectorAll('.sortable'));
-});
+export { enhanceSortableAccessibility };
