@@ -4,9 +4,18 @@ import '@testing-library/jest-dom'
 import { JSDOM } from 'jsdom'
 import fs from 'fs'
 import path from 'path'
-
+import { enhanceSortableAccessibility } from '../enhanceSortableAccessibility'
 // Determine whether to use minified versions based on an environment variable
 const use_minified = process.env.USE_MINIFIED === 'true'
+
+function waitFor(conditionFunction) {
+  const poll = (resolve) => {
+    if (conditionFunction()) resolve()
+    else setTimeout((_) => poll(resolve), 50)
+  }
+
+  return new Promise(poll)
+}
 
 // Construct file paths based on the above flag
 const js_filename = use_minified ? 'sortable.min.js' : 'sortable.js'
@@ -185,7 +194,23 @@ describe('sortable.test.html', () => {
     expect(last).toBe('Rick')
   })
 
-  it('sorts a table ascending using Enter key', async () => {
+  it('a11y labels are added and updated', async () => {
+    const first_string = 'Click to sort table by Name in ascending order'
+    const second_string = 'Click to sort table by Name in descending order'
+
+    const table = getAllByRole(container, 'table')[6]
+    const th = getByRole(table, 'columnheader', { name: /Name/i })
+    const first = th.getAttribute('aria-label')
+    fireEvent.click(th)
+    await waitFor(() => th.getAttribute('aria-label') === second_string)
+
+    const middle = th.getAttribute('aria-label')
+
+    expect(first).toBe(first_string)
+    expect(middle).toBe(second_string)
+  })
+
+  it('sorts a table using Enter key', async () => {
     const table = getAllByRole(container, 'table')[6]
     const th = getByRole(table, 'columnheader', { name: /Name/i })
     const first = getAllByRole(table, 'cell')[1].textContent
@@ -197,5 +222,48 @@ describe('sortable.test.html', () => {
     expect(first).toBe('Rick')
     expect(middle).toBe('Morty')
     expect(last).toBe('Rick')
+  })
+
+  it('works when using enhanceSortableAccessibility()', async () => {
+    const first_string = 'Click to sort table by Name in ascending order'
+    const second_string = 'Click to sort table by Name in descending order'
+
+    const table = getAllByRole(container, 'table')[6]
+    let th = getByRole(table, 'columnheader', { name: /Name/i })
+
+    // remove eventlistener from th
+    let clone = th.cloneNode(true)
+    th.parentNode.replaceChild(clone, th)
+
+    th = clone
+
+    // double check that the eventlistener is removed
+    // this should NOT alter the a11y label
+    fireEvent.click(th)
+
+    // this, however, _should_ alter the a11y label
+    setTimeout(() => {
+      // th.setAttribute('tabindex', 5)
+      th.setAttribute('aria-label', '')
+      th.removeAttribute('tabindex')
+    }, 100)
+
+    await waitFor(() => th.getAttribute('aria-label') === '' || th.getAttribute('aria-label') === second_string)
+    const middle = th.getAttribute('aria-label')
+    expect(middle).toBe('')
+
+    // re-enable the a11y
+    enhanceSortableAccessibility([table])
+
+    // wait for the a11y to be added back
+    await waitFor(() => th.hasAttribute('tabindex'))
+
+    fireEvent.click(th)
+
+    // see that it worked:
+
+    await waitFor(() => th.getAttribute('aria-label') === first_string)
+
+    // well, if we got here, we're good
   })
 })
