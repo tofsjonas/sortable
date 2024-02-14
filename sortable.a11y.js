@@ -24,7 +24,7 @@ var enhanceSortableAccessibility = function (tables) {
         }
         var aria_label = "Click to sort table by ".concat(header_text, " in ").concat(new_direction, " order");
         element.setAttribute('aria-label', aria_label);
-        element.setAttribute('title', aria_label);
+        // element.setAttribute('title', aria_label) REMEMBER TO COMMENT OUT WHEN NOT TESTING!!
     }
     /**
      * Handles keyboard events on table header cells and triggers a click event when the Enter key is pressed.
@@ -43,6 +43,9 @@ var enhanceSortableAccessibility = function (tables) {
         // Iterate over each header cell in the table
         headers.forEach(function (header) {
             var element = header;
+            // Skip if the header cell already has a tabindex attribute
+            if (element.hasAttribute('tabindex'))
+                return;
             var update = function () {
                 updateAriaLabel(element, default_direction);
             };
