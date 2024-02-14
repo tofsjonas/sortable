@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "author": "Jonas Earendel",
   "license": "Unlicense",
@@ -12,7 +12,7 @@
   "main": "sortable.min.js",
   "module": "sortable.min.js",
   "style": "sortable.min.css",
-  "sass": "src/sortable.css",
+  "sass": "src/sortable.scss",
   "keywords": [
     "sort",
     "html",
