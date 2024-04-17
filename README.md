@@ -2,7 +2,7 @@
 <h1>sortable</h1>
 <h5>- a tiny, vanilla/plain JavaScript table sorter</h5>
 
-![CI](https://github.com/tofsjonas/sortable/actions/workflows/CI/badge.svg) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tofsjonas/sortable) ![NPM Version](https://img.shields.io/npm/v/sortable-tablesort) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/) ![GitHub Repo stars](https://img.shields.io/github/stars/tofsjonas/sortable) [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
+![CI](https://github.com/tofsjonas/sortable/actions/workflows/CI/badge.svg) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tofsjonas/sortable) ![NPM Version](https://img.shields.io/npm/v/sortable-tablesort) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/) ![NPM Downloads](https://img.shields.io/npm/dw/sortable-tablesort) ![GitHub Repo stars](https://img.shields.io/github/stars/tofsjonas/sortable) [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
 
 Makes any table with **class="sortable"**, er, sortable. The user can click on a table header and change the sorting of the table rows.
 
