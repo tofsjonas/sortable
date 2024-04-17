@@ -2,6 +2,8 @@
 <h1>sortable</h1>
 <h5>- a tiny, vanilla/plain JavaScript table sorter</h5>
 
+![CI](https://github.com/tofsjonas/sortable/actions/workflows/CI/badge.svg) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tofsjonas/sortable) ![NPM Version](https://img.shields.io/npm/v/sortable-tablesort) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/) ![GitHub Repo stars](https://img.shields.io/github/stars/tofsjonas/sortable) [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
+
 Makes any table with **class="sortable"**, er, sortable. The user can click on a table header and change the sorting of the table rows.
 
 Just include the JavaScript and it will work. No function calls are needed, everything is handled by an **eventListener**.
@@ -28,6 +30,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 - [Sorting sizes, dates and such](#sorting-sizes-dates-and-such)
 - [Alternative sorting](#alternative-sorting)
 - [Colspans/Sort on specific column](#colspanssort-on-specific-column)
+- [Concerning `rowspan`](#concerning-rowspan)
 - [Ascending sort](#ascending-sort)
 - [Tiebreaker / secondary sort](#tiebreaker--secondary-sort)
 - [Empty/null rows always last](#emptynull-rows-always-last)
@@ -44,6 +47,8 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 - **Lightning fast**. _Huge_ tables will make it slow and may freeze the browser, especially for mobiles, so you know...
 
 - Requires **thead** and **tbody**.
+
+- **rowspan** is not supported 😢
 
 - **cross browser**, ~~ie9+~~ No longer ie9 compatible. Then again, maybe it already wasn't 🤷
 
@@ -306,6 +311,12 @@ Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a differe
 </tbody>
 ```
 
+## Concerning `rowspan`
+
+Rowspans are not supported. Maybe I could do a half-assed implementation, but I don't think it would be worth it. You can read my justification in [Issue 71](https://github.com/tofsjonas/sortable/issues/71)
+
+If you have a good idea, please let me know!
+
 ## Ascending sort
 
 By adding `asc` to `table`, the default sorting direction will be **ascending** instead of descending
@@ -483,5 +494,3 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 - ...[Jojo-IO](https://github.com/Jojo-IO) for the finding the "`parseFloat` messes up time values" bug!
 
 - ...[Steve Wirt](https://github.com/swirtSJW) for lifting the Accessibility issue! 🦾️
-
-[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
