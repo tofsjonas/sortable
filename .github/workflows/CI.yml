@@ -6,13 +6,13 @@ on:
       - main
     paths:
       - 'src/sortable.ts'
-      - '.github/workflows/lint-and-test.yml'
+      - '.github/workflows/CI.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'src/sortable.ts'
-      - '.github/workflows/lint-and-test.yml'
+      - '.github/workflows/CI.yml'
 
 jobs:
   run-linters-and-tests:
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [20]
 
     steps:
       - uses: actions/checkout@v3
