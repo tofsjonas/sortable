@@ -40,7 +40,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **1180 bytes** minified. (617 bytes gzipped)
+- **1148 bytes** minified. (619 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 

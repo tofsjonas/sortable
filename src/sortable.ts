@@ -1,5 +1,5 @@
 /**
- * sortable v3.2.2
+ * sortable v3.2.3
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -67,12 +67,12 @@ document.addEventListener('click', function (e: MouseEvent) {
     ) {
       let column_index: number
       const nodes = tr.cells
-      const tiebreaker = parseInt(element.dataset.sortTbr)
+      const tiebreaker = +element.dataset.sortTbr
 
       // Reset thead cells and get column index
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === element) {
-          column_index = parseInt(element.dataset.sortCol) || i
+          column_index = +element.dataset.sortCol || i
         } else {
           nodes[i].setAttribute('aria-sort', 'none')
         }
@@ -106,7 +106,7 @@ document.addEventListener('click', function (e: MouseEvent) {
           }
         }
 
-        const temp = Number(x) - Number(y)
+        const temp = +x - +y
         const bool = isNaN(temp) ? x.localeCompare(y) : temp
 
         return reverse ? -bool : bool
