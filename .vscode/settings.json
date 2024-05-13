@@ -13,5 +13,8 @@
       "savePathReplacementPairs": null
     }
   ],
-  "liveSassCompile.settings.showOutputWindowOn": "Warning"
+  "eslint.experimental.useFlatConfig": true,
+
+  "liveSassCompile.settings.showOutputWindowOn": "Warning",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
