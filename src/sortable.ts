@@ -40,7 +40,7 @@
 document.addEventListener('click', function (e: MouseEvent) {
   try {
     // allows for elements inside TH
-    function findElementRecursive(element: ParentNode, tag: string) {
+    function findElementRecursive(element: Node, tag: string) {
       return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag)
     }
 
@@ -135,6 +135,7 @@ document.addEventListener('click', function (e: MouseEvent) {
         table.replaceChild(clone_tbody, org_tbody)
       }
     }
+    // eslint-disable-next-line no-unused-vars
   } catch (error) {
     // console.log(error)
   }

@@ -114,6 +114,7 @@ document.addEventListener('click', function (e) {
                 table.replaceChild(clone_tbody, org_tbody);
             }
         }
+        // eslint-disable-next-line no-unused-vars
     }
     catch (error) {
         // console.log(error)
