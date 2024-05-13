@@ -1,5 +1,5 @@
 /**
- * sortable v3.2.2
+ * sortable v3.2.3
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -62,11 +62,11 @@ document.addEventListener('click', function (e) {
         ) {
             var column_index_1;
             var nodes = tr.cells;
-            var tiebreaker_1 = parseInt(element.dataset.sortTbr);
+            var tiebreaker_1 = +element.dataset.sortTbr;
             // Reset thead cells and get column index
             for (var i = 0; i < nodes.length; i++) {
                 if (nodes[i] === element) {
-                    column_index_1 = parseInt(element.dataset.sortCol) || i;
+                    column_index_1 = +element.dataset.sortCol || i;
                 }
                 else {
                     nodes[i].setAttribute('aria-sort', 'none');
@@ -92,7 +92,7 @@ document.addEventListener('click', function (e) {
                         return 1;
                     }
                 }
-                var temp = Number(x) - Number(y);
+                var temp = +x - +y;
                 var bool = isNaN(temp) ? x.localeCompare(y) : temp;
                 return reverse_1 ? -bool : bool;
             };
@@ -114,6 +114,7 @@ document.addEventListener('click', function (e) {
                 table.replaceChild(clone_tbody, org_tbody);
             }
         }
+        // eslint-disable-next-line no-unused-vars
     }
     catch (error) {
         // console.log(error)

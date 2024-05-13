@@ -5,12 +5,13 @@
     "noUnusedLocals": true,
     "outDir": ".",
     "sourceMap": false,
+    "moduleResolution": "node",
     "strict": false,
     "target": "ES5",
     "allowSyntheticDefaultImports": true,
     "declaration": true
   },
-  "compileOnSave": true,
-  "include": ["src/sortable.ts", "src/sortable.a11y.ts"],
-  "exclude": ["node_modules", "**/node_modules/*", "._*"]
+  "compileOnSave": false,
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
