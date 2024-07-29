@@ -21,18 +21,23 @@ code {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .sortable:nth-of-type(4) th:nth-child(7),
-th.no-sort {
-  background: pink;
-  color: red;
+thead th.no-sort {
+  background: pink !important;
+  color: red !important;
+}
+
+.sortable:nth-of-type(4) th:nth-child(7) {
   pointer-events: none;
+  &::after {
+    color: red;
+    content: '(also not sortable)';
+    font-size: 0.9em;
+    display: block;
+  }
 }
-.sortable:nth-of-type(4) th:nth-child(7)::after {
-  color: red;
-  content: '(also not sortable)';
-  font-size: 0.9em;
-  display: block;
-}
+
 .lefty {
   td:nth-child(2),
   th:nth-child(2) {

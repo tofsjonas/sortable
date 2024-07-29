@@ -1,4 +1,4 @@
-name: Lint and Test
+name: CI
 
 on:
   push:
@@ -6,11 +6,13 @@ on:
       - main
     paths:
       - 'src/sortable.ts'
+      - '.github/workflows/CI.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'src/sortable.ts'
+      - '.github/workflows/CI.yml'
 
 jobs:
   run-linters-and-tests:
@@ -18,13 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [20]
 
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: latest
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -40,5 +42,5 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: Build, just in case
-        run: npm run build
+      - name: Run tests with minified code
+        run: npm run test:min

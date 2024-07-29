@@ -1,5 +1,5 @@
 /**
- * sortable v2.1.3
+ * sortable v3.2.3
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -40,66 +40,76 @@
 document.addEventListener('click', function (e: MouseEvent) {
   try {
     // allows for elements inside TH
-    function findElementRecursive(element: ParentNode, tag: string) {
+    function findElementRecursive(element: Node, tag: string) {
       return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag)
     }
 
-    const descending_th_class = 'dir-d'
-    const ascending_th_class = 'dir-u'
     const ascending_table_sort_class = 'asc'
-
+    const no_sort_class = 'no-sort'
+    const null_last_class = 'n-last'
     const table_class_name = 'sortable'
 
     const alt_sort = e.shiftKey || e.altKey
     const element: HTMLTableCellElement = findElementRecursive(e.target as HTMLElement, 'TH')
-    const tr: HTMLTableRowElement = findElementRecursive(element, 'TR')
-    const table: HTMLTableElement = findElementRecursive(tr, 'TABLE')
-
-    function reClassify(element: HTMLElement, dir: string) {
-      element.classList.remove(descending_th_class)
-      element.classList.remove(ascending_th_class)
-      if (dir) element.classList.add(dir)
-    }
+    const tr = element.parentNode as HTMLTableRowElement
+    const thead = tr.parentNode as HTMLTableSectionElement
+    const table = thead.parentNode as HTMLTableElement
 
     function getValue(element: HTMLTableCellElement) {
-      const value = (alt_sort && element.dataset.sortAlt) || element.dataset.sort || element.textContent
+      const value = alt_sort ? element.dataset.sortAlt : element.dataset.sort ?? element.textContent
       return value
     }
 
-    if (table.classList.contains(table_class_name)) {
+    if (
+      thead.nodeName === 'THEAD' && // sortable only triggered in `thead`
+      table.classList.contains(table_class_name) &&
+      !element.classList.contains(no_sort_class) // .no-sort is now core functionality, no longer handled in CSS
+    ) {
       let column_index: number
       const nodes = tr.cells
-      const tiebreaker = parseInt(element.dataset.sortTbr)
+      const tiebreaker = +element.dataset.sortTbr
 
       // Reset thead cells and get column index
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === element) {
-          column_index = parseInt(element.dataset.sortCol) || i
+          column_index = +element.dataset.sortCol || i
         } else {
-          reClassify(nodes[i], '')
+          nodes[i].setAttribute('aria-sort', 'none')
         }
       }
 
-      let dir = descending_th_class
+      let direction = 'descending'
 
-      // Check if we're sorting ascending or descending
       if (
-        element.classList.contains(descending_th_class) ||
-        (table.classList.contains(ascending_table_sort_class) && !element.classList.contains(ascending_th_class))
+        element.getAttribute('aria-sort') === 'descending' ||
+        (table.classList.contains(ascending_table_sort_class) && element.getAttribute('aria-sort') !== 'ascending')
       ) {
-        dir = ascending_th_class
+        direction = 'ascending'
       }
 
       // Update the `th` class accordingly
-      reClassify(element, dir)
-      const reverse = dir === ascending_th_class
+      element.setAttribute('aria-sort', direction)
+
+      const reverse = direction === 'ascending'
+
+      const sort_null_last = table.classList.contains(null_last_class)
 
       const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement, index: number) => {
-        const x = getValue((reverse ? a : b).cells[index])
-        const y = getValue((reverse ? b : a).cells[index])
-        const temp = parseFloat(x) - parseFloat(y)
+        const x = getValue(b.cells[index])
+        const y = getValue(a.cells[index])
+        if (sort_null_last) {
+          if (x === '' && y !== '') {
+            return -1
+          }
+          if (y === '' && x !== '') {
+            return 1
+          }
+        }
+
+        const temp = +x - +y
         const bool = isNaN(temp) ? x.localeCompare(y) : temp
-        return bool
+
+        return reverse ? -bool : bool
       }
 
       // loop through all tbodies and sort them
@@ -125,6 +135,7 @@ document.addEventListener('click', function (e: MouseEvent) {
         table.replaceChild(clone_tbody, org_tbody)
       }
     }
+    // eslint-disable-next-line no-unused-vars
   } catch (error) {
     // console.log(error)
   }

@@ -1,8 +1,12 @@
-<h1>sortable - a tiny, vanilla JS table sorter</h1>
+<!-- markdownlint-disable MD033 MD026 -->
+<h1>sortable</h1>
+<h5>- a tiny, vanilla/plain JavaScript table sorter</h5>
+
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tofsjonas/sortable) ![NPM Version](https://img.shields.io/npm/v/sortable-tablesort) ![NPM Downloads](https://img.shields.io/npm/dw/sortable-tablesort) ![GitHub Repo stars](https://img.shields.io/github/stars/tofsjonas/sortable) [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
 
 Makes any table with **class="sortable"**, er, sortable. The user can click on a table header and change the sorting of the table rows.
 
-Just include the JavaScript and it will work. No function calls needed, all is done with an **eventListener**. (the CSS is not strictly needed, but makes it pretty-ish and user friendly)
+Just include the JavaScript and it will work. No function calls are needed, everything is handled by an **eventListener**.
 
 <h2>Demo</h2>
 
@@ -15,24 +19,28 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
   - [1. link to jsDelivr](#1-link-to-jsdelivr)
   - [2. copy file to assets folder](#2-copy-file-to-assets-folder)
   - [3. npm package](#3-npm-package)
-    - [a) include in the html](#a-include-in-the-html)
+    - [a) use links in the html](#a-use-links-in-the-html)
     - [b) import files in javascript](#b-import-files-in-javascript)
 - [Non-sortable field](#non-sortable-field)
-  - [...using `class` and `css`](#using-class-and-css)
-  - [...using `css` only](#using-css-only)
+  - [...using `class="no-sort"`](#using-classno-sort)
+  - [...using `CSS`](#using-css)
+  - [...using `td` instead of `th`](#using-td-instead-of-th)
 - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
-- [Note about css/scss](#note-about-cssscss)
-- [Sorting dates, sizes and such](#sorting-dates-sizes-and-such)
+- [NOTE ABOUT CSS/SCSS](#note-about-cssscss)
+- [Sorting sizes, dates and such](#sorting-sizes-dates-and-such)
 - [Alternative sorting](#alternative-sorting)
 - [Colspans/Sort on specific column](#colspanssort-on-specific-column)
+- [Concerning `rowspan`](#concerning-rowspan)
 - [Ascending sort](#ascending-sort)
 - [Tiebreaker / secondary sort](#tiebreaker--secondary-sort)
+- [Empty/null rows always last](#emptynull-rows-always-last)
+- [Accessibility](#accessibility)
 - [Sort on load](#sort-on-load)
-- [...with a little help from my friends](#with-a-little-help-from-my-friends)
+- [Thank you...](#thank-you)
 
 ## Factoids
 
-- **1006 bytes** minified. Back under 1k! 🥳 (550 bytes gzipped)
+- **1148 bytes** minified. (619 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -40,11 +48,9 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 - Requires **thead** and **tbody**.
 
+- **rowspan** is not supported 😢
+
 - **cross browser**, ~~ie9+~~ No longer ie9 compatible. Then again, maybe it already wasn't 🤷
-
-- ~~eventListeners attached to the rows _WILL_ be removed~~
-
-- eventListeners are no longer removed! 😊
 
 - NOT tested with React, Angular, Vue, etc.
 
@@ -54,11 +60,11 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 There are three ways to use sortable, all of which have their pros and cons. [S Anand](https://github.com/sanand0) and [dkhgh](https://github.com/dkhgh) had some [interesting thoughts](https://github.com/tofsjonas/sortable/issues/28) about it.
 
-1. Including a link to [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable). (easiest)
+1. Include a link to [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable). (easiest)
 
 2. Copy the file from [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable) or [Github](https://github.com/tofsjonas/sortable) and put it in your assets folder. (in between)
 
-3. Installing the [npm package](https://www.npmjs.com/package/sortable-tablesort). (most work)
+3. Install the [npm package](https://www.npmjs.com/package/sortable-tablesort). (most reliable)
 
 ### 1. link to jsDelivr
 
@@ -85,7 +91,9 @@ There are three ways to use sortable, all of which have their pros and cons. [S 
 <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.js"></script>
 ```
 
-_(The `span` on line four is just there to prove that elements inside `th` works)_
+The `span` on line four is just there to prove that you can have elements inside `th`!
+
+⚠️ _If you are concerned about bugs, I recommend using version numbers instead of "latest"._
 
 ### 2. copy file to assets folder
 
@@ -110,9 +118,9 @@ npm install sortable-tablesort
 
 Now you can
 
-#### a) include in the html
+#### a) use links in the html
 
-Same as above, with files
+Same as above, with links to files
 
 ```html
 ...
@@ -133,26 +141,22 @@ import 'sortable-tablesort/sortable.min.js'
 
 ## Non-sortable field
 
-### ...using `class` and `css`
+### ...using `class="no-sort"`
 
-If you wish to disable sorting for a specific field, the easiest way is to add a class to it, like so:
+If you wish to disable sorting for a specific field, the easiest (and best) way is to add `class="no-sort"` to it, like so:
 
 ```html
-<tr>
-  <th class="no-sort">Role</th>
-  <th>Name</th>
-</tr>
+<thead>
+  <tr>
+    <th class="no-sort">Role</th>
+    <th>Name</th>
+  </tr>
+</thead>
 ```
 
-and then use css to block clicks. like so:
+Sorting will not be triggered if you click on "Role".
 
-```css
-.sortable th.no-sort {
-  pointer-events: none;
-}
-```
-
-### ...using `css` only
+### ...using `CSS`
 
 This is a bit trickier, but it doesn't require any changes to the html, so I guess it could be worth it in some cases.
 
@@ -167,6 +171,21 @@ This is a bit trickier, but it doesn't require any changes to the html, so I gue
   pointer-events: none;
 }
 ```
+
+### ...using `td` instead of `th`
+
+The eventListener only triggers on `th`, not `td`, so this would disable sorting for "Role":
+
+```html
+<thead>
+  <tr>
+    <td>Role</td>
+    <th>Name</th>
+  </tr>
+</thead>
+```
+
+⚠️ _Since `th` and `td` are not the same thing, you would most likely still have to use CSS to make them look the way you want. (It might also mess with accessibility.) In **some** cases it could be worth it, but I recommend the `.no-sort` alternative_.
 
 ## Indicators/arrows on the left side
 
@@ -189,7 +208,7 @@ This is solved by adding a class to the css and using `::before` instead of `::a
 
 > _Full example: [CSS](https://github.com/tofsjonas/sortable/blob/main/sortable-base.css), [SCSS](https://github.com/tofsjonas/sortable/blob/main/src/sortable-base.scss)_
 
-## Note about css/scss
+## NOTE ABOUT CSS/SCSS
 
 The `css/scss` in this repo was only ever meant as an example. It was never intended to be actually _used_.
 
@@ -203,9 +222,9 @@ That said, if you're feeling lazy, here are two stylesheets you can use:
 <link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.css" rel="stylesheet" />
 ```
 
-## Sorting dates, sizes and such
+## Sorting sizes, dates and such
 
-Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value. This is useful in case you have for instance sizes like kb, Mb, GB, or just really weird dates/other (feet, inches, stone, yards, miles, etc.). 😉
+Using the `data-sort` attribute in `tbody` > `td` you can have one visible value and one sortable value. This is useful in case you have for instance sizes like kb, Mb, GB, or really weird date formats. 😉
 
 ```html
 <table class="sortable">
@@ -292,6 +311,12 @@ Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a differe
 </tbody>
 ```
 
+## Concerning `rowspan`
+
+Rowspans are not supported. Maybe I could do a half-assed implementation, but I don't think it would be worth it. You can read my justification in [Issue 71](https://github.com/tofsjonas/sortable/issues/71)
+
+If you have a good idea, please let me know!
+
 ## Ascending sort
 
 By adding `asc` to `table`, the default sorting direction will be **ascending** instead of descending
@@ -340,7 +365,70 @@ If you wish to sort by a different column when two values are equal, you can use
 </table>
 ```
 
-When clicking Year, if they are the same, we will sort on month.
+When clicking **Year**, if they are the same, we will sort on **Month**.
+
+## Empty/null rows always last
+
+Adding `class="n-last"` to `<table class="sortable">` will make empty/null values always be sorted last, similar to what SQL does with `ORDER BY foo NULLS LAST`.
+
+```html
+<table class="sortable n-last">
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th class="indicator-left">Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>jkl</td>
+      <td>0.4</td>
+    </tr>
+    <tr>
+      <td>This will always be sorted after the others</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>abc</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>def</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+⚠️ _Note that a string of blank spaces is **not** considered null/empty. `<td data-sort=" "></td>` will be sorted normally._
+
+## Accessibility
+
+Sortable is not very accessible in its raw form. It does not support screen readers, and it does not have any keyboard support. Including `sortable.a11y.min.js` in your project will add some basic accessibility features.
+
+```html
+<table class="sortable">
+  ...
+</table>
+<link href="sortable.min.css" rel="stylesheet" />
+<script src="sortable.min.js"></script>
+<script src="sortable.a11y.min.js"></script>
+```
+
+By including the file the global function `enhanceSortableAccessibility` will automatically run through all existing `.sortable` tables, but you can also run it manually, like so:
+
+```js
+enhanceSortableAccessibility([table1, table2,...etc.])
+```
+
+The function adds an `aria-label` to each th, as well as `tabindex="0"` to each th in the thead of each table, making it possible to tab through the headers. It updates the `aria-label` depending on the direction.
+
+if you want to import it instead this _should_ work: (I haven't tested it)
+
+```ts
+import { enhanceSortableAccessibility } from 'sortable-tablesort/enhanceSortableAccessibility'
+enhanceSortableAccessibility([table1, table2,...etc.])
+```
 
 ## Sort on load
 
@@ -377,27 +465,32 @@ If you wish to sort a table on load, I would recommend doing something like this
 
 Combine this with `<table class="sortable asc">` to reverse the sort order. Or do `el.click()` twice!
 
-## ...with a little help from my friends
+## Thank you...
 
-- `<table class="sortable asc">` let's you [sort ascending](#ascending-sort) by default. Thanks [
-  Nikita Dunajevs](https://github.com/dunajevs)!
+- ...[Nikita Dunajevs](https://github.com/dunajevs) for the [ascending sort](#ascending-sort) idea!
 
-- `data-sort-alt` in `tbody` > `td` allows for [alternative sorting](#alternative-sorting) while holding `shift` or `alt`. Thanks [wodny](https://github.com/wodny)!
+- ...[wodny](https://github.com/wodny) for the [alternative sorting](#alternative-sorting) idea!
 
-- `data-sort-col` in `thead` > `th` allows you to [specify which column should be sorted](#colspanssort-on-specific-column), in case you are using `colspan`, for instance. Thanks [Nick Kocharhook](https://github.com/nk9)!
+- ...[Nick Kocharhook](https://github.com/nk9) for the [colspan sorting](#colspanssort-on-specific-column) idea!
 
-- **Nested elements** inside `th` now works. Thanks [mxve](https://github.com/mxve)!
+- ...[mxve](https://github.com/mxve) for the **nested elements** inside `th` fix!
 
-- [Sort on load](#sort-on-load) example. Thanks [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu)!
+- ...[Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu) for the [sort on load](#sort-on-load) example!
 
-- If you have more than one `<tbody />`, they will all be sorted. (Multiple `<thead />`s are not "allowed".) Thanks [GazHay](https://github.com/gazhay)!
+- ...[GazHay](https://github.com/gazhay) for the idea to sort multiple `<tbody />`!
 
-- Thanks to [Gordan Ratkovic](https://github.com/GordanRatkovic) for the [Tiebreaker / secondary sort](#tiebreaker--secondary-sort) idea!
+- ...[Gordan Ratkovic](https://github.com/GordanRatkovic) for the [tiebreaker / secondary sort](#tiebreaker--secondary-sort) idea!
 
-- Thanks to [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
+- ...[chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
 
-- Thanks to [Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
+- ...[Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
 
-- Thanks to [Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies, bringing it back under 1k in size!
+- ...[Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies!
 
-[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
+- ...[Nick](https://github.com/data-handler) for raising a whole bunch of issues! 🤯️
+
+- ...[James Pudson](https://github.com/nepsilon) for the [empty last](#emptynull-rows-always-last) suggestion, AND for finding the "`data-sort` ignored when empty" bug! 🥳️
+
+- ...[Jojo-IO](https://github.com/Jojo-IO) for the finding the "`parseFloat` messes up time values" bug!
+
+- ...[Steve Wirt](https://github.com/swirtSJW) for lifting the Accessibility issue! 🦾️

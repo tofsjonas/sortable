@@ -1,66 +1,66 @@
 .sortable {
-  th {
-    cursor: pointer;
-
-    &.no-sort {
-      pointer-events: none;
-    }
-    &::after,
-    &::before {
-      transition: color 0.1s ease-in-out;
-      font-size: 1.2em;
-      color: transparent;
-    }
-
-    &::after {
-      margin-left: 3px;
-      content: '\025B8';
-    }
-    &:hover {
-      &::after {
-        color: inherit;
-      }
-    }
-
-    &.dir-d {
-      &::after {
-        color: inherit;
-        content: '\025BE';
-      }
-    }
-
-    &.dir-u {
-      &::after {
-        color: inherit;
-        content: '\025B4';
-      }
-    }
-    &.indicator-left {
-      &::after {
-        content: '';
-      }
-      &::before {
-        margin-right: 3px;
-        content: '\025B8';
-      }
-
-      &:hover {
+  thead {
+    th {
+      &:not(.no-sort) {
+        cursor: pointer;
+        &::after,
         &::before {
-          color: inherit;
+          transition: color 0.1s ease-in-out;
+          font-size: 1.2em;
+          color: transparent;
         }
-      }
 
-      &.dir-d {
-        &::before {
-          color: inherit;
-          content: '\025BE';
+        &::after {
+          margin-left: 3px;
+          content: '\025B8';
         }
-      }
+        &:hover {
+          &::after {
+            color: inherit;
+          }
+        }
 
-      &.dir-u {
-        &::before {
-          color: inherit;
-          content: '\025B4';
+        &[aria-sort="descending"]{
+          &::after {
+            color: inherit;
+            content: '\025BE';
+          }
+        }
+
+        &[aria-sort="ascending"] {
+          &::after {
+            color: inherit;
+            content: '\025B4';
+          }
+        }
+        &.indicator-left {
+          &::after {
+            content: '';
+          }
+          &::before {
+            margin-right: 3px;
+            content: '\025B8';
+          }
+
+          &:hover {
+            &::before {
+              color: inherit;
+            }
+          }
+
+          &[aria-sort="descending"]{
+            &::before {
+              color: inherit;
+              content: '\025BE';
+            }
+          }
+
+          &[aria-sort="ascending"] {
+            &::before {
+              color: inherit;
+              content: '\025B4';
+            }
+          }
         }
       }
     }

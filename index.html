@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
   <head>
@@ -57,10 +57,10 @@
 
     <h2>An example with arrows on the left side:</h2>
 
-    <table class="sortable lefty">
+    <table class="sortable n-last">
       <thead>
         <tr>
-          <th><span>Text</span></th>
+          <th>Text</th>
           <th class="indicator-left">Number</th>
         </tr>
       </thead>
@@ -74,14 +74,19 @@
           <td>0</td>
         </tr>
         <tr>
-          <td>def</td>
-          <td>0.2</td>
-        </tr>
-        <tr>
           <td>ghi</td>
           <td></td>
         </tr>
+        <tr>
+          <td>def</td>
+          <td>0.2</td>
+        </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="2">tfoot is independent</th>
+        </tr>
+      </tfoot>
     </table>
 
     <script>
@@ -123,8 +128,8 @@
 
     <h2>Slightly larger</h2>
 
-    <p>"Ram" has class="no-sort", which has the css property "pointer-events: none;"</p>
-    <p>"Screen width" has the "css only" way of disabling sorting.</p>
+    <p>"Ram" has class="no-sort"</p>
+    <p>"Screen width" has the "css only" way of disabling sorting, using the property "pointer-events: none;"</p>
 
     <table class="sortable">
       <thead>
@@ -307,7 +312,8 @@
       tbody.innerHTML = ''
       tbody.appendChild(fragment)
     </script>
-    <script src="sortable.js"></script>
+    <script src="sortable.min.js"></script>
+    <script src="sortable.a11y.min.js"></script>
     <script>
       function prepareAdvancedTable() {
         var size_table = document.querySelector('.advanced-table')

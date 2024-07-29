@@ -1,5 +1,5 @@
 /**
- * sortable v2.1.3
+ * sortable v3.2.3
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
@@ -42,52 +42,59 @@ document.addEventListener('click', function (e) {
         function findElementRecursive(element, tag) {
             return element.nodeName === tag ? element : findElementRecursive(element.parentNode, tag);
         }
-        var descending_th_class_1 = 'dir-d';
-        var ascending_th_class_1 = 'dir-u';
         var ascending_table_sort_class = 'asc';
+        var no_sort_class = 'no-sort';
+        var null_last_class = 'n-last';
         var table_class_name = 'sortable';
         var alt_sort_1 = e.shiftKey || e.altKey;
         var element = findElementRecursive(e.target, 'TH');
-        var tr = findElementRecursive(element, 'TR');
-        var table = findElementRecursive(tr, 'TABLE');
-        function reClassify(element, dir) {
-            element.classList.remove(descending_th_class_1);
-            element.classList.remove(ascending_th_class_1);
-            if (dir)
-                element.classList.add(dir);
-        }
+        var tr = element.parentNode;
+        var thead = tr.parentNode;
+        var table = thead.parentNode;
         function getValue(element) {
-            var value = (alt_sort_1 && element.dataset.sortAlt) || element.dataset.sort || element.textContent;
+            var _a;
+            var value = alt_sort_1 ? element.dataset.sortAlt : (_a = element.dataset.sort) !== null && _a !== void 0 ? _a : element.textContent;
             return value;
         }
-        if (table.classList.contains(table_class_name)) {
+        if (thead.nodeName === 'THEAD' && // sortable only triggered in `thead`
+            table.classList.contains(table_class_name) &&
+            !element.classList.contains(no_sort_class) // .no-sort is now core functionality, no longer handled in CSS
+        ) {
             var column_index_1;
             var nodes = tr.cells;
-            var tiebreaker_1 = parseInt(element.dataset.sortTbr);
+            var tiebreaker_1 = +element.dataset.sortTbr;
             // Reset thead cells and get column index
             for (var i = 0; i < nodes.length; i++) {
                 if (nodes[i] === element) {
-                    column_index_1 = parseInt(element.dataset.sortCol) || i;
+                    column_index_1 = +element.dataset.sortCol || i;
                 }
                 else {
-                    reClassify(nodes[i], '');
+                    nodes[i].setAttribute('aria-sort', 'none');
                 }
             }
-            var dir = descending_th_class_1;
-            // Check if we're sorting ascending or descending
-            if (element.classList.contains(descending_th_class_1) ||
-                (table.classList.contains(ascending_table_sort_class) && !element.classList.contains(ascending_th_class_1))) {
-                dir = ascending_th_class_1;
+            var direction = 'descending';
+            if (element.getAttribute('aria-sort') === 'descending' ||
+                (table.classList.contains(ascending_table_sort_class) && element.getAttribute('aria-sort') !== 'ascending')) {
+                direction = 'ascending';
             }
             // Update the `th` class accordingly
-            reClassify(element, dir);
-            var reverse_1 = dir === ascending_th_class_1;
+            element.setAttribute('aria-sort', direction);
+            var reverse_1 = direction === 'ascending';
+            var sort_null_last_1 = table.classList.contains(null_last_class);
             var compare_1 = function (a, b, index) {
-                var x = getValue((reverse_1 ? a : b).cells[index]);
-                var y = getValue((reverse_1 ? b : a).cells[index]);
-                var temp = parseFloat(x) - parseFloat(y);
+                var x = getValue(b.cells[index]);
+                var y = getValue(a.cells[index]);
+                if (sort_null_last_1) {
+                    if (x === '' && y !== '') {
+                        return -1;
+                    }
+                    if (y === '' && x !== '') {
+                        return 1;
+                    }
+                }
+                var temp = +x - +y;
                 var bool = isNaN(temp) ? x.localeCompare(y) : temp;
-                return bool;
+                return reverse_1 ? -bool : bool;
             };
             // loop through all tbodies and sort them
             for (var i = 0; i < table.tBodies.length; i++) {
@@ -109,6 +116,7 @@ document.addEventListener('click', function (e) {
             const event = new Event("sortEnd");
             table.dispatchEvent(event);
         }
+        // eslint-disable-next-line no-unused-vars
     }
     catch (error) {
         // console.log(error)
