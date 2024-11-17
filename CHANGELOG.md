@@ -7,6 +7,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2024-11-15
+
+### Breaking Changes
+
+- Built files are now located in the `/dist` directory
+- Update your references from:
+  - `sortable.min.js` to `dist/sortable.min.js`
+  - `sortable.a11y.min.js` to `dist/sortable.a11y.min.js`
+  - etc.
+
+### Added
+
+- `setTimeout` lets double-click "re-sort" the table only once
+- `sort-start` and `sort-end` events
+- `dist/standalone` folder where all files are inlined, in case you want the functions to be available in the global scope
+
 ## [3.2.3] - 2024-05-08
 
 ### Changed
@@ -138,10 +154,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First release
 
-## Acknowledgments
-
-This CHANGELOG.md was generated with the assistance of [ChatGPT by OpenAI](https://www.openai.com/research/chatgpt).
-
+[4.0.0]: https://github.com/tofsjonas/sortable/releases/tag/4.0.0
 [3.2.3]: https://github.com/tofsjonas/sortable/releases/tag/3.2.3
 [3.2.2]: https://github.com/tofsjonas/sortable/releases/tag/3.2.2
 [3.2.1]: https://github.com/tofsjonas/sortable/releases/tag/3.2.1

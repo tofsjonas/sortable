@@ -1,66 +1,79 @@
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
+import scss from 'rollup-plugin-scss'
+// const terser_config = {
+//   ecma: 5,
+//   mangle: { toplevel: true },
+//   compress: {
+//     module: true,
+//     toplevel: true,
+//     unsafe_arrows: true,
+//     drop_console: false,
+//     drop_debugger: true,
+//   },
+//   output: {
+//     beautify: false,
+//     quote_style: 1,
+//     comments: false,
+//   },
+// }
 
 const terser_config = {
   ecma: 5,
-  mangle: { toplevel: true },
-  compress: {
-    module: true,
-    toplevel: true,
-    unsafe_arrows: true,
-    drop_console: false,
-    drop_debugger: true,
-  },
+  // mangle: false,
+  mangle: true,
+
+  compress: true,
   output: {
     beautify: false,
+    preserve_annotations: true,
     quote_style: 1,
-    comments: false,
+    comments: true,
+    ecma: 2020,
   },
 }
 
 export default [
-  {
-    input: './src/sortable.ts',
-    output: {
-      file: './sortable.js',
-      indent: '  ',
-    },
-    plugins: [typescript()],
-  },
-  {
-    input: './src/sortable.ts',
-    output: {
-      file: './sortable.min.js',
-    },
-    plugins: [typescript(), terser(terser_config)],
-  },
-  {
-    input: './src/enhanceSortableAccessibility.ts',
-    output: {
-      file: './enhanceSortableAccessibility.js',
-    },
-    plugins: [typescript()],
-  },
-  {
-    input: './src/enhanceSortableAccessibility.ts',
-    output: {
-      file: './enhanceSortableAccessibility.min.js',
-    },
-    plugins: [typescript(), terser(terser_config)],
-  },
-  {
-    input: './src/sortable.a11y.ts',
-    output: {
-      file: './sortable.a11y.js',
-    },
-    plugins: [typescript()],
-  },
-  // We will build these using closure compiler before pushing, but it's nice to have them
-  {
-    input: './src/sortable.a11y.ts',
-    output: {
-      file: './sortable.a11y.min.js',
-    },
-    plugins: [typescript(), terser(terser_config)],
-  },
+  ...['example', 'sortable', 'sortable-base']
+    .map((s) => {
+      return [
+        {
+          input: `src/scss/${s}.scss`,
+          output: {
+            file: `dist/${s}.css`,
+          },
+          plugins: [
+            scss({
+              fileName: `${s}.css`,
+              outputStyle: 'expanded',
+              failOnError: true,
+            }),
+          ],
+        },
+        {
+          input: `src/scss/${s}.scss`,
+          output: {
+            file: `dist/${s}.min.css`,
+          },
+          plugins: [
+            scss({
+              fileName: `${s}.min.css`,
+              outputStyle: 'compressed',
+              failOnError: true,
+            }),
+          ],
+        },
+      ]
+    })
+    .flat(),
+  ...['sortable', 'sortable.a11y', 'sortSortable', 'sortableEventListener', 'enhanceSortableAccessibility'].map((s) => {
+    return {
+      input: `dist/esm/${s}.js`,
+      output: {
+        file: `dist/esm/${s}.min.js`,
+        format: 'es',
+      },
+      plugins: [terser(terser_config)],
+    }
+  }),
 ]

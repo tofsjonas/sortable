@@ -1,21 +1,16 @@
 <!doctype html>
-
 <html lang="en">
   <head>
-    <meta name="charset" content="UTF-8" />
-    <meta name="author" content="Jonas Earendel" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Just testing some table sorting." />
-    <title>sortable - the example page</title>
-    <link rel="stylesheet" type="text/css" href="example.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sortable test</title>
+    <link rel="stylesheet" type="text/css" href="src/scss/example.scss" />
   </head>
-  <style></style>
-
   <body>
-    <h1>Demos</h1>
-    Here are some basic demos for the tiny table sorter found on
-    <a href="https://github.com/tofsjonas/sortable">https://github.com/tofsjonas/sortable</a>
-    <h2>Table with three &lt;tbody/&gt;, sorted separately:</h2>
+    <h1>Sortable examples</h1>
+
+    <h2>Basic sort</h2>
     <table class="sortable">
       <thead>
         <tr>
@@ -33,31 +28,78 @@
           <td><a id="morty" href="#">Morty</a></td>
         </tr>
       </tbody>
-      <tbody style="font-style: italic">
+    </table>
+
+    <h2>Tiebreaker</h2>
+    <p>Sort by year</p>
+
+    <table class="sortable">
+      <thead>
         <tr>
-          <td>Genius</td>
-          <td>Rick</td>
+          <th data-sort-tbr="2">Month</th>
+          <th data-sort-tbr="0">Year</th>
+          <th data-sort-tbr="3">Day</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>11</td>
+          <td>2010</td>
+          <td>25</td>
+          <td>12:00</td>
         </tr>
         <tr>
-          <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
-          <td>Morty</td>
+          <td>11</td>
+          <td>2010</td>
+          <td>25</td>
+          <td>15:00</td>
+        </tr>
+        <tr>
+          <td>04</td>
+          <td>2010</td>
+          <td>12</td>
+          <td>13:00</td>
         </tr>
       </tbody>
-      <tbody style="font-weight: bold">
+    </table>
+    <ul style="padding-left: 1.5em; font-style: italic">
+      <li>If year is the same, sort by month.</li>
+      <li>If month is the same, sort by day.</li>
+      <li>If day is the same, sort by time</li>
+    </ul>
+
+    <h2>Colspans</h2>
+
+    <table class="sortable sticky">
+      <thead>
         <tr>
-          <td>Genius</td>
-          <td>Rick</td>
+          <th colspan="2">nums + chars</th>
+          <th data-sort-col="2">CHARS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>333</td>
+          <td>222</td>
+          <td>BB</td>
         </tr>
         <tr>
-          <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
-          <td>Morty</td>
+          <td>1</td>
+          <td>111</td>
+          <td>CCC</td>
+        </tr>
+        <tr>
+          <td>22</td>
+          <td>333</td>
+          <td>A</td>
         </tr>
       </tbody>
     </table>
 
-    <h2>An example with arrows on the left side:</h2>
+    <h2>Empty/null sorted last</h2>
 
-    <table class="sortable n-last">
+    <table class="sortable n-last lefty">
       <thead>
         <tr>
           <th>Text</th>
@@ -74,19 +116,86 @@
           <td>0</td>
         </tr>
         <tr>
-          <td>ghi</td>
-          <td></td>
+          <td>should be sorted last</td>
+          <td data-sort="">(if click in this column)</td>
         </tr>
         <tr>
           <td>def</td>
           <td>0.2</td>
         </tr>
       </tbody>
-      <tfoot>
+    </table>
+    <h2>class="no-sort"</h2>
+    <table class="sortable">
+      <thead>
         <tr>
-          <th colspan="2">tfoot is independent</th>
+          <th>Role</th>
+          <th class="no-sort">Name</th>
         </tr>
-      </tfoot>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td>Sidekick</td>
+          <td>Morty</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>numeric sorting</h2>
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Time</th>
+          <th>Amount</th>
+          <th>Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>12:00:12</td>
+          <td>$18.49</td>
+          <td>2.49</td>
+        </tr>
+        <tr>
+          <td>Sidekick</td>
+          <td>12:22:11</td>
+          <td>$2.49</td>
+          <td>18.49</td>
+        </tr>
+        <tr>
+          <td>Butler</td>
+          <td>12:22:05</td>
+          <td>$1.96</td>
+          <td>1.96</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Ascending sort</h2>
+
+    <table class="sortable asc">
+      <thead>
+        <tr>
+          <th><span>Role</span></th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+          <td><a id="morty" href="#">Morty</a></td>
+        </tr>
+      </tbody>
     </table>
 
     <script>
@@ -94,247 +203,16 @@
         e.preventDefault()
         alert('event listeners also work!')
       })
+
+      // document.addEventListener('sort-start', function (e) {
+      //   console.log('🚀 COMMANDER ~ file: index.html ~ line ~ 196 ~ ', e.target)
+      // })
+      // document.addEventListener('sort-end', function (e) {
+      //   console.log('🚀 COMMANDER ~ file: index.html ~ line ~ 200 ~ ', e.target)
+      // })
     </script>
 
-    <h2>Using the data-sort attribute</h2>
-
-    <p>Here 1.5GB has <code>data-sort="1610612736"</code> and 900MB has <code>data-sort="943718400"</code></p>
-    <p>
-      The same with the dates. 03/18/2021 is turned into <code>data-sort="20210318"</code> and 12/09/1965 into
-      <code>data-sort="19651209"</code>
-    </p>
-    <p>Otherwise the sorting would be wrong.</p>
-    <table class="sortable advanced-table">
-      <thead>
-        <tr>
-          <th>Movie Name</th>
-          <th>Size</th>
-          <th>Release date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>The Sound of Music</td>
-          <td data-sort="1610612736">1.5GB</td>
-          <td data-sort="19651209">12/09/1965</td>
-        </tr>
-        <tr>
-          <td>Zack Snyder's Justice League</td>
-          <td data-sort="943718400">900MB</td>
-          <td data-sort="20210318">03/18/2021</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Slightly larger</h2>
-
-    <p>"Ram" has class="no-sort"</p>
-    <p>"Screen width" has the "css only" way of disabling sorting, using the property "pointer-events: none;"</p>
-
-    <table class="sortable">
-      <thead>
-        <tr>
-          <td colspan="3">personal</td>
-          <td colspan="5">hardware</td>
-          <td colspan="4">software</td>
-        </tr>
-        <tr>
-          <th>job title</th>
-          <th>name</th>
-          <th>company</th>
-          <th>processor</th>
-          <th class="no-sort">ram(not sortable)</th>
-          <th>graphics card</th>
-          <th>screen width</th>
-          <th>screen height</th>
-          <th>platform</th>
-          <th>browser</th>
-          <th>browser version</th>
-          <th>language</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Boss</td>
-          <td>Stan the Man</td>
-          <td>Monsters Inc</td>
-          <td>AMD</td>
-          <td>2</td>
-          <td>Nvidia</td>
-          <td>1510</td>
-          <td>981</td>
-          <td>Win32</td>
-          <td>IE</td>
-          <td>11</td>
-          <td>en-us</td>
-        </tr>
-        <tr>
-          <td>Stevedore</td>
-          <td>Bridget Jones</td>
-          <td>The Hand</td>
-          <td>i7</td>
-          <td>8gb</td>
-          <td>-</td>
-          <td>1530</td>
-          <td>1080</td>
-          <td>Linux x86_64</td>
-          <td>Firefox</td>
-          <td>54</td>
-          <td>sv-se</td>
-        </tr>
-        <tr>
-          <td>HR</td>
-          <td>Bruce Wayne</td>
-          <td>League of Shadows</td>
-          <td>i5</td>
-          <td>-</td>
-          <td>GeForce</td>
-          <td>1520</td>
-          <td>1080</td>
-          <td>Linux x86_64</td>
-          <td>Opera</td>
-          <td>46</td>
-          <td>dk</td>
-        </tr>
-        <tr>
-          <td>Programmer</td>
-          <td>Bilbo Baggins</td>
-          <td>Brotherhood of Evil Mutants</td>
-          <td>i3</td>
-          <td>4 gigabyte</td>
-          <td>-</td>
-          <td>130</td>
-          <td>1080</td>
-          <td>Linux x86_64</td>
-          <td>Opera</td>
-          <td>46</td>
-          <td>en</td>
-        </tr>
-      </tbody>
-      <tfoot></tfoot>
-    </table>
-
-    <h2>Even larger table (with ascending sort)</h2>
-
-    <table class="sortable asc massive">
-      <thead>
-        <tr>
-          <td colspan="3">personal</td>
-          <td colspan="5">hardware</td>
-          <td colspan="4">software</td>
-        </tr>
-        <tr>
-          <th>job title</th>
-          <th>name</th>
-          <th>company</th>
-          <th>processor</th>
-          <th>ram</th>
-          <th>graphics card</th>
-          <th>screen width</th>
-          <th>screen height</th>
-          <th>platform</th>
-          <th>browser</th>
-          <th>browser version</th>
-          <th>language</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Boss</td>
-          <td>Stan the Man</td>
-          <td>Monsters Inc</td>
-          <td>AMD</td>
-          <td>2</td>
-          <td>Nvidia</td>
-          <td>1510</td>
-          <td>981</td>
-          <td>Win32</td>
-          <td>IE</td>
-          <td>11</td>
-          <td>en-us</td>
-        </tr>
-        <tr>
-          <td>Slave</td>
-          <td>Bridget Jones</td>
-          <td>The Hand</td>
-          <td>i7</td>
-          <td>8gb</td>
-          <td>-</td>
-          <td>1530</td>
-          <td>1080</td>
-          <td>Linux x86_64</td>
-          <td>Firefox</td>
-          <td>54</td>
-          <td>sv-se</td>
-        </tr>
-        <tr>
-          <td>HR</td>
-          <td>Bruce Wayne</td>
-          <td>League of Shadows</td>
-          <td>i5</td>
-          <td>-</td>
-          <td>GeForce</td>
-          <td>1520</td>
-          <td>1080</td>
-          <td>Linux x86_64</td>
-          <td>Opera</td>
-          <td>46</td>
-          <td>dk</td>
-        </tr>
-        <tr>
-          <td>Programmer</td>
-          <td>Bilbo Baggins</td>
-          <td>Brotherhood of Evil Mutants</td>
-          <td>i3</td>
-          <td>4 gigabyte</td>
-          <td>-</td>
-          <td>130</td>
-          <td>1080</td>
-          <td>Linux x86_64</td>
-          <td>Opera</td>
-          <td>46</td>
-          <td>en</td>
-        </tr>
-      </tbody>
-      <tfoot></tfoot>
-    </table>
-    <script>
-      var table = document.querySelector('.massive')
-      var tbody = table.tBodies[0]
-      var rows = [].slice.call(tbody.rows, 0)
-      var fragment = document.createDocumentFragment()
-
-      for (var k = 0; k < 50; k++) {
-        for (var i = 0; i < rows.length; i++) {
-          fragment.appendChild(rows[i].cloneNode(true))
-        }
-      }
-      tbody.innerHTML = ''
-      tbody.appendChild(fragment)
-    </script>
-    <script src="sortable.min.js"></script>
-    <script src="sortable.a11y.min.js"></script>
-    <script>
-      function prepareAdvancedTable() {
-        var size_table = document.querySelector('.advanced-table')
-        var rows = size_table.tBodies[0].rows
-        for (let i = 0; i < rows.length; i++) {
-          const date_element = rows[i].cells[2]
-          const size_element = rows[i].cells[1]
-          date_element.setAttribute('data-sort', date_element.innerText.replace(/(\d+)\/(\d+)\/(\d+)/, '$3$1$2'))
-          size_element.setAttribute('data-sort', toBytes(size_element.innerText))
-        }
-      }
-
-      function toBytes(size) {
-        const units = [, 'k', 'm', 'g', 't']
-        const match = size.match(/(\d+\.\d+|\d+)\s*([kmgt])b?/i)
-        if (!match) return parseFloat(size)
-        const [value, unit] = match.slice(1)
-        const index = units.indexOf(unit.toLowerCase())
-        return Math.round(parseFloat(value) * Math.pow(1024, index))
-      }
-      prepareAdvancedTable()
-    </script>
+    <script type="module" src="/src/sortable.ts"></script>
+    <script type="module" src="/src/sortable.a11y.ts"></script>
   </body>
 </html>

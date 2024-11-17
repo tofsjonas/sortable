@@ -40,7 +40,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **1148 bytes** minified. (619 bytes gzipped)
+- **1.02 KB** minified. (790 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -82,7 +82,7 @@ There are three ways to use sortable, all of which have their pros and cons. [S 
       <td>Rick</td>
     </tr>
     <tr>
-      <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+      <td><a href="javascript:alert('standalone javascript works!');">Sidekick</a></td>
       <td>Morty</td>
     </tr>
   </tbody>
