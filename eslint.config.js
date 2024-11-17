@@ -1,8 +1,8 @@
 import pkg from '@eslint/js'
 import typescriptParser from '@typescript-eslint/parser'
 import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin'
-// const globals = require("globals");
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import globals from 'globals'
 const { configs } = pkg
 
 export default [
@@ -13,10 +13,11 @@ export default [
     files: ['src/**/*.ts'],
 
     languageOptions: {
-      // globals: {
-      //   ...globals.browser,
-      //   NodeListOf: false,
-      // },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        NodeListOf: false,
+      },
       sourceType: 'module',
       parser: typescriptParser,
     },
