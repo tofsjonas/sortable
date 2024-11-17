@@ -18,16 +18,13 @@
     "build": "npm run clean && vite build --mode module && vite build --mode standalone && vite build --mode standalone-a11y && vite build --mode bundle && vite build --mode bundle-a11y && rollup -c",
     "compile": "tsx ./scripts/compile.ts dist dist/standalone",
     "lint": "eslint './src/*.ts'",
-    "_prepare": "tsx ./scripts/prepare.ts",
-    "pre-push": "npm run build && npm run compile && npm run lint && npm run test && npm run test:min",
+    "prepare": "tsx ./scripts/prepare.ts",
+    "pre-push": "npm run build && npm run compile && npm run lint && npm run test",
     "dev": "vite",
     "prepare:tests": "tsx scripts/prepare-tests.ts",
     "test": "npm run prepare:tests && playwright test || (exit_code=$?; npm run cleanup:tests; exit $exit_code)",
     "cleanup:tests": "tsx scripts/prepare-tests.ts cleanup",
-    "test:e2e:ui": "playwright test --ui",
-    "serve": "vite preview --port 3009",
-    "test_old": "vitest",
-    "test:min": "cross-env USE_MINIFIED=true vitest"
+    "serve": "vite preview --port 3009"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
