@@ -2,7 +2,7 @@
 <h1>sortable</h1>
 <h5>- a tiny, vanilla/plain JavaScript table sorter</h5>
 
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tofsjonas/sortable) ![NPM Version](https://img.shields.io/npm/v/sortable-tablesort) ![NPM Downloads](https://img.shields.io/npm/dw/sortable-tablesort) ![GitHub Repo stars](https://img.shields.io/github/stars/tofsjonas/sortable) [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
+[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tofsjonas/sortable)](https://github.com/tofsjonas/sortable) [![NPM Version](https://img.shields.io/npm/v/sortable-tablesort)](https://www.npmjs.com/package/sortable-tablesort) [![NPM Downloads](https://img.shields.io/npm/dw/sortable-tablesort)](https://www.npmjs.com/package/sortable-tablesort) [![GitHub Repo stars](https://img.shields.io/github/stars/tofsjonas/sortable)](https://github.com/tofsjonas/sortable) [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/tofsjonas/sortable/badge)](https://www.jsdelivr.com/package/gh/tofsjonas/sortable)
 
 Makes any table with **class="sortable"**, er, sortable. The user can click on a table header and change the sorting of the table rows.
 
@@ -27,6 +27,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
   - [...using `td` instead of `th`](#using-td-instead-of-th)
 - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
 - [NOTE ABOUT CSS/SCSS](#note-about-cssscss)
+  - [Sticky headers](#sticky-headers)
 - [Sorting sizes, dates and such](#sorting-sizes-dates-and-such)
 - [Alternative sorting](#alternative-sorting)
 - [Colspans/Sort on specific column](#colspanssort-on-specific-column)
@@ -35,12 +36,13 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 - [Tiebreaker / secondary sort](#tiebreaker--secondary-sort)
 - [Empty/null rows always last](#emptynull-rows-always-last)
 - [Accessibility](#accessibility)
+- [Sort Events](#sort-events)
 - [Sort on load](#sort-on-load)
 - [Thank you...](#thank-you)
 
 ## Factoids
 
-- **1.02 KB** minified. (790 bytes gzipped)
+- **1.52KB** minified. (795 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -59,12 +61,6 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 ## "Installation"
 
 There are three ways to use sortable, all of which have their pros and cons. [S Anand](https://github.com/sanand0) and [dkhgh](https://github.com/dkhgh) had some [interesting thoughts](https://github.com/tofsjonas/sortable/issues/28) about it.
-
-1. Include a link to [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable). (easiest)
-
-2. Copy the file from [jsDelivr](https://www.jsdelivr.com/package/gh/tofsjonas/sortable) or [Github](https://github.com/tofsjonas/sortable) and put it in your assets folder. (in between)
-
-3. Install the [npm package](https://www.npmjs.com/package/sortable-tablesort). (most reliable)
 
 ### 1. link to jsDelivr
 
@@ -87,8 +83,8 @@ There are three ways to use sortable, all of which have their pros and cons. [S 
     </tr>
   </tbody>
 </table>
-<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/dist/sortable.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/dist/sortable.min.js"></script>
 ```
 
 The `span` on line four is just there to prove that you can have elements inside `th`!
@@ -97,7 +93,7 @@ The `span` on line four is just there to prove that you can have elements inside
 
 ### 2. copy file to assets folder
 
-Same as above, but link to your own files
+Same as above, but link to your own files from the `dist` directory
 
 ```html
 ...
@@ -116,16 +112,16 @@ npm install sortable-tablesort
 # pnpm install sortable-tablesort
 ```
 
-Now you can
+Now you can:
 
 #### a) use links in the html
 
-Same as above, with links to files
+Same as above, with links to files from the `dist` directory
 
 ```html
 ...
-<link href="./node_modules/sortable-tablesort/sortable.min.css" rel="stylesheet" />
-<script src="./node_modules/sortable-tablesort/sortable.min.js"></script>
+<link href="./node_modules/sortable-tablesort/dist/sortable.min.css" rel="stylesheet" />
+<script src="./node_modules/sortable-tablesort/dist/sortable.min.js"></script>
 ...
 ```
 
@@ -135,8 +131,8 @@ or
 
 ```javascript
 // main.js
-import 'sortable-tablesort/sortable.min.css'
-import 'sortable-tablesort/sortable.min.js'
+import 'sortable-tablesort/dist/sortable.min.css'
+import 'sortable-tablesort/dist/sortable.min.js'
 ```
 
 ## Non-sortable field
@@ -220,6 +216,28 @@ That said, if you're feeling lazy, here are two stylesheets you can use:
 
 <!-- This will make it look like the tables in the example, with arrows, striped rows etc. -->
 <link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.css" rel="stylesheet" />
+```
+
+### Sticky headers
+
+I'm not sure if it's a good idea to have it in the main css, BUT if you are using the above `sortable(.min).css` file (not the -base files) and want sticky headers, you can simply add the class `sticky` to the table.
+
+Blame [razorkyle](https://github.com/razorkyle), it was his idea! 😜
+
+```html
+<table class="sortable sticky">
+  ...
+</table>
+```
+
+If you are not using the css file, you can use the following css:
+
+```css
+.sortable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 ```
 
 ## Sorting sizes, dates and such
@@ -410,9 +428,9 @@ Sortable is not very accessible in its raw form. It does not support screen read
 <table class="sortable">
   ...
 </table>
-<link href="sortable.min.css" rel="stylesheet" />
-<script src="sortable.min.js"></script>
-<script src="sortable.a11y.min.js"></script>
+<link href="dist/sortable.min.css" rel="stylesheet" />
+<script src="dist/sortable.min.js"></script>
+<script src="dist/sortable.a11y.min.js"></script>
 ```
 
 By including the file the global function `enhanceSortableAccessibility` will automatically run through all existing `.sortable` tables, but you can also run it manually, like so:
@@ -423,11 +441,36 @@ enhanceSortableAccessibility([table1, table2,...etc.])
 
 The function adds an `aria-label` to each th, as well as `tabindex="0"` to each th in the thead of each table, making it possible to tab through the headers. It updates the `aria-label` depending on the direction.
 
-if you want to import it instead this _should_ work: (I haven't tested it)
+If you want to import it instead:
 
 ```ts
-import { enhanceSortableAccessibility } from 'sortable-tablesort/enhanceSortableAccessibility'
+import { enhanceSortableAccessibility } from 'sortable-tablesort/dist/esm/enhanceSortableAccessibility'
 enhanceSortableAccessibility([table1, table2,...etc.])
+```
+
+## Sort Events
+
+The table element dispatches two custom events that bubble up the DOM tree:
+
+- `sort-start`: Fired when sorting begins
+- `sort-end`: Fired when sorting is complete
+
+You can listen for these events on any parent element, including the document itself:
+
+```js
+// Listen for events from any sortable table
+document.addEventListener('sort-start', function (e) {
+  console.log('Sorting started on:', e.target) // logs the table element
+})
+
+document.addEventListener('sort-end', function (e) {
+  console.log('Sorting complete on:', e.target) // logs the table element
+})
+
+// Or listen to a specific table
+const table = document.querySelector('.sortable')
+table.addEventListener('sort-start', () => console.log('Sorting started'))
+table.addEventListener('sort-end', () => console.log('Sorting complete'))
 ```
 
 ## Sort on load
@@ -494,3 +537,5 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 - ...[Jojo-IO](https://github.com/Jojo-IO) for the finding the "`parseFloat` messes up time values" bug!
 
 - ...[Steve Wirt](https://github.com/swirtSJW) for lifting the Accessibility issue! 🦾️
+
+- ...[GazHay](https://github.com/gazhay) for the [sort events](#sort-events) idea!
