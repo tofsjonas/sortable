@@ -4,31 +4,37 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/sortable.ts'
-      - '.github/workflows/CI.yml'
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
   pull_request:
     branches:
       - main
-    paths:
-      - 'src/sortable.ts'
-      - '.github/workflows/CI.yml'
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
 
 jobs:
-  run-linters-and-tests:
-    name: Run linters
+  test:
+    name: Playwright Tests
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [20]
+        node-version: [18, 20]
+        # Test both normal and minified versions
+        test-type: [normal, minified]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: latest
+
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
@@ -36,11 +42,32 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      - name: Build project
+        run: pnpm run build
+
+      - name: Build project
+        run: pnpm run compile
+
       - name: Run linters
-        run: npm run lint
+        run: pnpm run lint
 
-      - name: Run tests
-        run: npm run test
+      - name: Run Playwright tests
+        run: |
+          if [ "${{ matrix.test-type }}" = "minified" ]; then
+            USE_MINIFIED=true pnpm run test
+          else
+            pnpm run test
+          fi
 
-      - name: Run tests with minified code
-        run: npm run test:min
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.node-version }}-${{ matrix.test-type }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
