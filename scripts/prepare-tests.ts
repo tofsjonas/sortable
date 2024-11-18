@@ -53,7 +53,7 @@ function createHTML(type: (typeof DIST_TYPES)[number], minified: boolean = false
   template = template.replace('</body>', `${scripts}\n</body>`)
 
   // Save the file
-  const outputPath = type === 'demo' ? 'demo/index.html' : `dist/${type}${minified ? '.min' : ''}.html`
+  const outputPath = type === 'demo' ? 'docs/index.html' : `dist/${type}${minified ? '.min' : ''}.html`
 
   // if no such directory, create it
   if (!fs.existsSync(path.dirname(outputPath))) {

@@ -2,7 +2,7 @@
   "name": "sortable-tablesort",
   "version": "4.0.0",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
-  "private": true,
+  "private": false,
   "type": "module",
   "main": "dist/sortable.min.js",
   "module": "dist/esm/sortable.min.js",
