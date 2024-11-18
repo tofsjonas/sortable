@@ -6,7 +6,7 @@
  * Enhances the accessibility of class="sortable" tables by adding ARIA attributes and keyboard event listeners.
  * @param tables - A list of HTML table elements to enhance.
  */
-export const enhanceSortableAccessibility = (tables: NodeListOf<HTMLTableElement>) => {
+export const enhanceSortableAccessibility = (tables: NodeListOf<HTMLTableElement> | HTMLTableElement[]) => {
   /**
    * Generates an aria-label attribute for a table header cell based on its content and current sort direction.
    * @param element - The table header cell to update.
@@ -26,7 +26,9 @@ export const enhanceSortableAccessibility = (tables: NodeListOf<HTMLTableElement
     const aria_label = `Click to sort table by ${header_text} in ${new_direction} order`
 
     element.setAttribute('aria-label', aria_label)
-    // element.setAttribute('title', aria_label) REMEMBER TO COMMENT OUT WHEN NOT TESTING!!
+
+    // REMEMBER TO COMMENT OUT WHEN NOT TESTING!!
+    // element.setAttribute('title', aria_label)
   }
 
   /**

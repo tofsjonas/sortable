@@ -1,11 +1,12 @@
-const js = require('@eslint/js')
-const typescriptParser = require('@typescript-eslint/parser')
-const typescriptEslintPlugin = require('@typescript-eslint/eslint-plugin')
-const globals = require('globals')
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended')
+import pkg from '@eslint/js'
+import typescriptParser from '@typescript-eslint/parser'
+import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import globals from 'globals'
+const { configs } = pkg
 
-module.exports = [
-  js.configs.recommended,
+export default [
+  configs.recommended,
   eslintPluginPrettierRecommended,
   { ignores: ['**/*.js', 'node_modules'] },
   {
@@ -14,6 +15,7 @@ module.exports = [
     languageOptions: {
       globals: {
         ...globals.browser,
+        ...globals.node,
         NodeListOf: false,
       },
       sourceType: 'module',

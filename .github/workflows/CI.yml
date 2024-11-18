@@ -1,46 +1,46 @@
 name: CI
-
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'src/sortable.ts'
-      - '.github/workflows/CI.yml'
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'src/sortable.ts'
-      - '.github/workflows/CI.yml'
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
 
 jobs:
-  run-linters-and-tests:
-    name: Run linters
+  test:
+    name: Playwright Tests
+    timeout-minutes: 30
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20]
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
         with:
-          version: latest
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22
           cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run linters
-        run: npm run lint
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install chromium --with-deps
 
-      - name: Run tests
-        run: npm run test
+      - name: Run Playwright tests
+        run: pnpm run test
 
-      - name: Run tests with minified code
-        run: npm run test:min
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 30

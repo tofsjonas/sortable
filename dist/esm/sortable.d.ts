@@ -36,7 +36,4 @@
  * For more information, please refer to <http://unlicense.org>
  *
  */
-
-import { sortableEventListener } from './sortableEventListener'
-
-document.addEventListener('click', sortableEventListener)
+export {};
