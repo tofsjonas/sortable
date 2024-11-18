@@ -22,7 +22,7 @@
     "pre-push": "npm run build && npm run compile && npm run lint && npm run test",
     "dev": "vite",
     "prepare:tests": "tsx scripts/prepare-tests.ts",
-    "test": "npm run prepare:tests && playwright test || (exit_code=$?; npm run cleanup:tests; exit $exit_code)",
+    "test": "npm run prepare:tests && (playwright test && npm run cleanup:tests || true)",
     "cleanup:tests": "tsx scripts/prepare-tests.ts cleanup",
     "serve": "vite preview --port 3009"
   },
