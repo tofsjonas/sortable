@@ -15,7 +15,7 @@ function createHTML(type: (typeof DIST_TYPES)[number], minified: boolean = false
 
   const css_file_name = `example${minified ? '.min' : ''}.css`
 
-  const css_url = type !== 'demo' ? `/${css_file_name}` : `../dist/${css_file_name}`
+  const css_url = type !== 'demo' ? `/${css_file_name}` : `${css_file_name}`
 
   const css_link = `<link rel="stylesheet" href="${css_url}">`
 
@@ -33,8 +33,8 @@ function createHTML(type: (typeof DIST_TYPES)[number], minified: boolean = false
       break
     case 'demo':
       scripts = `
-    <script src="../dist/sortable.js"></script>
-    <script src="../dist/sortable.a11y.js"></script>`
+    <script src="sortable.js"></script>
+    <script src="sortable.a11y.js"></script>`
       break
     case 'standalone':
       scripts = `
@@ -76,6 +76,11 @@ function cleanup() {
     })
   })
 }
+
+// copy css files and bundled js to /docs, so they can be used in the demo
+fs.copyFileSync('dist/example.css', 'docs/example.css')
+fs.copyFileSync('dist/sortable.js', 'docs/sortable.js')
+fs.copyFileSync('dist/sortable.a11y.js', 'docs/sortable.a11y.js')
 
 if (process.argv.includes('cleanup')) {
   cleanup()
