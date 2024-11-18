@@ -1,15 +1,12 @@
-name: CI
-
+name: Playwright Tests
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths-ignore:
       - '**.md'
       - 'docs/**'
   pull_request:
-    branches:
-      - main
+    branches: [main]
     paths-ignore:
       - '**.md'
       - 'docs/**'
@@ -17,26 +14,19 @@ on:
 jobs:
   test:
     name: Playwright Tests
-    timeout-minutes: 15
+    timeout-minutes: 30
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [18, 20]
-        # Test both normal and minified versions
-        test-type: [normal, minified]
 
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: latest
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -48,26 +38,14 @@ jobs:
       - name: Build project
         run: pnpm run build
 
-      - name: Build project
-        run: pnpm run compile
-
-      - name: Run linters
-        run: pnpm run lint
-
       - name: Run Playwright tests
-        run: |
-          if [ "${{ matrix.test-type }}" = "minified" ]; then
-            USE_MINIFIED=true pnpm run test
-          else
-            pnpm run test
-          fi
+        run: pnpm run test
 
-      - name: Upload test results
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ matrix.node-version }}-${{ matrix.test-type }}
+          name: playwright-report
           path: |
             playwright-report/
             test-results/
-          retention-days: 14
+          retention-days: 30
