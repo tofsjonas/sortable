@@ -8,8 +8,11 @@ function sortSortable(table, alt_sort) {
   var sort_null_last = table.classList.contains(null_last_class);
   function getValue(element) {
     var _a;
-    var value = alt_sort ? element.dataset.sortAlt : (_a = element.dataset.sort) !== null && _a !== void 0 ? _a : element.textContent;
-    return value;
+    if (alt_sort && element.dataset.sortAlt) {
+      return element.dataset.sortAlt;
+    } else {
+      return (_a = element.dataset.sort) !== null && _a !== void 0 ? _a : element.textContent;
+    }
   }
   var compare = function(a, b, index) {
     var x = getValue(b.cells[index]);

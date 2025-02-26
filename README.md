@@ -279,21 +279,20 @@ If you click on a table header while holding **shift** or **alt** an alternative
     <tr>
       <th>Movie Name</th>
       <th>Size</th>
-      <th>Release date</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Something</td>
       <td data-sort-alt="c" data-sort="a">A</td>
       <td data-sort-alt="b" data-sort="c">B</td>
-      <td data-sort-alt="a" data-sort="b">C</td>
     </tr>
     <tr>
-      <td>Something else</td>
       <td data-sort-alt="e" data-sort="f">D</td>
       <td data-sort-alt="f" data-sort="e">E</td>
-      <td data-sort-alt="d" data-sort="d">F</td>
+    </tr>
+    <tr>
+      <td data-sort-alt="e" data-sort="f">D</td>
+      <td data-sort-alt="f" data-sort="e">E</td>
     </tr>
   </tbody>
 </table>

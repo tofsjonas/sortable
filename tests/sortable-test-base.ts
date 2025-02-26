@@ -350,6 +350,38 @@ export const createSortableTests = () => {
         expect(eventsFired).toContain('sort-start')
         expect(eventsFired).toContain('sort-end')
       })
+
+      defineTest('sorts a table with alt/shift key', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[7]
+        const movieHeader = await table.$('th:has-text("Movie Name")')
+        expect(movieHeader).toBeTruthy()
+
+        // Check initial state
+        let firstCell = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
+        expect(firstCell).toBe('A')
+
+        // // Test regular sort
+        await movieHeader?.click()
+        await waitForSort(page)
+        firstCell = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
+        expect(firstCell).toBe('D')
+
+        // // Test alt sort
+        await page.keyboard.down('Alt')
+        await movieHeader?.click()
+        await page.keyboard.up('Alt')
+        await waitForSort(page)
+        firstCell = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
+        expect(firstCell).toBe('A')
+
+        await page.keyboard.down('Shift')
+        await movieHeader?.click()
+        await page.keyboard.up('Shift')
+        await waitForSort(page)
+        firstCell = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
+        expect(firstCell).toBe('J')
+      })
     })
   }
 }
