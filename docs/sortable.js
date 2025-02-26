@@ -13,7 +13,7 @@ document.addEventListener("click", function(e) {
           var th = table.tHead.querySelector("th[aria-sort]"), th_row = table.tHead.children[0], reverse = th.getAttribute("aria-sort") === "ascending", sort_null_last = table.classList.contains("n-last");
           function getValue(element2) {
             var _a;
-            return alt_sort ? element2.dataset.sortAlt : (_a = element2.dataset.sort) !== null && _a !== void 0 ? _a : element2.textContent;
+            return alt_sort && element2.dataset.sortAlt ? element2.dataset.sortAlt : (_a = element2.dataset.sort) !== null && _a !== void 0 ? _a : element2.textContent;
           }
           for (var compare = function(a, b, index) {
             var x = getValue(b.cells[index]), y = getValue(a.cells[index]);
