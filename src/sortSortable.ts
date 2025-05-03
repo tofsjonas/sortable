@@ -20,8 +20,10 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
   function getValue(element: HTMLTableCellElement): string {
     if (alt_sort && element.dataset.sortAlt) {
       return element.dataset.sortAlt
-    } else {
+    } else if (element) {
       return element.dataset.sort ?? element.textContent!
+    } else {
+      return ''
     }
   }
 
