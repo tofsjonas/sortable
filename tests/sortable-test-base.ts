@@ -383,6 +383,27 @@ export const createSortableTests = () => {
         expect(firstCell).toBe('J')
       })
 
+      defineTest('ensures allTables[8] has a TR with no TD', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[8]
+        const nameHeader = await table.$('th[aria-label*="Letters"]')
+
+        // Sort empty TR to the bottom of table.
+        await nameHeader?.click()
+        await waitForSort(page)
+
+        // Sort empty TR to top of table.
+        await nameHeader?.click()
+        await waitForSort(page)
+
+         try {
+             firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
+             test.fail("Expected 'td:nth-child(1)' to not exist, but it does exist")
+         } catch (err) {
+             expect(err.message).toEqual('elementHandle.$eval: Failed to find element matching selector "tbody tr:first-child td:nth-child(1)"')
+         }
+      })
+
       defineTest('sorts a table with missing TD elements', async ({ page }) => {
         const allTables = await page.$$('table.sortable')
         const table = allTables[8]
