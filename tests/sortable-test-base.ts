@@ -382,6 +382,29 @@ export const createSortableTests = () => {
         firstCell = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
         expect(firstCell).toBe('J')
       })
+
+      defineTest('sorts a table with missing TD elements', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[8]
+        const nameHeader = await table.$('th[aria-label*="Letters"]')
+
+        let firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
+        expect(firstCell).toBe('CCC')
+
+        await nameHeader?.click()
+        await waitForSort(page)
+
+        firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
+        expect(firstCell).toBe('DDD')
+
+        await nameHeader?.click()
+        await waitForSort(page)
+
+        // 'tbody tr:first-child' exists, but has no children
+        firstCell = await table.$eval('tbody tr:nth-child(2) td:nth-child(1)', (el) => el.textContent)
+        expect(firstCell).toBe('AAA')
+      })
+
     })
   }
 }

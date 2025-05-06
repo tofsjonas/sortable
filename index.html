@@ -225,6 +225,29 @@
       </tbody>
     </table>
 
+    <h2>TR element with no TD element (invalid HTML)</h2>
+
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>Letters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CCC</td>
+        </tr>
+        <tr>
+        </tr> <!-- TR element has no child TD elements -->
+        <tr>
+          <td>DDD</td>
+        </tr>
+        <tr>
+          <td>AAA</td>
+        </tr>
+      </tbody>
+    </table>
+
     <script>
       document.getElementById('morty').addEventListener('click', function (e) {
         e.preventDefault()
