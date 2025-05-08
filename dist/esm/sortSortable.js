@@ -7,12 +7,15 @@ function sortSortable(table, alt_sort) {
   var reverse = direction === "ascending";
   var sort_null_last = table.classList.contains(null_last_class);
   function getValue(element) {
-    var _a;
-    if (alt_sort && element.dataset.sortAlt) {
-      return element.dataset.sortAlt;
-    } else {
-      return (_a = element.dataset.sort) !== null && _a !== void 0 ? _a : element.textContent;
+    if (element) {
+      if (alt_sort && element.dataset.sortAlt)
+        return element.dataset.sortAlt;
+      if (element.dataset.sort)
+        return element.dataset.sort;
+      if (element.textContent)
+        return element.textContent;
     }
+    return "";
   }
   var compare = function(a, b, index) {
     var x = getValue(b.cells[index]);
