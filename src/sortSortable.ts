@@ -18,11 +18,12 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
   const sort_null_last = table.classList.contains(null_last_class)
 
   function getValue(element: HTMLTableCellElement): string {
-    if (alt_sort && element.dataset.sortAlt) {
-      return element.dataset.sortAlt
-    } else {
-      return element.dataset.sort ?? element.textContent!
+    if (element) {
+      if (alt_sort && element.dataset.sortAlt) return element.dataset.sortAlt
+      if (element.dataset.sort) return element.dataset.sort
+      if (element.textContent) return element.textContent
     }
+    return ''
   }
 
   const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement, index: number) => {

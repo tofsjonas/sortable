@@ -382,6 +382,50 @@ export const createSortableTests = () => {
         firstCell = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
         expect(firstCell).toBe('J')
       })
+
+      defineTest('ensures allTables[8] has a TR with no TD', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[8]
+        const nameHeader = await table.$('th[aria-label*="Letters"]')
+
+        // Sort empty TR to the bottom of table.
+        await nameHeader?.click()
+        await waitForSort(page)
+
+        // Sort empty TR to top of table.
+        await nameHeader?.click()
+        await waitForSort(page)
+
+         try {
+             firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
+             test.fail("Expected 'td:nth-child(1)' to not exist, but it does exist")
+         } catch (err) {
+             expect(err.message).toEqual('elementHandle.$eval: Failed to find element matching selector "tbody tr:first-child td:nth-child(1)"')
+         }
+      })
+
+      defineTest('sorts a table with missing TD elements', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[8]
+        const nameHeader = await table.$('th[aria-label*="Letters"]')
+
+        let firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
+        expect(firstCell).toBe('CCC')
+
+        await nameHeader?.click()
+        await waitForSort(page)
+
+        firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
+        expect(firstCell).toBe('DDD')
+
+        await nameHeader?.click()
+        await waitForSort(page)
+
+        // 'tbody tr:first-child' exists, but has no children
+        firstCell = await table.$eval('tbody tr:nth-child(2) td:nth-child(1)', (el) => el.textContent)
+        expect(firstCell).toBe('AAA')
+      })
+
     })
   }
 }

@@ -12,8 +12,12 @@ document.addEventListener("click", function(e) {
           table.dispatchEvent(new Event("sort-start", { bubbles: !0 }));
           var th = table.tHead.querySelector("th[aria-sort]"), th_row = table.tHead.children[0], reverse = th.getAttribute("aria-sort") === "ascending", sort_null_last = table.classList.contains("n-last");
           function getValue(element2) {
-            var _a;
-            return alt_sort && element2.dataset.sortAlt ? element2.dataset.sortAlt : (_a = element2.dataset.sort) !== null && _a !== void 0 ? _a : element2.textContent;
+            if (element2) {
+              if (alt_sort && element2.dataset.sortAlt) return element2.dataset.sortAlt;
+              if (element2.dataset.sort) return element2.dataset.sort;
+              if (element2.textContent) return element2.textContent;
+            }
+            return "";
           }
           for (var compare = function(a, b, index) {
             var x = getValue(b.cells[index]), y = getValue(a.cells[index]);
