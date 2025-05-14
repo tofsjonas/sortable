@@ -538,3 +538,5 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 - ...[Steve Wirt](https://github.com/swirtSJW) for lifting the Accessibility issue! 🦾️
 
 - ...[GazHay](https://github.com/gazhay) for the [sort events](#sort-events) idea!
+
+- ...[deverac](https://github.com/deverac) for the empty `tr` bug fix!
