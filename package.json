@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "private": false,
   "type": "module",
@@ -18,12 +18,10 @@
     "build": "npm run clean && npm run build:module && npm run build:standalone && npm run build:bundle && rollup -c",
     "build:module": "vite build --mode module",
     "build:standalone": "vite build --mode standalone && vite build --mode standalone-a11y && vite build --mode standalone-auto",
-    "__build:bundle": "vite build --mode bundle-auto",
     "build:bundle": "vite build --mode bundle && vite build --mode bundle-a11y && vite build --mode bundle-auto",
     "compile": "tsx ./scripts/compile.ts dist dist/standalone",
     "lint": "eslint './src/*.ts'",
     "prepare": "tsx ./scripts/prepare.ts",
-    "postinstall": "pnpm exec playwright install --with-deps",
     "pre-push": "npm run build && npm run compile && npm run lint && npm run test",
     "dev": "vite",
     "prepare:tests": "tsx scripts/prepare-tests.ts",
@@ -65,6 +63,5 @@
     "typescript": "^5.9.2",
     "vite": "^7.1.3",
     "vitest": "^3.2.4"
-  },
-  "packageManager": "pnpm@10.15.0"
+  }
 }
