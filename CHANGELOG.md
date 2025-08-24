@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- removed pnpm as package manager.
 - removed `"postinstall": "pnpm exec playwright install --with-deps"` from package.json.
 
 ## [4.1.0] - 2025-08-24
