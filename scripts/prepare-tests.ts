@@ -1,7 +1,8 @@
+// scripts/prepare-tests.ts
 import fs from 'fs'
 import path from 'path'
 
-const DIST_TYPES = ['bundled', 'standalone', 'esm', 'demo'] as const
+const DIST_TYPES = ['bundled', 'standalone', 'auto', 'esm', 'demo'] as const
 
 function createHTML(type: (typeof DIST_TYPES)[number], minified: boolean = false) {
   if (type === 'demo' && minified) return
@@ -38,8 +39,12 @@ function createHTML(type: (typeof DIST_TYPES)[number], minified: boolean = false
       break
     case 'standalone':
       scripts = `
-    <script src="/${type}/sortable${jsExt}"></script>
-    <script src="/${type}/sortable.a11y${jsExt}"></script>`
+      <script src="/${type}/sortable${jsExt}"></script>
+      <script src="/${type}/sortable.a11y${jsExt}"></script>`
+      break
+    case 'auto':
+      scripts = `
+        <script src="/sortable.auto${jsExt}"></script>`
       break
     case 'esm':
       scripts = `

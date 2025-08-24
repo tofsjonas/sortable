@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sortable test</title>
-    
-  <link rel="stylesheet" href="example.css">
-</head>
+
+    <link rel="stylesheet" href="example.css" />
+  </head>
   <body>
     <h1>Sortable examples</h1>
 
@@ -238,8 +238,8 @@
         <tr>
           <td>CCC</td>
         </tr>
-        <tr>
-        </tr> <!-- TR element has no child TD elements -->
+        <!-- TR element has no child TD elements -->
+        <tr></tr>
         <tr>
           <td>DDD</td>
         </tr>
@@ -254,11 +254,34 @@
         e.preventDefault()
         alert('event listeners also work!')
       })
+      // Add a table, so we can test the MutationObserver
+      setTimeout(() => {
+        const table = document.createElement('table')
+        table.classList.add('sortable')
+        table.innerHTML = `
+      <thead>
+        <tr>
+          <th aria-sort="ascending">Name</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>John Doe</td><td>30</td></tr>
+        <tr><td>Jane Smith</td><td>25</td></tr>
+      </tbody>
+    `
+        const div = document.createElement('div')
+        div.innerHTML = `<h2>MutationObserver Test</h2>
+        <p>This table was added using setTimeout. It will be sorted by default when using the <b>sortable.auto.js</b> package.</p>`
+        document.body.insertBefore(div, document.body.firstChild)
+        // If I append the the table to the div before appending it to the body,
+        // the MutationObserver will not trigger, since we are adding a div, not a table..
+        div.appendChild(table)
+      }, 600) // Delay so you can see the table being added
     </script>
-    
-    
-  
+    <script type="module" src="/src/sortable.auto.ts"></script>
+
     <script src="sortable.js"></script>
     <script src="sortable.a11y.js"></script>
-</body>
+  </body>
 </html>

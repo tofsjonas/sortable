@@ -1,3 +1,4 @@
+// src/enhanceSortableAccessibility.ts
 /**
  * This is a "plugin" for the sortable package:
  * https://www.npmjs.com/package/sortable-tablesort
@@ -6,7 +7,7 @@
  * Enhances the accessibility of class="sortable" tables by adding ARIA attributes and keyboard event listeners.
  * @param tables - A list of HTML table elements to enhance.
  */
-export const enhanceSortableAccessibility = (tables: NodeListOf<HTMLTableElement> | HTMLTableElement[]) => {
+export function enhanceSortableAccessibility(tables: NodeListOf<HTMLTableElement> | HTMLTableElement[]) {
   /**
    * Generates an aria-label attribute for a table header cell based on its content and current sort direction.
    * @param element - The table header cell to update.

@@ -1,3 +1,4 @@
+// scripts/prepare.ts
 import { execSync } from 'child_process'
 
 // so we don't install husky in CI

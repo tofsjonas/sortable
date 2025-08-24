@@ -1,4 +1,4 @@
-// src/sortable.ts
+// src/sortable.auto.ts
 /**
  * sortable v4.1.0
  *
@@ -39,5 +39,14 @@
  */
 
 import { sortableEventListener } from './sortableEventListener'
+import { observeSortable } from './observeSortable'
 
 document.addEventListener('click', sortableEventListener)
+
+if (document.readyState === 'loading') {
+  // still loading, wait for the event
+  document.addEventListener('DOMContentLoaded', observeSortable)
+} else {
+  // DOM is ready!
+  observeSortable()
+}

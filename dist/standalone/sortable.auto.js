@@ -54,4 +54,55 @@ function sortableEventListener(e) {
   } catch {
   }
 }
+function enhanceSortableAccessibility(tables) {
+  function updateAriaLabel(element, default_direction) {
+    var _a;
+    default_direction === void 0 && (default_direction = "");
+    var header_text = element.textContent || "element", current_direction = (_a = element.getAttribute("aria-sort")) !== null && _a !== void 0 ? _a : "", new_direction = "descending";
+    (current_direction === "descending" || default_direction && current_direction !== "ascending") && (new_direction = "ascending");
+    var aria_label = "Click to sort table by ".concat(header_text, " in ").concat(new_direction, " order");
+    element.setAttribute("aria-label", aria_label);
+  }
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      var element = event.target;
+      element.click();
+    }
+  }
+  tables.forEach(function(table) {
+    var default_direction = table.classList.contains("asc") ? "ascending" : "", headers = table.querySelectorAll("th");
+    headers.forEach(function(header) {
+      var element = header;
+      if (!element.hasAttribute("tabindex")) {
+        var update = function() {
+          updateAriaLabel(element, default_direction);
+        };
+        element.setAttribute("tabindex", "0"), update(), element.addEventListener("click", function() {
+          setTimeout(update, 50);
+        }), element.addEventListener("focus", update), element.addEventListener("keydown", handleKeyDown);
+      }
+    });
+  });
+}
+function observeSortable() {
+  var observer = new MutationObserver(function(mutations_list) {
+    for (var _i = 0, mutations_list_1 = mutations_list; _i < mutations_list_1.length; _i++) {
+      var mutation = mutations_list_1[_i];
+      mutation.type === "childList" && mutation.addedNodes.forEach(function(node) {
+        node instanceof HTMLElement && node.tagName === "TABLE" && node.classList.contains("sortable") && (enhanceSortableAccessibility([node]), sortSortable(node, node.classList.contains("asc")));
+      });
+    }
+  });
+  observer.observe(document.body, {
+    childList: !0,
+    // Observe direct children being added or removed
+    subtree: !0
+    // Observe all descendants
+  });
+  var tables = document.querySelectorAll(".sortable");
+  tables.forEach(function(table) {
+    enhanceSortableAccessibility([table]), sortSortable(table, table.classList.contains("asc"));
+  });
+}
 document.addEventListener("click", sortableEventListener);
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", observeSortable) : observeSortable();

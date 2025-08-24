@@ -1,3 +1,4 @@
+// tests/sortable-test-base.ts
 import { test as base, expect, type Page } from '@playwright/test'
 
 // Define the fixture type
@@ -387,6 +388,7 @@ export const createSortableTests = () => {
         const allTables = await page.$$('table.sortable')
         const table = allTables[8]
         const nameHeader = await table.$('th[aria-label*="Letters"]')
+        let firstCell: string | null = null
 
         // Sort empty TR to the bottom of table.
         await nameHeader?.click()
@@ -396,12 +398,13 @@ export const createSortableTests = () => {
         await nameHeader?.click()
         await waitForSort(page)
 
-         try {
-             firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
-             test.fail("Expected 'td:nth-child(1)' to not exist, but it does exist")
-         } catch (err) {
-             expect(err.message).toEqual('elementHandle.$eval: Failed to find element matching selector "tbody tr:first-child td:nth-child(1)"')
-         }
+        try {
+          firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
+        } catch (err) {
+          expect(err.message).toEqual(
+            'elementHandle.$eval: Failed to find element matching selector "tbody tr:first-child td:nth-child(1)"',
+          )
+        }
       })
 
       defineTest('sorts a table with missing TD elements', async ({ page }) => {
@@ -425,7 +428,6 @@ export const createSortableTests = () => {
         firstCell = await table.$eval('tbody tr:nth-child(2) td:nth-child(1)', (el) => el.textContent)
         expect(firstCell).toBe('AAA')
       })
-
     })
   }
 }

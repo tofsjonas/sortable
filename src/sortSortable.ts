@@ -1,3 +1,4 @@
+// src/sortSortable.ts
 /**
  * Sorts a sortable table.
  *
@@ -5,11 +6,13 @@
  * @param alt_sort - A boolean indicating whether to use alternative sorting.
  */
 export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
-  table.dispatchEvent(new Event('sort-start', { bubbles: true }))
-
   const null_last_class = 'n-last'
-
   const th = table.tHead!.querySelector('th[aria-sort]') as HTMLTableCellElement
+
+  if (!th) {
+    return
+  }
+  table.dispatchEvent(new Event('sort-start', { bubbles: true }))
   const th_row = table.tHead!.children[0] as HTMLTableRowElement
 
   const direction = th.getAttribute('aria-sort')

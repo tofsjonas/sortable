@@ -14,35 +14,47 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 <h2>Table of Contents</h2>
 
+<!-- TOC -->
+
 - [Factoids](#factoids)
 - ["Installation"](#installation)
-  - [1. link to jsDelivr](#1-link-to-jsdelivr)
-  - [2. copy file to assets folder](#2-copy-file-to-assets-folder)
-  - [3. npm package](#3-npm-package)
-    - [a) use links in the html](#a-use-links-in-the-html)
-    - [b) import files in javascript](#b-import-files-in-javascript)
+  - [link to jsDelivr](#link-to-jsdelivr)
+  - [copy file to assets folder](#copy-file-to-assets-folder)
+  - [npm package](#npm-package)
+    - [a use links in the html](#a-use-links-in-the-html)
+    - [b import files in javascript](#b-import-files-in-javascript)
+- [Flavours/Versions](#flavoursversions)
+  - [Lightweight - default](#lightweight---default)
+  - [Full-Featured - automatic](#full-featured---automatic)
+    - [Test it out](#test-it-out)
+    - [Mutation Observer and Nested Tables](#mutation-observer-and-nested-tables)
+  - [Which Version Should I Use?](#which-version-should-i-use)
 - [Non-sortable field](#non-sortable-field)
-  - [...using `class="no-sort"`](#using-classno-sort)
-  - [...using `CSS`](#using-css)
-  - [...using `td` instead of `th`](#using-td-instead-of-th)
+  - [using class="no-sort"](#using-classno-sort)
+  - [using CSS](#using-css)
+  - [using td instead of th](#using-td-instead-of-th)
 - [Indicators/arrows on the left side](#indicatorsarrows-on-the-left-side)
 - [NOTE ABOUT CSS/SCSS](#note-about-cssscss)
   - [Sticky headers](#sticky-headers)
 - [Sorting sizes, dates and such](#sorting-sizes-dates-and-such)
 - [Alternative sorting](#alternative-sorting)
 - [Colspans/Sort on specific column](#colspanssort-on-specific-column)
-- [Concerning `rowspan`](#concerning-rowspan)
+- [Concerning rowspan](#concerning-rowspan)
 - [Ascending sort](#ascending-sort)
 - [Tiebreaker / secondary sort](#tiebreaker--secondary-sort)
 - [Empty/null rows always last](#emptynull-rows-always-last)
 - [Accessibility](#accessibility)
 - [Sort Events](#sort-events)
 - [Sort on load](#sort-on-load)
+  - [Using the default package](#using-the-default-package)
+  - [Using the auto package:](#using-the-auto-package)
 - [Thank you...](#thank-you)
+
+<!-- /TOC -->
 
 ## Factoids
 
-- **1.52KB** minified. (795 bytes gzipped)
+- **1.57K** minified. (809 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -52,8 +64,6 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 - **rowspan** is not supported 😢
 
-- **cross browser**, ~~ie9+~~ No longer ie9 compatible. Then again, maybe it already wasn't 🤷
-
 - NOT tested with React, Angular, Vue, etc.
 
 - Works with [Svelte](https://svelte.dev/)!
@@ -62,7 +72,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 There are three ways to use sortable, all of which have their pros and cons. [S Anand](https://github.com/sanand0) and [dkhgh](https://github.com/dkhgh) had some [interesting thoughts](https://github.com/tofsjonas/sortable/issues/28) about it.
 
-### 1. link to jsDelivr
+### link to jsDelivr
 
 ```html
 <table class="sortable">
@@ -85,13 +95,15 @@ There are three ways to use sortable, all of which have their pros and cons. [S 
 </table>
 <link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/dist/sortable.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/dist/sortable.min.js"></script>
+<!-- OR: -->
+<script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/dist/sortable.auto.min.js"></script>
 ```
 
 The `span` on line four is just there to prove that you can have elements inside `th`!
 
 ⚠️ _If you are concerned about bugs, I recommend using version numbers instead of "latest"._
 
-### 2. copy file to assets folder
+### copy file to assets folder
 
 Same as above, but link to your own files from the `dist` directory
 
@@ -99,10 +111,12 @@ Same as above, but link to your own files from the `dist` directory
 ...
 <link href="/assets/sortable.min.css" rel="stylesheet" />
 <script src="/assets/sortable.min.js"></script>
+<!-- OR: -->
+<script src="/assets/sortable.auto.min.js"></script>
 ...
 ```
 
-### 3. npm package
+### npm package
 
 First,
 
@@ -122,6 +136,8 @@ Same as above, with links to files from the `dist` directory
 ...
 <link href="./node_modules/sortable-tablesort/dist/sortable.min.css" rel="stylesheet" />
 <script src="./node_modules/sortable-tablesort/dist/sortable.min.js"></script>
+<!-- OR: -->
+<script src="./node_modules/sortable-tablesort/dist/sortable.auto.min.js"></script>
 ...
 ```
 
@@ -133,11 +149,103 @@ or
 // main.js
 import 'sortable-tablesort/dist/sortable.min.css'
 import 'sortable-tablesort/dist/sortable.min.js'
+// OR
+import 'sortable-tablesort/dist/sortable.auto.min.js'
 ```
+
+## Flavours/Versions
+
+There are two flavours, Lightweight (default) and Full-Featured (Automatic)
+
+### Lightweight - default
+
+Lightweight is the old-school sortable with an eventListener only, where you can add the a11y package if you want. This is probably the one you are looking for.
+
+```html
+<script src="sortable.js"></script>
+<!-- Optional: -->
+<script src="sortable.a11y.js"></script>
+```
+
+### Full-Featured - automatic
+
+This one includes accessibility, auto-initialization, mutation observer, and **automatic sorting on load**.
+
+- **Auto-sort on load**: Add `aria-sort="ascending"` or `aria-sort="descending"` to any `th` to sort that column when the page loads
+- **Auto-initialization**: Automatically finds and initializes all `.sortable` tables on page load
+- **Mutation observer**: Automatically initializes new `.sortable` tables added to the HTML [DOM](https://www.w3schools.com/whatis/whatis_htmldom.asp) after page load
+
+**Note: This version already includes all accessibility features - no need to load sortable.a11y.js separately.**
+
+```html
+<script src="sortable.auto.js"></script>
+```
+
+⚠️ _The file is a bit bigger (2.72K minified / 1.22K gzipped) since there is more code, and the mutation observer triggers every time there is a change to the DOM. So if you are using React or some other library that affects the DOM a lot (it is not tested with React or any other DOM heavy libs), please be careful._
+
+**Performance note**: The mutation observer watches for all DOM changes. If your application frequently modifies the DOM (e.g., real-time updates, animations), this could impact performance. Consider using the lightweight version if you:
+
+- Have tables that update their content frequently
+- Use frameworks that perform many DOM updates
+- Don't need automatic initialization of dynamically added tables
+
+#### Test it out
+
+```html
+<script src="sortable.auto.js"></script>
+<script>
+  const table = document.createElement('table')
+  table.classList.add('sortable')
+  table.innerHTML = `
+<thead>
+  <tr>
+    <th data-sort="name" aria-sort="ascending">Name</th>
+    <th data-sort="age">Age</th>
+  </tr>
+</thead>
+<tbody>
+  <tr><td>John Doe</td><td>30</td></tr>
+  <tr><td>Jane Smith</td><td>25</td></tr>
+</tbody>
+`
+  setTimeout(() => {
+    document.body.appendChild(table)
+  }, 600) // Delay so you can see the table being added
+</script>
+```
+
+#### Mutation Observer and Nested Tables
+
+Note that the observer only triggers when you add tables _directly_ to the DOM! If you wrap the table in a `div` for instance, you need to make sure that the `div` is added to the DOM _before_ the table is.
+
+```js
+const div = document.createElement('div')
+// This will NOT trigger the mutation observer
+div.appendChild(table) // adds the table to a div that is not part of the DOM
+document.body.appendChild(div) // Now the DIV is added to the dom, not the table
+
+// This WILL trigger the mutation observer
+document.body.appendChild(div) // the div is added to the DOM, becoming part of the DOM
+div.appendChild(table) // the table is added to the DOM
+```
+
+### Which Version Should I Use?
+
+| Feature             | sortable.js          | sortable.js + sortable.a11y.js | sortable.auto.js      |
+| ------------------- | -------------------- | ------------------------------ | --------------------- |
+| Basic sorting       | ✓                    | ✓                              | ✓                     |
+| Size                | 1.57K (809B gzipped) | ~2K combined                   | 2.72K (1.22K gzipped) |
+| Accessibility       | ✗                    | ✓                              | ✓                     |
+| Auto-initialization | ✗                    | ✗                              | ✓                     |
+| Mutation observer   | ✗                    | ✗                              | ✓                     |
+| Auto-sort on load   | ✗                    | ✗                              | ✓                     |
+| Performance impact  | Minimal              | Minimal                        | Moderate\*            |
+
+\*Due to mutation observer watching DOM changes
 
 ## Non-sortable field
 
-### ...using `class="no-sort"`
+### using class="no-sort"
 
 If you wish to disable sorting for a specific field, the easiest (and best) way is to add `class="no-sort"` to it, like so:
 
@@ -152,7 +260,7 @@ If you wish to disable sorting for a specific field, the easiest (and best) way 
 
 Sorting will not be triggered if you click on "Role".
 
-### ...using `CSS`
+### using `CSS`
 
 This is a bit trickier, but it doesn't require any changes to the html, so I guess it could be worth it in some cases.
 
@@ -168,7 +276,7 @@ This is a bit trickier, but it doesn't require any changes to the html, so I gue
 }
 ```
 
-### ...using `td` instead of `th`
+### using `td` instead of `th`
 
 The eventListener only triggers on `th`, not `td`, so this would disable sorting for "Role":
 
@@ -328,7 +436,7 @@ Using the `data-sort-col` attribute in `thead` > `th`, you can sort on a differe
 </tbody>
 ```
 
-## Concerning `rowspan`
+## Concerning rowspan`
 
 Rowspans are not supported. Maybe I could do a half-assed implementation, but I don't think it would be worth it. You can read my justification in [Issue 71](https://github.com/tofsjonas/sortable/issues/71)
 
@@ -447,6 +555,16 @@ import { enhanceSortableAccessibility } from 'sortable-tablesort/dist/esm/enhanc
 enhanceSortableAccessibility([table1, table2,...etc.])
 ```
 
+...or you can use the `auto` flavour:
+
+```html
+<table class="sortable">
+  ...
+</table>
+<link href="dist/sortable.min.css" rel="stylesheet" />
+<script src="dist/sortable.auto.min.js"></script>
+```
+
 ## Sort Events
 
 The table element dispatches two custom events that bubble up the DOM tree:
@@ -473,6 +591,8 @@ table.addEventListener('sort-end', () => console.log('Sorting complete'))
 ```
 
 ## Sort on load
+
+### Using the default package
 
 If you wish to sort a table on load, I would recommend doing something like this:
 
@@ -507,6 +627,25 @@ If you wish to sort a table on load, I would recommend doing something like this
 
 Combine this with `<table class="sortable asc">` to reverse the sort order. Or do `el.click()` twice!
 
+### Using the auto package:
+
+Just set `aria-sort="descending"` or `aria-sort="ascending"` on the column you want to autosort.
+
+```html
+<table class="sortable">
+  <thead>
+    <tr>
+      <th>Movie Name</th>
+      <th aria-sort="descending">Size</th>
+      <th>Release date</th>
+    </tr>
+  </thead>
+  <tbody>
+    ...
+  </tbody>
+</table>
+```
+
 ## Thank you...
 
 - ...[Nikita Dunajevs](https://github.com/dunajevs) for the [ascending sort](#ascending-sort) idea!
@@ -540,3 +679,5 @@ Combine this with `<table class="sortable asc">` to reverse the sort order. Or d
 - ...[GazHay](https://github.com/gazhay) for the [sort events](#sort-events) idea!
 
 - ...[deverac](https://github.com/deverac) for the empty `tr` bug fix!
+
+- ...[Richard Davies](https://github.com/RichardDavies) for [nudging me](https://github.com/tofsjonas/sortable/issues/82) into adding the "auto" version/flavour!
