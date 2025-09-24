@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "private": false,
   "type": "module",
@@ -8,6 +8,21 @@
   "module": "dist/esm/sortable.min.js",
   "style": "dist/sortable.min.css",
   "sass": "src/scss/sortable.scss",
+  "license": "Unlicense",
+  "author": "Jonas Earendel",
+  "homepage": "https://github.com/tofsjonas/sortable",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tofsjonas/sortable"
+  },
+  "keywords": [
+    "sort",
+    "html",
+    "table",
+    "plain",
+    "vanilla",
+    "javascript"
+  ],
   "files": [
     "./src",
     "./dist",

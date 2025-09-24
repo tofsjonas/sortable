@@ -248,6 +248,27 @@
       </tbody>
     </table>
 
+    <h2>TD with "incorrect" whitespace</h2>
+
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td>&nbsp;Sidekick</td>
+          <td>Morty</td>
+        </tr>
+      </tbody>
+    </table>
+
     <script>
       document.getElementById('morty').addEventListener('click', function (e) {
         e.preventDefault()

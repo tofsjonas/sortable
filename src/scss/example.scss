@@ -1,4 +1,5 @@
 @use 'sortable.scss';
+
 body {
   font-size: 14px;
 }
@@ -16,8 +17,9 @@ code {
 
 * {
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -43,5 +45,42 @@ thead th.no-sort {
   th:nth-child(2) {
     // width: 80px;
     text-align: right;
+  }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  // .sortable {
+  //   --stripe-bg: #e4e4e4;
+  //   --stripe-color: #000;
+  //   --stripe-bg-odd: #fff;
+  //   --stripe-color-odd: #111;
+  //   --th-bg: #808080;
+  //   --th-color: #fff;
+  // }
+
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+
+  code {
+    background: #333;
+    color: #e0e0e0;
+  }
+
+  .sortable:nth-of-type(4) th:nth-child(7),
+  thead th.no-sort {
+    background: #444 !important;
+    color: #ff6b6b !important;
+  }
+
+  .sortable:nth-of-type(4) th:nth-child(7)::after {
+    color: #ff6b6b;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }

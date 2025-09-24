@@ -428,6 +428,29 @@ export const createSortableTests = () => {
         firstCell = await table.$eval('tbody tr:nth-child(2) td:nth-child(1)', (el) => el.textContent)
         expect(firstCell).toBe('AAA')
       })
+
+      defineTest('sorts a table with "incorrect" whitespace', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[9]
+
+        const roleHeader = await table.$('th:has-text("Role")')
+        expect(roleHeader).toBeTruthy()
+
+        const firstRole = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
+        expect(firstRole).toBe('Genius')
+
+        await roleHeader?.click()
+        await waitForSort(page)
+
+        const secondRole = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent?.trim())
+        expect(secondRole).toBe('Sidekick')
+
+        await roleHeader?.click()
+        await waitForSort(page)
+
+        const thirdRole = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
+        expect(thirdRole).toBe('Genius')
+      })
     })
   }
 }

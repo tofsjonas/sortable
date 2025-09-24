@@ -11,7 +11,7 @@ function sortSortable(table, alt_sort) {
       if (element.dataset.sort)
         return element.dataset.sort;
       if (element.textContent)
-        return element.textContent;
+        return element.textContent.trim();
     }
     return "";
   }

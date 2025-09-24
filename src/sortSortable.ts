@@ -24,7 +24,7 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
     if (element) {
       if (alt_sort && element.dataset.sortAlt) return element.dataset.sortAlt
       if (element.dataset.sort) return element.dataset.sort
-      if (element.textContent) return element.textContent
+      if (element.textContent) return element.textContent.trim()
     }
     return ''
   }

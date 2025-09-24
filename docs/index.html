@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sortable test</title>
-
-    <link rel="stylesheet" href="example.css" />
-  </head>
+    
+  <link rel="stylesheet" href="example.css">
+</head>
   <body>
     <h1>Sortable examples</h1>
 
@@ -238,13 +238,34 @@
         <tr>
           <td>CCC</td>
         </tr>
-        <!-- TR element has no child TD elements -->
         <tr></tr>
+        <!-- TR element has no child TD elements -->
         <tr>
           <td>DDD</td>
         </tr>
         <tr>
           <td>AAA</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>TD with "incorrect" whitespace</h2>
+
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Genius</td>
+          <td>Rick</td>
+        </tr>
+        <tr>
+          <td>&nbsp;Sidekick</td>
+          <td>Morty</td>
         </tr>
       </tbody>
     </table>
@@ -280,8 +301,8 @@
       }, 600) // Delay so you can see the table being added
     </script>
     <script type="module" src="/src/sortable.auto.ts"></script>
-
+  
     <script src="sortable.js"></script>
     <script src="sortable.a11y.js"></script>
-  </body>
+</body>
 </html>

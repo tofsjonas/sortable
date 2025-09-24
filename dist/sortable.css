@@ -42,11 +42,12 @@
 }
 
 .sortable {
-  --stripe-color: #e4e4e4;
-  --th-color: #fff;
+  --stripe-bg: #e4e4e4;
+  --stripe-color: #000;
+  --stripe-bg-odd: #fff;
+  --stripe-color-odd: #111;
   --th-bg: #808080;
-  --td-color: #000;
-  --td-on-stripe-color: #000;
+  --th-color: #fff;
   border-spacing: 0;
 }
 .sortable.sticky thead th {
@@ -54,9 +55,13 @@
   top: 0;
   z-index: 1;
 }
+.sortable tbody tr {
+  background-color: var(--stripe-bg);
+  color: var(--stripe-color);
+}
 .sortable tbody tr:nth-child(odd) {
-  background-color: var(--stripe-color);
-  color: var(--td-on-stripe-color);
+  background-color: var(--stripe-bg-odd);
+  color: var(--stripe-color-odd);
 }
 .sortable thead th {
   background: var(--th-bg);
@@ -66,9 +71,6 @@
   text-transform: capitalize;
   vertical-align: baseline;
   white-space: nowrap;
-}
-.sortable td {
-  color: var(--td-color);
 }
 .sortable td,
 .sortable th {

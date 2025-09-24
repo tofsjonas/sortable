@@ -35,7 +35,7 @@ document.addEventListener("click", function(e) {
             if (element2) {
               if (alt_sort && element2.dataset.sortAlt) return element2.dataset.sortAlt;
               if (element2.dataset.sort) return element2.dataset.sort;
-              if (element2.textContent) return element2.textContent;
+              if (element2.textContent) return element2.textContent.trim();
             }
             return "";
           }
