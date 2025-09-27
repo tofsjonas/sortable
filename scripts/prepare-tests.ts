@@ -35,8 +35,7 @@ function createHTML(type: (typeof DIST_TYPES)[number], minified: boolean = false
       break
     case 'demo':
       scripts = `
-    <script src="sortable.js"></script>
-    <script src="sortable.a11y.js"></script>`
+    <script src="sortable.auto.js"></script>`
       break
     case 'standalone':
       scripts = `
@@ -85,8 +84,9 @@ function cleanup() {
 
 // copy css files and bundled js to /docs, so they can be used in the demo
 fs.copyFileSync('dist/example.css', 'docs/example.css')
-fs.copyFileSync('dist/sortable.js', 'docs/sortable.js')
-fs.copyFileSync('dist/sortable.a11y.js', 'docs/sortable.a11y.js')
+// fs.copyFileSync('dist/sortable.js', 'docs/sortable.js')
+// fs.copyFileSync('dist/sortable.a11y.js', 'docs/sortable.a11y.js')
+fs.copyFileSync('dist/sortable.auto.js', 'docs/sortable.auto.js')
 
 if (process.argv.includes('cleanup')) {
   cleanup()
