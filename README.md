@@ -54,7 +54,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **1.57K** minified. (809 bytes gzipped)
+- **1.84K** minified. (933 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -234,7 +234,7 @@ div.appendChild(table) // the table is added to the DOM
 | Feature             | sortable.js          | sortable.js + sortable.a11y.js | sortable.auto.js      |
 | ------------------- | -------------------- | ------------------------------ | --------------------- |
 | Basic sorting       | ✓                    | ✓                              | ✓                     |
-| Size                | 1.57K (809B gzipped) | ~2K combined                   | 2.72K (1.22K gzipped) |
+| Size                | 1.84K (933B gzipped) | ~2.6K combined                 | 3.01K (1.34K gzipped) |
 | Accessibility       | ✗                    | ✓                              | ✓                     |
 | Auto-initialization | ✗                    | ✗                              | ✓                     |
 | Mutation observer   | ✗                    | ✗                              | ✓                     |
@@ -680,4 +680,8 @@ Just set `aria-sort="descending"` or `aria-sort="ascending"` on the column you w
 
 - ...[deverac](https://github.com/deverac) for the empty `tr` bug fix!
 
-- ...[Richard Davies](https://github.com/RichardDavies) for [nudging me](https://github.com/tofsjonas/sortable/issues/82) into adding the "auto" version/flavour!
+- ...[Richard Davies](https://github.com/RichardDavies) for nudging me into adding the "auto" version/flavour!
+
+- ...[fiskhandlarn](https://github.com/fiskhandlarn) for finding the whitespace bug!
+
+- ...[roxasthenobody98](https://github.com/roxasthenobody98) for the time sorting suggestion!

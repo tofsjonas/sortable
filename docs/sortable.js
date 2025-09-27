@@ -32,12 +32,24 @@ document.addEventListener("click", function(e) {
             table.dispatchEvent(new Event("sort-end", { bubbles: !0 }));
           }
           function getValue(element2) {
-            if (element2) {
-              if (alt_sort && element2.dataset.sortAlt) return element2.dataset.sortAlt;
-              if (element2.dataset.sort) return element2.dataset.sort;
-              if (element2.textContent) return element2.textContent.trim();
+            var _a, _b;
+            if (!element2) return "";
+            if (alt_sort && element2.dataset.sortAlt) return element2.dataset.sortAlt;
+            if (element2.dataset.sort) return element2.dataset.sort;
+            var firstChild = element2.firstChild;
+            if (firstChild) switch (firstChild.nodeName) {
+              case "TIME":
+                return firstChild.dateTime;
+              case "DATA":
+                return firstChild.value;
+              case "METER":
+                return firstChild.value.toString();
+              case "PROGRESS":
+                return ((_a = firstChild.value) === null || _a === void 0 ? void 0 : _a.toString()) || "";
+              case "ABBR":
+                return firstChild.title;
             }
-            return "";
+            return ((_b = element2.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || "";
           }
         })(table_1, alt_sort_1);
       }, 1).toString();

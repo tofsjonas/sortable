@@ -269,6 +269,50 @@
       </tbody>
     </table>
 
+    <h2>HTML Tag Support</h2>
+
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Date</th>
+          <th>Progress</th>
+          <th>Score</th>
+          <th>Abbreviation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Meeting</td>
+          <td><time datetime="2024-03-15">March 15, 2024</time></td>
+          <td><progress value="75" max="100">75%</progress></td>
+          <td><meter value="8.5" min="0" max="10">8.5/10</meter></td>
+          <td><abbr title="World Wide Web">WWW</abbr></td>
+        </tr>
+        <tr>
+          <td>Conference</td>
+          <td><time datetime="2024-01-10">January 10, 2024</time></td>
+          <td><progress value="50" max="100">50%</progress></td>
+          <td><meter value="9.2" min="0" max="10">9.2/10</meter></td>
+          <td><abbr title="Application Programming Interface">API</abbr></td>
+        </tr>
+        <tr>
+          <td>Workshop</td>
+          <td><time datetime="2024-12-01">December 1, 2024</time></td>
+          <td><progress value="90" max="100">90%</progress></td>
+          <td><meter value="7.8" min="0" max="10">7.8/10</meter></td>
+          <td><abbr title="Hypertext Markup Language">HTML</abbr></td>
+        </tr>
+        <tr>
+          <td>Seminar</td>
+          <td><time datetime="2024-06-20">June 20, 2024</time></td>
+          <td><progress max="100">Unknown</progress></td>
+          <td><data value="6.5">Six point five</data></td>
+          <td><abbr title="Cascading Style Sheets">CSS</abbr></td>
+        </tr>
+      </tbody>
+    </table>
+
     <script>
       document.getElementById('morty').addEventListener('click', function (e) {
         e.preventDefault()

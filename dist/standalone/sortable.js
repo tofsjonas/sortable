@@ -5,15 +5,28 @@ function sortSortable(table, alt_sort) {
   table.dispatchEvent(new Event("sort-start", { bubbles: !0 }));
   var th_row = table.tHead.children[0], direction = th.getAttribute("aria-sort"), reverse = direction === "ascending", sort_null_last = table.classList.contains(null_last_class);
   function getValue(element) {
-    if (element) {
-      if (alt_sort && element.dataset.sortAlt)
-        return element.dataset.sortAlt;
-      if (element.dataset.sort)
-        return element.dataset.sort;
-      if (element.textContent)
-        return element.textContent.trim();
-    }
-    return "";
+    var _a, _b;
+    if (!element)
+      return "";
+    if (alt_sort && element.dataset.sortAlt)
+      return element.dataset.sortAlt;
+    if (element.dataset.sort)
+      return element.dataset.sort;
+    var first_child = element.firstChild;
+    if (first_child)
+      switch (first_child.nodeName) {
+        case "TIME":
+          return first_child.dateTime;
+        case "DATA":
+          return first_child.value;
+        case "METER":
+          return first_child.value.toString();
+        case "PROGRESS":
+          return ((_a = first_child.value) === null || _a === void 0 ? void 0 : _a.toString()) || "";
+        case "ABBR":
+          return first_child.title;
+      }
+    return ((_b = element.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || "";
   }
   for (var compare = function(a, b, index) {
     var x = getValue(b.cells[index]), y = getValue(a.cells[index]);

@@ -12,6 +12,7 @@ function createHTML(type: (typeof DIST_TYPES)[number], minified: boolean = false
   template = template
     .replace('<link rel="stylesheet" type="text/css" href="src/scss/example.scss" />', '')
     .replace('<script type="module" src="/src/sortable.ts"></script>', '')
+    .replace('<script type="module" src="/src/sortable.auto.ts"></script>', '')
     .replace('<script type="module" src="/src/sortable.a11y.ts"></script>', '')
 
   const css_file_name = `example${minified ? '.min' : ''}.css`

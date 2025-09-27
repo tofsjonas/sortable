@@ -451,6 +451,113 @@ export const createSortableTests = () => {
         const thirdRole = await table.$eval('tbody tr:first-child td:first-child', (el) => el.textContent)
         expect(thirdRole).toBe('Genius')
       })
+
+      defineTest('sorts TIME elements by datetime attribute', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[10]
+        const dateHeader = await table.$('th:has-text("Date")')
+        expect(dateHeader).toBeTruthy()
+
+        let firstDate = await table.$eval('tbody tr:first-child td:nth-child(2)', (el) => el.textContent)
+        expect(firstDate).toBe('March 15, 2024')
+
+        await dateHeader?.click()
+        await waitForSort(page)
+
+        firstDate = await table.$eval('tbody tr:first-child td:nth-child(2)', (el) => el.textContent)
+        expect(firstDate).toBe('December 1, 2024')
+
+        await dateHeader?.click()
+        await waitForSort(page)
+
+        firstDate = await table.$eval('tbody tr:first-child td:nth-child(2)', (el) => el.textContent)
+        expect(firstDate).toBe('January 10, 2024')
+      })
+
+      defineTest('sorts PROGRESS elements by value attribute', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[10]
+        const progressHeader = await table.$('th:has-text("Progress")')
+        expect(progressHeader).toBeTruthy()
+
+        let firstProgress = await table.$eval('tbody tr:first-child td:nth-child(3)', (el) => el.textContent)
+        expect(firstProgress).toBe('75%')
+
+        await progressHeader?.click()
+        await waitForSort(page)
+
+        firstProgress = await table.$eval('tbody tr:first-child td:nth-child(3)', (el) => el.textContent)
+        expect(firstProgress).toBe('90%')
+
+        await progressHeader?.click()
+        await waitForSort(page)
+
+        firstProgress = await table.$eval('tbody tr:first-child td:nth-child(3)', (el) => el.textContent)
+        expect(firstProgress).toBe('Unknown')
+      })
+
+      defineTest('sorts METER elements by value attribute', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[10]
+        const scoreHeader = await table.$('th:has-text("Score")')
+        expect(scoreHeader).toBeTruthy()
+
+        let firstScore = await table.$eval('tbody tr:first-child td:nth-child(4)', (el) => el.textContent)
+        expect(firstScore).toBe('8.5/10')
+
+        await scoreHeader?.click()
+        await waitForSort(page)
+
+        firstScore = await table.$eval('tbody tr:first-child td:nth-child(4)', (el) => el.textContent)
+        expect(firstScore).toBe('9.2/10')
+
+        await scoreHeader?.click()
+        await waitForSort(page)
+
+        firstScore = await table.$eval('tbody tr:first-child td:nth-child(4)', (el) => el.textContent)
+        expect(firstScore).toBe('Six point five')
+      })
+
+      defineTest('sorts ABBR elements by title attribute', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[10]
+        const abbrHeader = await table.$('th:has-text("Abbreviation")')
+        expect(abbrHeader).toBeTruthy()
+
+        let firstAbbr = await table.$eval('tbody tr:first-child td:nth-child(5)', (el) => el.textContent)
+        expect(firstAbbr).toBe('WWW')
+
+        await abbrHeader?.click()
+        await waitForSort(page)
+
+        firstAbbr = await table.$eval('tbody tr:first-child td:nth-child(5)', (el) => el.textContent)
+        expect(firstAbbr).toBe('WWW')
+
+        await abbrHeader?.click()
+        await waitForSort(page)
+
+        firstAbbr = await table.$eval('tbody tr:first-child td:nth-child(5)', (el) => el.textContent)
+        expect(firstAbbr).toBe('API')
+      })
+
+      defineTest('sorts DATA elements by value attribute', async ({ page }) => {
+        const allTables = await page.$$('table.sortable')
+        const table = allTables[10]
+        const scoreHeader = await table.$('th:has-text("Score")')
+        expect(scoreHeader).toBeTruthy()
+
+        await scoreHeader?.click()
+        await waitForSort(page)
+
+        let lastScore = await table.$eval('tbody tr:last-child td:nth-child(4)', (el) => el.textContent)
+        expect(lastScore).toBe('Six point five')
+
+        await scoreHeader?.click()
+        await waitForSort(page)
+
+        let firstScore = await table.$eval('tbody tr:first-child td:nth-child(4)', (el) => el.textContent)
+        expect(firstScore).toBe('Six point five')
+      })
     })
   }
 }

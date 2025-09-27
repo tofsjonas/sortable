@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "4.1.2",
+  "version": "4.1.3",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "private": false,
   "type": "module",
@@ -42,6 +42,9 @@
     "dev": "vite",
     "prepare:tests": "tsx scripts/prepare-tests.ts",
     "test": "npm run prepare:tests && (playwright test && npm run cleanup:tests || true)",
+    "test:benchmark": "playwright test tests/benchmark.spec.ts",
+    "benchmark": "node --expose-gc benchmarks/benchmark.js",
+    "benchmark:simple": "node benchmarks/simple-benchmark.js",
     "cleanup:tests": "tsx scripts/prepare-tests.ts cleanup",
     "serve": "vite preview --port 3009"
   },
@@ -58,6 +61,7 @@
     "@typescript-eslint/parser": "^8.44.1",
     "autoprefixer": "^10.4.21",
     "babel-jest": "^30.1.2",
+    "benchmark": "^2.1.4",
     "cross-env": "^10.0.0",
     "esbuild": "^0.25.10",
     "eslint": "^9.36.0",

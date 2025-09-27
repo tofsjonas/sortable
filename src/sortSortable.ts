@@ -21,12 +21,28 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
   const sort_null_last = table.classList.contains(null_last_class)
 
   function getValue(element: HTMLTableCellElement): string {
-    if (element) {
-      if (alt_sort && element.dataset.sortAlt) return element.dataset.sortAlt
-      if (element.dataset.sort) return element.dataset.sort
-      if (element.textContent) return element.textContent.trim()
+    if (!element) return ''
+
+    if (alt_sort && element.dataset.sortAlt) return element.dataset.sortAlt
+    if (element.dataset.sort) return element.dataset.sort
+
+    const first_child = element.firstChild
+    if (first_child) {
+      switch (first_child.nodeName) {
+        case 'TIME':
+          return (first_child as HTMLTimeElement).dateTime
+        case 'DATA':
+          return (first_child as HTMLDataElement).value
+        case 'METER':
+          return (first_child as HTMLMeterElement).value.toString()
+        case 'PROGRESS':
+          return (first_child as HTMLProgressElement).value?.toString() || ''
+        case 'ABBR':
+          return (first_child as HTMLElement).title
+      }
     }
-    return ''
+
+    return element.textContent?.trim() || ''
   }
 
   const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement, index: number) => {
