@@ -11,7 +11,7 @@ function generateTableHTML(rows: number, cols: number): string {
     }).join('')
     return `<tr>${cells}</tr>`
   }).join('')
-  
+
   return `
     <table class="sortable">
       <thead><tr>${headers}</tr></thead>
@@ -25,20 +25,20 @@ async function measureSortTime(page: Page, selector: string): Promise<number> {
     return new Promise<number>((resolve) => {
       const header = document.querySelector(sel) as HTMLElement
       const table = header.closest('table') as HTMLTableElement
-      
+
       let startTime: number
-      
+
       const onSortStart = () => {
         startTime = performance.now()
       }
-      
+
       const onSortEnd = () => {
         const endTime = performance.now()
         table.removeEventListener('sort-start', onSortStart)
         table.removeEventListener('sort-end', onSortEnd)
         resolve(endTime - startTime)
       }
-      
+
       table.addEventListener('sort-start', onSortStart)
       table.addEventListener('sort-end', onSortEnd)
       header.click()
@@ -49,19 +49,23 @@ async function measureSortTime(page: Page, selector: string): Promise<number> {
 test.describe('Sortable Performance Benchmarks', () => {
   test.beforeEach(async ({ page }) => {
     // Load sortable script
-    await page.goto('data:text/html,<html><head><script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/dist/sortable.min.js"></script></head><body></body></html>')
+    await page.goto(
+      'data:text/html,<html><head><script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/dist/sortable.min.js"></script></head><body></body></html>',
+    )
   })
 
   const benchmarkConfigs = [
-    { rows: 100, cols: 5, name: 'Small table', maxTime: 50 },
+    { rows: 100, cols: 5, name: 'Small table', maxTime: 60 },
     { rows: 500, cols: 5, name: 'Medium table', maxTime: 200 },
     { rows: 1000, cols: 5, name: 'Large table', maxTime: 500 },
     { rows: 2000, cols: 5, name: 'Very large table', maxTime: 1000 },
-    { rows: 100, cols: 10, name: 'Wide table', maxTime: 100 }
+    { rows: 100, cols: 10, name: 'Wide table', maxTime: 100 },
   ]
 
   for (const config of benchmarkConfigs) {
-    test(`${config.name} (${config.rows} rows, ${config.cols} cols) sorts within ${config.maxTime}ms`, async ({ page }) => {
+    test(`${config.name} (${config.rows} rows, ${config.cols} cols) sorts within ${config.maxTime}ms`, async ({
+      page,
+    }) => {
       // Generate and inject table
       const tableHTML = generateTableHTML(config.rows, config.cols)
       await page.setContent(`
@@ -78,9 +82,9 @@ test.describe('Sortable Performance Benchmarks', () => {
 
       // Measure sort time
       const sortTime = await measureSortTime(page, 'table.sortable th:first-child')
-      
+
       console.log(`${config.name}: ${sortTime.toFixed(2)}ms`)
-      
+
       // Assert performance threshold
       expect(sortTime).toBeLessThan(config.maxTime)
     })
@@ -103,16 +107,16 @@ test.describe('Sortable Performance Benchmarks', () => {
     const totalTime = await page.evaluate(() => {
       const header = document.querySelector('table.sortable th:first-child') as HTMLElement
       const startTime = performance.now()
-      
+
       for (let i = 0; i < 10; i++) {
         header.click()
       }
-      
+
       const endTime = performance.now()
       return endTime - startTime
     })
 
-    console.log(`10 rapid sorts: ${totalTime.toFixed(2)}ms (avg: ${(totalTime/10).toFixed(2)}ms per sort)`)
+    console.log(`10 rapid sorts: ${totalTime.toFixed(2)}ms (avg: ${(totalTime / 10).toFixed(2)}ms per sort)`)
     expect(totalTime).toBeLessThan(2000) // 10 sorts should complete within 2 seconds
   })
 

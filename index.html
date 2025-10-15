@@ -33,7 +33,28 @@
     <h2>Tiebreaker</h2>
     <p>Sort by year</p>
 
-    <table class="sortable">
+    Appearance manually changed using style attributes. Just for demonstration.
+
+    <pre style="background: #ddd; width: 180px; padding: 0.5em; border-radius: 0.5em">
+style="
+  --stripe-bg: #ff0;
+  --stripe-color: #000;
+  --stripe-bg-odd: #f0f;
+  --stripe-color-odd: #111;
+  --th-bg: blue;
+  --th-color: #fff;"</pre
+    >
+    <table
+      class="sortable"
+      style="
+        --stripe-bg: #ff0;
+        --stripe-color: #000;
+        --stripe-bg-odd: #f0f;
+        --stripe-color-odd: #111;
+        --th-bg: blue;
+        --th-color: #fff;
+      "
+    >
       <thead>
         <tr>
           <th data-sort-tbr="2">Month</th>
@@ -341,7 +362,7 @@
         // If I append the the table to the div before appending it to the body,
         // the MutationObserver will not trigger, since we are adding a div, not a table..
         div.appendChild(table)
-      }, 600) // Delay so you can see the table being added
+      }, 2000) // Long delay so you can see the table being added
     </script>
     <script type="module" src="/src/sortable.auto.ts"></script>
   </body>

@@ -170,6 +170,12 @@ export const createSortableTests = () => {
 
         numberCell = await table.$eval('tbody tr:last-child td:nth-child(2)', (el) => el.textContent)
         expect(numberCell).toBe('(if click in this column)')
+
+        await numberHeader?.click()
+        await waitForSort(page)
+
+        numberCell = await table.$eval('tbody tr:last-child td:nth-child(2)', (el) => el.textContent)
+        expect(numberCell).toBe('(if click in this column)')
       })
 
       defineTest('respects class="no-sort" in th', async ({ page }) => {
@@ -401,7 +407,7 @@ export const createSortableTests = () => {
         try {
           firstCell = await table.$eval('tbody tr:first-child td:nth-child(1)', (el) => el.textContent)
         } catch (err) {
-          expect(err.message).toEqual(
+          expect((err as Error).message).toEqual(
             'elementHandle.$eval: Failed to find element matching selector "tbody tr:first-child td:nth-child(1)"',
           )
         }

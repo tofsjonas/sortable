@@ -23,8 +23,8 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
   function getValue(element: HTMLTableCellElement): string {
     if (!element) return ''
 
-    if (alt_sort && element.dataset.sortAlt) return element.dataset.sortAlt
-    if (element.dataset.sort) return element.dataset.sort
+    if (alt_sort && element.dataset.sortAlt !== undefined) return element.dataset.sortAlt
+    if (element.dataset.sort !== undefined) return element.dataset.sort
 
     const first_child = element.firstChild
     if (first_child) {

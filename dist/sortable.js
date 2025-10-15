@@ -34,8 +34,8 @@ document.addEventListener("click", function(e) {
           function getValue(element2) {
             var _a, _b;
             if (!element2) return "";
-            if (alt_sort && element2.dataset.sortAlt) return element2.dataset.sortAlt;
-            if (element2.dataset.sort) return element2.dataset.sort;
+            if (alt_sort && element2.dataset.sortAlt !== void 0) return element2.dataset.sortAlt;
+            if (element2.dataset.sort !== void 0) return element2.dataset.sort;
             var first_child = element2.firstChild;
             if (first_child) switch (first_child.nodeName) {
               case "TIME":

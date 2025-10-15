@@ -8,9 +8,9 @@ function sortSortable(table, alt_sort) {
     var _a, _b;
     if (!element)
       return "";
-    if (alt_sort && element.dataset.sortAlt)
+    if (alt_sort && element.dataset.sortAlt !== void 0)
       return element.dataset.sortAlt;
-    if (element.dataset.sort)
+    if (element.dataset.sort !== void 0)
       return element.dataset.sort;
     var first_child = element.firstChild;
     if (first_child)

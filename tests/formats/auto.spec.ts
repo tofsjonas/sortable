@@ -24,9 +24,9 @@ test.describe('auto', () => {
       test(`dynamically added table is sorted by MutationObserver`, async ({ page, formatName }) => {
         test.info().title = `[${formatName}] dynamically added table is sorted by MutationObserver`
 
-        // Wait for the dynamically added table (added via setTimeout in index.html after 600ms)
-        // We wait 1000ms to ensure it has time to be added and processed by the MutationObserver
-        await page.waitForTimeout(1000)
+        // Wait for the dynamically added table (added via setTimeout in index.html)
+        // We wait to ensure it has time to be added and processed by the MutationObserver
+        await page.waitForTimeout(2500)
 
         // Find the dynamically added table (should be the last table on the page)
         const allTables = await page.$$('table.sortable')

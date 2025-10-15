@@ -1,6 +1,6 @@
 // src/sortable.auto.ts
 /**
- * sortable v4.1.3
+ * sortable v4.1.4
  *
  * https://www.npmjs.com/package/sortable-tablesort
  * https://github.com/tofsjonas/sortable
