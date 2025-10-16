@@ -54,7 +54,7 @@ You can find a simple demo on <https://tofsjonas.github.io/sortable/>
 
 ## Factoids
 
-- **1.84K** minified. (933 bytes gzipped)
+- **1.71K** minified. (899 bytes gzipped)
 
 - Works with **JavaScript generated tables**. (since we are using an eventListener)
 
@@ -229,12 +229,12 @@ document.body.appendChild(div) // the div is added to the DOM, becoming part of 
 div.appendChild(table) // the table is added to the DOM
 ```
 
-### Which Version Should I Use?
+### Which (minimised) Version Should I Use?
 
 | Feature             | sortable.js          | sortable.js + sortable.a11y.js | sortable.auto.js      |
 | ------------------- | -------------------- | ------------------------------ | --------------------- |
 | Basic sorting       | ✓                    | ✓                              | ✓                     |
-| Size                | 1.84K (933B gzipped) | ~2.6K combined                 | 3.01K (1.34K gzipped) |
+| Size                | 1.71K (899B gzipped) | ~2.6K combined                 | 2.91K (1.30K gzipped) |
 | Accessibility       | ✗                    | ✓                              | ✓                     |
 | Auto-initialization | ✗                    | ✗                              | ✓                     |
 | Mutation observer   | ✗                    | ✗                              | ✓                     |

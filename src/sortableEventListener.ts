@@ -2,18 +2,13 @@
 import { sortSortable } from './sortSortable'
 
 export function sortableEventListener(e: MouseEvent) {
-  // allows for elements inside TH
-  function findElementRecursive(element: Node, tag: string): Node {
-    return element.nodeName === tag ? element : findElementRecursive(element.parentNode!, tag)
-  }
-
   try {
     const ascending_table_sort_class = 'asc'
     const no_sort_class = 'no-sort'
     const table_class_name = 'sortable'
 
     const alt_sort = e.shiftKey || e.altKey
-    const element = findElementRecursive(e.target as HTMLElement, 'TH') as HTMLTableCellElement
+    const element = (e.target as HTMLElement).closest('th') as HTMLTableCellElement
     const tr = element.parentNode as HTMLTableRowElement
     const thead = tr.parentNode as HTMLTableSectionElement
     const table = thead.parentNode as HTMLTableElement

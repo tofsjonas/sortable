@@ -1,6 +1,6 @@
 {
   "name": "sortable-tablesort",
-  "version": "4.1.4",
+  "version": "4.1.5",
   "description": "A tiny, Vanilla/Plain JavaScript table sorter",
   "private": false,
   "type": "module",
@@ -40,6 +40,7 @@
     "pre-push": "npm run build && npm run compile && npm run lint && npm run test",
     "not_postinstall": "pnpm exec playwright install --with-deps",
     "dev": "vite",
+    "file-sizes": "./scripts/file-sizes.sh",
     "prepare:tests": "tsx scripts/prepare-tests.ts",
     "test": "npm run prepare:tests && (playwright test && npm run cleanup:tests || true)",
     "test:benchmark": "playwright test tests/benchmark.spec.ts",

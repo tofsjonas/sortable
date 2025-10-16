@@ -1,8 +1,6 @@
 document.addEventListener("click", function(e) {
   try {
-    var alt_sort_1 = e.shiftKey || e.altKey, element = (function findElementRecursive(element2, tag) {
-      return element2.nodeName === tag ? element2 : findElementRecursive(element2.parentNode, tag);
-    })(e.target, "TH"), tr = element.parentNode, thead = tr.parentNode, table_1 = thead.parentNode;
+    var alt_sort_1 = e.shiftKey || e.altKey, element = e.target.closest("th"), tr = element.parentNode, thead = tr.parentNode, table_1 = thead.parentNode;
     if (thead.nodeName === "THEAD" && // sortable only triggered in `thead`
     table_1.classList.contains("sortable") && !element.classList.contains("no-sort")) {
       for (var nodes = tr.cells, i = 0; i < nodes.length; i++) nodes[i] !== element && nodes[i].removeAttribute("aria-sort");
@@ -12,19 +10,19 @@ document.addEventListener("click", function(e) {
           var th = table.tHead.querySelector("th[aria-sort]");
           if (th) {
             table.dispatchEvent(new Event("sort-start", { bubbles: !0 }));
-            for (var th_row = table.tHead.children[0], reverse = th.getAttribute("aria-sort") === "ascending", sort_null_last = table.classList.contains("n-last"), compare = function(a, b, index) {
+            for (var th_row = table.tHead.children[0], reverse = th.getAttribute("aria-sort") === "ascending", sort_null_last = table.classList.contains("n-last"), compareFn = function(a, b, index) {
               var x = getValue(b.cells[index]), y = getValue(a.cells[index]);
               if (sort_null_last) {
                 if (x === "" && y !== "") return -1;
                 if (y === "" && x !== "") return 1;
               }
               var temp = +x - +y, bool = isNaN(temp) ? x.localeCompare(y) : temp;
-              return bool === 0 && th_row.cells[index] && th_row.cells[index].hasAttribute("data-sort-tbr") ? compare(a, b, +th_row.cells[index].dataset.sortTbr) : reverse ? -bool : bool;
+              return bool === 0 && th_row.cells[index] && th_row.cells[index].hasAttribute("data-sort-tbr") ? compareFn(a, b, +th_row.cells[index].dataset.sortTbr) : reverse ? -bool : bool;
             }, i2 = 0; i2 < table.tBodies.length; i2++) {
               var org_tbody = table.tBodies[i2], rows = [].slice.call(org_tbody.rows, 0);
               rows.sort(function(a, b) {
                 var _a;
-                return compare(a, b, +((_a = th.dataset.sortCol) !== null && _a !== void 0 ? _a : th.cellIndex));
+                return compareFn(a, b, +((_a = th.dataset.sortCol) !== null && _a !== void 0 ? _a : th.cellIndex));
               });
               var clone_tbody = org_tbody.cloneNode();
               clone_tbody.append.apply(clone_tbody, rows), table.replaceChild(clone_tbody, org_tbody);
@@ -32,7 +30,7 @@ document.addEventListener("click", function(e) {
             table.dispatchEvent(new Event("sort-end", { bubbles: !0 }));
           }
           function getValue(element2) {
-            var _a, _b;
+            var _a;
             if (!element2) return "";
             if (alt_sort && element2.dataset.sortAlt !== void 0) return element2.dataset.sortAlt;
             if (element2.dataset.sort !== void 0) return element2.dataset.sort;
@@ -41,15 +39,13 @@ document.addEventListener("click", function(e) {
               case "TIME":
                 return first_child.dateTime;
               case "DATA":
-                return first_child.value;
               case "METER":
-                return first_child.value.toString();
               case "PROGRESS":
-                return ((_a = first_child.value) === null || _a === void 0 ? void 0 : _a.toString()) || "";
+                return first_child.value;
               case "ABBR":
                 return first_child.title;
             }
-            return ((_b = element2.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || "";
+            return ((_a = element2.textContent) !== null && _a !== void 0 ? _a : "").trim();
           }
         })(table_1, alt_sort_1);
       }, 1).toString();

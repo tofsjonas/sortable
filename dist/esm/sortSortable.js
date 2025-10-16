@@ -5,7 +5,7 @@ function sortSortable(table, alt_sort) {
   table.dispatchEvent(new Event("sort-start", { bubbles: !0 }));
   var th_row = table.tHead.children[0], direction = th.getAttribute("aria-sort"), reverse = direction === "ascending", sort_null_last = table.classList.contains(null_last_class);
   function getValue(element) {
-    var _a, _b;
+    var _a;
     if (!element)
       return "";
     if (alt_sort && element.dataset.sortAlt !== void 0)
@@ -20,15 +20,15 @@ function sortSortable(table, alt_sort) {
         case "DATA":
           return first_child.value;
         case "METER":
-          return first_child.value.toString();
+          return first_child.value;
         case "PROGRESS":
-          return ((_a = first_child.value) === null || _a === void 0 ? void 0 : _a.toString()) || "";
+          return first_child.value;
         case "ABBR":
           return first_child.title;
       }
-    return ((_b = element.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || "";
+    return ((_a = element.textContent) !== null && _a !== void 0 ? _a : "").trim();
   }
-  for (var compare = function(a, b, index) {
+  for (var compareFn = function(a, b, index) {
     var x = getValue(b.cells[index]), y = getValue(a.cells[index]);
     if (sort_null_last) {
       if (x === "" && y !== "")
@@ -37,12 +37,12 @@ function sortSortable(table, alt_sort) {
         return 1;
     }
     var temp = +x - +y, bool = isNaN(temp) ? x.localeCompare(y) : temp;
-    return bool === 0 && th_row.cells[index] && th_row.cells[index].hasAttribute("data-sort-tbr") ? compare(a, b, +th_row.cells[index].dataset.sortTbr) : reverse ? -bool : bool;
+    return bool === 0 && th_row.cells[index] && th_row.cells[index].hasAttribute("data-sort-tbr") ? compareFn(a, b, +th_row.cells[index].dataset.sortTbr) : reverse ? -bool : bool;
   }, i = 0; i < table.tBodies.length; i++) {
     var org_tbody = table.tBodies[i], rows = [].slice.call(org_tbody.rows, 0);
     rows.sort(function(a, b) {
       var _a;
-      return compare(a, b, +((_a = th.dataset.sortCol) !== null && _a !== void 0 ? _a : th.cellIndex));
+      return compareFn(a, b, +((_a = th.dataset.sortCol) !== null && _a !== void 0 ? _a : th.cellIndex));
     });
     var clone_tbody = org_tbody.cloneNode();
     clone_tbody.append.apply(clone_tbody, rows), table.replaceChild(clone_tbody, org_tbody);

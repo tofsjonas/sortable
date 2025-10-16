@@ -9,9 +9,8 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
   const null_last_class = 'n-last'
   const th = table.tHead!.querySelector('th[aria-sort]') as HTMLTableCellElement
 
-  if (!th) {
-    return
-  }
+  if (!th) return
+
   table.dispatchEvent(new Event('sort-start', { bubbles: true }))
   const th_row = table.tHead!.children[0] as HTMLTableRowElement
 
@@ -20,9 +19,8 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
 
   const sort_null_last = table.classList.contains(null_last_class)
 
-  function getValue(element: HTMLTableCellElement): string {
+  function getValue(element: HTMLTableCellElement): string | number {
     if (!element) return ''
-
     if (alt_sort && element.dataset.sortAlt !== undefined) return element.dataset.sortAlt
     if (element.dataset.sort !== undefined) return element.dataset.sort
 
@@ -34,35 +32,31 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
         case 'DATA':
           return (first_child as HTMLDataElement).value
         case 'METER':
-          return (first_child as HTMLMeterElement).value.toString()
+          return (first_child as HTMLMeterElement).value
         case 'PROGRESS':
-          return (first_child as HTMLProgressElement).value?.toString() || ''
+          return (first_child as HTMLProgressElement).value
         case 'ABBR':
           return (first_child as HTMLElement).title
       }
     }
 
-    return element.textContent?.trim() || ''
+    return (element.textContent ?? '').trim()
   }
 
-  const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement, index: number) => {
+  const compareFn = (a: HTMLTableRowElement, b: HTMLTableRowElement, index: number) => {
     const x = getValue(b.cells[index])
     const y = getValue(a.cells[index])
     if (sort_null_last) {
-      if (x === '' && y !== '') {
-        return -1
-      }
-      if (y === '' && x !== '') {
-        return 1
-      }
+      if (x === '' && y !== '') return -1
+      if (y === '' && x !== '') return 1
     }
 
     // use unary plus to (try to) convert to numbers
     const temp = +x - +y
-    const bool = isNaN(temp) ? x.localeCompare(y) : temp
+    const bool = isNaN(temp) ? (x as string).localeCompare(y as string) : temp
 
     if (bool === 0 && th_row.cells[index] && th_row.cells[index].hasAttribute('data-sort-tbr')) {
-      return compare(a, b, +th_row.cells[index].dataset.sortTbr!)
+      return compareFn(a, b, +th_row.cells[index].dataset.sortTbr!)
     }
 
     return reverse ? -bool : bool
@@ -76,7 +70,7 @@ export function sortSortable(table: HTMLTableElement, alt_sort: boolean) {
 
     // Sort them using Array.prototype.sort()
     rows.sort(function (a: HTMLTableRowElement, b: HTMLTableRowElement) {
-      return compare(a, b, +(th.dataset.sortCol ?? th.cellIndex))
+      return compareFn(a, b, +(th.dataset.sortCol ?? th.cellIndex))
     })
 
     // Make an empty clone
