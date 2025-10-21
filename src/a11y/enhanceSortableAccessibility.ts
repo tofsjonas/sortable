@@ -1,4 +1,7 @@
 // src/enhanceSortableAccessibility.ts
+
+import { updateSortableAriaLabel } from './updateSortableAriaLabel'
+
 /**
  * This is a "plugin" for the sortable package:
  * https://www.npmjs.com/package/sortable-tablesort
@@ -8,30 +11,6 @@
  * @param tables - A list of HTML table elements to enhance.
  */
 export function enhanceSortableAccessibility(tables: NodeListOf<HTMLTableElement> | HTMLTableElement[]) {
-  /**
-   * Generates an aria-label attribute for a table header cell based on its content and current sort direction.
-   * @param element - The table header cell to update.
-   * @param default_direction - The default sort direction for the table.
-   */
-  function updateAriaLabel(element: HTMLTableCellElement, default_direction = '') {
-    // Generate aria-label based on header content
-    const header_text = element.textContent || 'element'
-
-    const current_direction = element.getAttribute('aria-sort') ?? ''
-    let new_direction = 'descending'
-
-    if (current_direction === 'descending' || (default_direction && current_direction !== 'ascending')) {
-      new_direction = 'ascending'
-    }
-
-    const aria_label = `Click to sort table by ${header_text} in ${new_direction} order`
-
-    element.setAttribute('aria-label', aria_label)
-
-    // REMEMBER TO COMMENT OUT WHEN NOT TESTING!!
-    // element.setAttribute('title', aria_label)
-  }
-
   /**
    * Handles keyboard events on table header cells and triggers a click event when the Enter key is pressed.
    * @param event - The keyboard event to handle.
@@ -45,7 +24,7 @@ export function enhanceSortableAccessibility(tables: NodeListOf<HTMLTableElement
 
   // Iterate over each table in the input list
   tables.forEach((table) => {
-    const default_direction = table.classList.contains('asc') ? 'ascending' : ''
+    const default_direction = table.classList.contains('asc') ? 'ascending' : 'descending'
     const headers = table.querySelectorAll('th')
 
     // Iterate over each header cell in the table
@@ -55,12 +34,18 @@ export function enhanceSortableAccessibility(tables: NodeListOf<HTMLTableElement
       // Skip if the header cell already has a tabindex attribute
       if (element.hasAttribute('tabindex')) return
 
-      const update = () => {
-        updateAriaLabel(element, default_direction)
+      if (element.classList.contains('no-sort')) {
+        updateSortableAriaLabel(element, 'no-sort')
+        return
       }
 
       // Add tabindex attribute and generate initial aria-label attribute
       element.setAttribute('tabindex', '0')
+
+      const update = () => {
+        updateSortableAriaLabel(element, default_direction)
+      }
+
       update()
 
       // Attach click event listener to update aria-label attribute

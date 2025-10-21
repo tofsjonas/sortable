@@ -1,5 +1,5 @@
 // src/observeSortable.ts
-import { enhanceSortableAccessibility } from './enhanceSortableAccessibility'
+import { enhanceSortableAccessibility } from './a11y/enhanceSortableAccessibility'
 import { sortSortable } from './sortSortable'
 
 export function observeSortable() {

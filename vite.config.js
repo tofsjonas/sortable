@@ -26,7 +26,7 @@ const modularConfig = defineConfig({
         sortableEventListener: resolve(__dirname, 'src/sortableEventListener.ts'),
         sortable: resolve(__dirname, 'src/sortable.ts'),
         observeSortable: resolve(__dirname, 'src/observeSortable.ts'),
-        enhanceSortableAccessibility: resolve(__dirname, 'src/enhanceSortableAccessibility.ts'),
+        enhanceSortableAccessibility: resolve(__dirname, 'src/a11y/enhanceSortableAccessibility.ts'),
       },
       formats: ['es'],
     },
