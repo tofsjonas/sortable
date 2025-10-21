@@ -234,7 +234,7 @@ div.appendChild(table) // the table is added to the DOM
 | Feature             | sortable.js          | sortable.js + sortable.a11y.js | sortable.auto.js      |
 | ------------------- | -------------------- | ------------------------------ | --------------------- |
 | Basic sorting       | ✓                    | ✓                              | ✓                     |
-| Size                | 1.71K (899B gzipped) | ~2.6K combined                 | 2.91K (1.30K gzipped) |
+| Size                | 1.71K (899B gzipped) | ~2.7K combined                 | 3.04K (1.36K gzipped) |
 | Accessibility       | ✗                    | ✓                              | ✓                     |
 | Auto-initialization | ✗                    | ✗                              | ✓                     |
 | Mutation observer   | ✗                    | ✗                              | ✓                     |
@@ -646,42 +646,44 @@ Just set `aria-sort="descending"` or `aria-sort="ascending"` on the column you w
 </table>
 ```
 
-## Thank you...
+## Thank you 🙏
 
-- ...[Nikita Dunajevs](https://github.com/dunajevs) for the [ascending sort](#ascending-sort) idea!
+- [Nikita Dunajevs](https://github.com/dunajevs) for the [ascending sort](#ascending-sort) idea!
 
-- ...[wodny](https://github.com/wodny) for the [alternative sorting](#alternative-sorting) idea!
+- [wodny](https://github.com/wodny) for the [alternative sorting](#alternative-sorting) idea!
 
-- ...[Nick Kocharhook](https://github.com/nk9) for the [colspan sorting](#colspanssort-on-specific-column) idea!
+- [Nick Kocharhook](https://github.com/nk9) for the [colspan sorting](#colspanssort-on-specific-column) idea!
 
-- ...[mxve](https://github.com/mxve) for the **nested elements** inside `th` fix!
+- [mxve](https://github.com/mxve) for the **nested elements** inside `th` fix!
 
-- ...[Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu) for the [sort on load](#sort-on-load) example!
+- [Christian Petersson](https://github.com/Issen007) and [Abit Salihu](https://github.com/abitsalihu) for the [sort on load](#sort-on-load) example!
 
-- ...[GazHay](https://github.com/gazhay) for the idea to sort multiple `<tbody />`!
+- [GazHay](https://github.com/gazhay) for the idea to sort multiple `<tbody />`!
 
-- ...[Gordan Ratkovic](https://github.com/GordanRatkovic) for the [tiebreaker / secondary sort](#tiebreaker--secondary-sort) idea!
+- [Gordan Ratkovic](https://github.com/GordanRatkovic) for the [tiebreaker / secondary sort](#tiebreaker--secondary-sort) idea!
 
-- ...[chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
+- [chatcoda](https://github.com/chatcoda) for the `<td></td>` / `<td>0</td>` sorting bug fix!
 
-- ...[Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
+- [Christian Garbs](https://github.com/mmitch) for fixing the `dataset` bug!
 
-- ...[Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies!
+- [Witold Baryluk](https://github.com/baryluk) for pointing out some inefficiencies!
 
-- ...[Nick](https://github.com/data-handler) for raising a whole bunch of issues! 🤯️
+- [Nick](https://github.com/data-handler) for raising a whole bunch of issues! 🤯️
 
-- ...[James Pudson](https://github.com/nepsilon) for the [empty last](#emptynull-rows-always-last) suggestion, AND for finding the "`data-sort` ignored when empty" bug! 🥳️
+- [James Pudson](https://github.com/nepsilon) for the [empty last](#emptynull-rows-always-last) suggestion, AND for finding the "`data-sort` ignored when empty" bug! 🥳️
 
-- ...[Jojo-IO](https://github.com/Jojo-IO) for the finding the "`parseFloat` messes up time values" bug!
+- [Jojo-IO](https://github.com/Jojo-IO) for the finding the "`parseFloat` messes up time values" bug!
 
-- ...[Steve Wirt](https://github.com/swirtSJW) for lifting the Accessibility issue! 🦾️
+- [Steve Wirt](https://github.com/swirtSJW) for lifting the Accessibility issue! 🦾️
 
-- ...[GazHay](https://github.com/gazhay) for the [sort events](#sort-events) idea!
+- [GazHay](https://github.com/gazhay) for the [sort events](#sort-events) idea!
 
-- ...[deverac](https://github.com/deverac) for the empty `tr` bug fix!
+- [deverac](https://github.com/deverac) for the empty `tr` bug fix!
 
-- ...[Richard Davies](https://github.com/RichardDavies) for nudging me into adding the "auto" version/flavour!
+- [Richard Davies](https://github.com/RichardDavies) for nudging me into adding the "auto" version/flavour!
 
-- ...[fiskhandlarn](https://github.com/fiskhandlarn) for finding the whitespace bug!
+- [fiskhandlarn](https://github.com/fiskhandlarn) for finding the whitespace bug!
 
-- ...[roxasthenobody98](https://github.com/roxasthenobody98) for the time sorting suggestion!
+- [roxasthenobody98](https://github.com/roxasthenobody98) for the time sorting suggestion!
+
+- [Troy Morehouse](https://github.com/tmorehouse) for finding the 'A11Y labels still appear on TH when class "no-sort" is set' bug!
