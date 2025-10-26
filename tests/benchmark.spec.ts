@@ -54,12 +54,14 @@ test.describe('Sortable Performance Benchmarks', () => {
     )
   })
 
+  // My current laptop has broken ram, so I need to double the time limits locally
+  const modifier = process.env.CI ? 1 : 2
   const benchmarkConfigs = [
-    { rows: 100, cols: 5, name: 'Small table', maxTime: 60 },
-    { rows: 500, cols: 5, name: 'Medium table', maxTime: 200 },
-    { rows: 1000, cols: 5, name: 'Large table', maxTime: 500 },
-    { rows: 2000, cols: 5, name: 'Very large table', maxTime: 1000 },
-    { rows: 100, cols: 10, name: 'Wide table', maxTime: 100 },
+    { rows: 100, cols: 5, name: 'Small table', maxTime: 50 * modifier },
+    { rows: 500, cols: 5, name: 'Medium table', maxTime: 200 * modifier },
+    { rows: 1000, cols: 5, name: 'Large table', maxTime: 500 * modifier },
+    { rows: 2000, cols: 5, name: 'Very large table', maxTime: 1000 * modifier },
+    { rows: 100, cols: 10, name: 'Wide table', maxTime: 50 * modifier }, // width should have no impact
   ]
 
   for (const config of benchmarkConfigs) {

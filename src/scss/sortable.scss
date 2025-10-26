@@ -24,12 +24,14 @@
     tr {
       background-color: var(--stripe-bg);
       color: var(--stripe-color);
+
       &:nth-child(odd) {
         background-color: var(--stripe-bg-odd);
         color: var(--stripe-color-odd);
       }
     }
   }
+
   thead {
     th {
       background: var(--th-bg);
@@ -40,17 +42,20 @@
       vertical-align: baseline;
       white-space: nowrap;
     }
+
+    td,
+    th {
+      &:first-child {
+        border-top-left-radius: 4px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 4px;
+      }
+    }
   }
   td,
   th {
     padding: 10px;
-
-    &:first-child {
-      border-top-left-radius: 4px;
-    }
-
-    &:last-child {
-      border-top-right-radius: 4px;
-    }
   }
 }

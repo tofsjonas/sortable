@@ -6,7 +6,11 @@
 
 Makes any table with **class="sortable"**, er, sortable. The user can click on a table header and change the sorting of the table rows.
 
-Just include the JavaScript and it will work. No function calls are needed, everything is handled by an **eventListener**.
+Just include the JavaScript and it will work. No function calls are needed, everything is handled by a [JavaScript HTML DOM EventListener](https://www.w3schools.com/js/js_htmldom_eventlistener.asp).
+
+<h2>Related Projects</h2>
+
+🔍 **[searchable](https://github.com/tofsjonas/searchable)** - A companion library that makes tables searchable/filterable, perfect to use alongside sortable!
 
 <h2>Demo</h2>
 
