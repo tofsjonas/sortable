@@ -25,6 +25,6 @@ export function updateSortableAriaLabel(element: HTMLTableCellElement, default_d
   element.setAttribute('aria-label', aria_label)
 
   // REMEMBER TO COMMENT OUT WHEN NOT TESTING!!
-  element.setAttribute('title', aria_label)
-  console.log('🚀 comment me out')
+  // element.setAttribute('title', aria_label)
+  // console.log('🚀 comment me out')
 }

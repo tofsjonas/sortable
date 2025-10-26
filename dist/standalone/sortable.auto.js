@@ -70,7 +70,7 @@ function updateSortableAriaLabel(element, default_direction) {
     var current_direction = element.getAttribute("aria-sort"), new_direction = default_direction;
     current_direction && (new_direction = current_direction === "descending" ? "ascending" : "descending"), aria_label = "Click to sort table by ".concat(header_text, " in ").concat(new_direction, " order");
   }
-  element.setAttribute("aria-label", aria_label), element.setAttribute("title", aria_label), console.log("🚀 comment me out");
+  element.setAttribute("aria-label", aria_label);
 }
 function enhanceSortableAccessibility(tables) {
   function handleKeyDown(event) {

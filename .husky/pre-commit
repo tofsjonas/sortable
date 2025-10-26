@@ -1,1 +1,2 @@
 npm run check-branch
+npm run lint

@@ -27,6 +27,7 @@ export default [
     rules: {
       'no-inner-declarations': 'off',
       'no-unused-vars': 'warn',
+      'no-console': 'error',
       // 'no-var': 'off', // Note: Disabled due to issues with target ES5, consider ES2020
     },
   },
