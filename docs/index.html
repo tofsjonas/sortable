@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sortable test</title>
     
+    <link href="https://cdn.jsdelivr.net/gh/tofsjonas/searchable@latest/dist/searchable.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="example.css">
 </head>
   <body>
@@ -344,6 +345,7 @@ style="
       setTimeout(() => {
         const table = document.createElement('table')
         table.classList.add('sortable')
+        table.classList.add('searchable')
         table.innerHTML = `
       <thead>
         <tr>
@@ -358,13 +360,15 @@ style="
     `
         const div = document.createElement('div')
         div.innerHTML = `<h2>MutationObserver Test</h2>
-        <p>This table was added using setTimeout. It will be sorted by default when using the <b>sortable.auto.js</b> package.</p>`
+        <p>This table was added using setTimeout. It will be sorted by default when using the <b>sortable.auto.js</b> package.</p>
+        <p>Just for fun we made it <a href="https://github.com/tofsjonas/searchable">searchable</a> also.</p>`
         document.body.insertBefore(div, document.body.firstChild)
         // If I append the the table to the div before appending it to the body,
         // the MutationObserver will not trigger, since we are adding a div, not a table..
         div.appendChild(table)
       }, 2000) // Long delay so you can see the table being added
     </script>
+    <script src="https://cdn.jsdelivr.net/gh/tofsjonas/searchable@latest/dist/searchable.min.js"></script>
     
   
     <script src="sortable.auto.js"></script>
